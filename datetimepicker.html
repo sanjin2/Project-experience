@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/jquery.datetimepicker.css" />
+		<script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+		<script type="text/javascript" src="js/jquery.datetimepicker.full.js"></script>
+	</head>
+
+	<body>
+		<input id="datetimepicker" type="text" />
+
+		<script>
+			$('#datetimepicker').datetimepicker({
+				lang: "ch", //语言选择中文 注：旧版本 新版方法：$.datetimepicker.setLocale('ch');
+				format: "Y-m-d H:i:s", //格式化日期
+				
+			});
+		</script>
+	</body>
+
+</html>

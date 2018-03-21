@@ -1,0 +1,288 @@
+@charset "utf-8";
+#web {
+  /*min-width: 1024px;*/
+}
+
+body{
+	background: #f6f9fc;
+}
+
+/*头部区域*/
+.head_wrap{
+	width: 100%;
+	background: #136FB8;
+}
+.head{
+	width: 95%;
+	height:50px ;
+	line-height: 50px;
+	background:#136fb8;
+	margin: 0 auto;
+	overflow: hidden;
+	color: #FFFFFF;
+	font-size: 20px;
+}
+.head .head_l{
+	width: 50px;
+	float: left;
+}
+.head .head_r{
+	/*width: 100px;*/
+	float: right;
+	font-size: 16px;
+}
+.head .head_r span{
+	display: inline-block;
+	padding-right: 9px;
+	color: #115890;
+}
+/*end头部区域*/
+
+/*中间内容区域*/
+.cont{
+	width: 1005px;
+	margin: 177px auto 65px auto;
+	overflow: hidden;
+}
+.cont_l img{
+	width:585px;
+	height:432px;
+	display: block;
+	float: left;
+}
+.cont_r{
+	width: 405px;
+	height: 416px;
+	background: #FFFFFF;
+	box-shadow: 0 0 8px #999;
+	float: right;
+	margin-right: 8px;
+	margin-top: 8px;
+}
+.cont_r_wrap{
+	width: 326px;
+	height: 300px;
+	margin:49px 0px 0px 45px;
+}
+.cont_r_wrap .h1{
+	text-align: center;
+	width:163px ;
+	height: 33px;
+	line-height: 33px;
+	font-size:16px ;
+	color:#3f89ec ;
+	border-bottom:2px solid  #3F89EC ;
+	letter-spacing: 1px;
+}
+.cont_r .wh{
+	width: 320px;
+	height:48px ;
+	line-height: 48px;
+	text-indent:45px ;
+	font-size: 20px;
+}
+.cont_r .account{
+	margin-top:34px ;
+}
+.p1{
+	position: relative;
+}
+.p2{
+	position: relative;
+}
+.cont_r .password{
+	margin-top: 21px;
+	
+}
+.cont_r .bg1 img{
+	position: absolute;
+	left: 23px;
+	top: 52px;
+}
+.cont_r .bg2 img{
+	position: absolute;
+	left: 23px;
+	top: 40px;
+}
+
+.remember{
+	margin-top:10px;
+	margin-bottom: 23px;
+	
+}
+.check{
+	font-size: 14px;
+	color: #666;
+}
+.checkbox{
+	position: relative;
+	top:2px;
+}
+.logo{
+	width: 320px;
+	height:50px ;
+	color: #fff;
+	border: none;
+	font-size: 18px;
+	/*background:#0770d5 ;*/
+	cursor: pointer;
+	FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=1,startColorStr=#0596e7,endColorStr=#076ed4); /*IE 6 7 8*/
+	background: -ms-linear-gradient(right, #0596e7 , #076ed4);        /* IE 10 */ 
+	background: -webkit-linear-gradient(left, #0596e7 , #076ed4); /* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(right, #0596e7 , #076ed4); /* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(right, #0596e7 , #076ed4); /* Firefox 3.6 - 15 */
+	background: linear-gradient(to right, #0596e7 , #076ed4); /* 标准的语法 */ 
+}
+
+/*end中间内容区域*/
+/*底部版权*/
+.center_bg{
+	overflow: hidden;
+	width: 100%;
+	background: #e8eaed;
+	
+}
+.center{
+	width: 1005px;
+	height:34px ;
+	line-height: 34px;
+	font-size: 12px;
+	color: #c2c2c2;
+	margin: 0 auto;
+	/*margin-top: 122px;*/
+	
+}
+.center p{
+	text-align: center;
+}
+.center p span{
+	padding-left: 30px;
+	/*float: right;*/
+}
+
+/*end底部版权*/
+
+@media (min-width: 1024px){
+#web {
+  min-width: 1024px;
+} /*>=1024的设备*/
+
+
+.center{
+	height: 44px;
+	line-height: 44px;
+	font-size: 12px;
+}
+.head{
+	width: 95%;
+	font-size: 22px;
+	height:50px ;
+	line-height: 50px;
+}
+.head .head_r{
+	/*width: 130px;*/
+}
+.cont_r_wrap .h1{
+	    font-size: 18px;
+}
+.cont {
+    width: 1005px;
+    margin: 177px auto 65px auto;
+    overflow: hidden;
+}
+}
+@media (min-width: 1100px) {
+#web {
+  min-width: 1100px;
+} /*>=1100的设备*/
+
+.head{
+	width: 95%;
+	font-size: 23px;
+	height:50px ;
+	line-height: 50px;
+}
+.head .head_r{
+	/*width: 130px;*/
+}
+.cont_r_wrap .h1{
+	    font-size: 19px;
+}
+.cont {
+    width: 1005px;
+    margin: 177px auto 70px auto;
+    overflow: hidden;
+}
+
+
+
+}
+
+
+@media (min-width: 1280px) {
+#web {
+  min-width: 1280px;
+}
+.head{
+	width: 95%;
+	font-size: 24px;
+	height:50px ;
+	line-height: 50px;
+}
+.head .head_r{
+	/*width: 130px;*/
+}
+.cont_r_wrap .h1{
+	    font-size: 20px;
+}
+
+.cont {
+    width: 1005px;
+    margin: 177px auto 75px auto;
+    overflow: hidden;
+}
+
+} /*>=1280的设备*/
+
+@media (min-width: 1440px) {
+#web {
+  min-width: 1440px;
+}
+
+
+.cont {
+    width: 1005px;
+    margin: 177px auto 80px auto;
+    overflow: hidden;
+}
+
+} /*>=1440的设备*/
+
+@media (min-width: 1920px) {
+#web {
+  min-width: 1920px;
+}
+
+
+.cont {
+    width: 1005px;
+    margin: 180px auto 180px auto;
+    overflow: hidden;
+}
+
+} /*>=1440的设备*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
