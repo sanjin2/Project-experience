@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+							//树型结构
+					function tree() {
+						//树形结构开展
+						var setting = {
+
+							check: {
+								enable: true,
+								chkStyle: "checkbox",
+								chkboxType: {
+									"Y": "s",
+									"N": "s"
+								}
+							},
+							data: {
+								simpleData: {
+									enable: true,
+									idKey: 'id', //对应json数据中的ID
+									pIdKey: 'parentId' //对应json数据中的父ID
+								}
+							},
+							callback: {
+								onClick: zTreeOnClick,
+								onExpand: zTreeOnExpand,
+								onCheck: onCheck,
+//								onClick2: onClick2
+								//beforeExpand: zTreeBeforeExpand,
+								//beforeAsync: zTreeBeforeAsync,
+								//onAsyncSuccess: zTreeOnAsyncSuccess
+							}
+						};
+
+						var i1 = [];
+						//获取树节点的数据并且插入到table表格中
+						function onCheck(e, treeId, treeNode,clickFlag) {
+							
+							var treeObj = $.fn.zTree.getZTreeObj("zTreediv2"),
+							
+								nodes = treeObj.getCheckedNodes(true),
+								v = "",
+								k = "",
+								m = "";
+
+							var i;
+							var sNodes = nodes[0].getNextNode();
+							console.log("sNodes:"+sNodes.name);
+							console.log("nodes[0] "+nodes[1].name);
+//							alert(treeNode.tId + ", " + treeNode.name + ", " + treeId);
+//							var ids = [];
+//							ids = getChildren(ids, treeNode);
+                         
+							//获取所有的子节点数据
+							for(i = 0; i < nodes.length; i++) {
+
+								(function(i) {
+									m = {
+										id: nodes[i].name,
+										name: nodes[i].name
+									}
+//									if(i==1){
+									var i1_content = i1.push(m);
+//									}
+									console.log("json数据 " + m.id);
+								})(i)
+//								v += nodes[i].name + ",";
+								//								v = nodes[i].name ;
+								//	k+=nodes[i].id + ",";
+								//	v = nodes[i].name;
+								//	k = nodes[i].id;
+								//  alert(nodes[i].name); //获取选中节点的值
+								//  return v;
+								// 	alert(nodes[i].id);
+								//								if( i == 1){
+								//								}
+								//	m = $.extend( m, m);	
+								//	
+							} // forEnd
+							//点击确定时将数据插入到表格中
+							$('#sure').click(function(e) {
+								e.preventDefault();
+								//{id:"1",name:"你好"}
+								for(var j = 0; j < i1.length; j++) {
+
+									var data = i1[j];
+									$('#tb_history_alarms5').bootstrapTable('append', data);
+
+								}
+
+							});
+
+							//	console.log(k);
+//							console.log("字符串数据 " + v);
+							console.log(i1);
+
+							//							return m;
+
+						}
+						
+		
+						
+						
+						
+						
+						//            console.log(m);
+						//设置图标
+						function setIconSkin(dObj, devType) {
+							if("alarm" == devType) {
+								if(12003 == dObj.layerType) {
+									//告警点
+									if(null == dObj.online) {
+										//标准模式
+										dObj.iconSkin = "alarmPointNormal";
+									} else if(0 == dObj.online) {
+										//不在线
+										dObj.iconSkin = "alarmPointOnline";
+									} else {
+										//在线
+										dObj.iconSkin = "alarmPointOffline";
+									}
+								} else if(12002 == dObj.layerType) {
+									//子系统
+									if(null == dObj.online) {
+										//标准模式
+										dObj.iconSkin = "cIconOffline";
+									} else if(0 == dObj.online) {
+										//不在线
+										dObj.iconSkin = "dIconOffline";
+									} else {
+										//在线
+										dObj.iconSkin = "dIconOnline";
+									}
+									dObj.isParent = true;
+								} else if(12001 == dObj.layerType) {
+									//主机
+									if(null == dObj.online) {
+										//标准模式
+										dObj.iconSkin = "cIconOffline";
+									} else if(0 == dObj.online) {
+										//不在线
+										dObj.iconSkin = "pIconOffline";
+									} else {
+										//在线
+										dObj.iconSkin = "pIconOnline";
+									}
+
+									dObj.isParent = true;
+								}
+							}
+
+						}
+
+						//树形结点的加载
+						function loadTreeNodes(tree, node) {
+							var treeurl = "/aps/linkconf/" + "door" + "/devtrees";
+							if(!node.id || node.id == "root") {
+								//load device
+								treeurl += "?id=&layertype=0";
+							} else {
+								//load nodes
+								treeurl += "?id=" + node.id + "&layertype=" +
+									node.layerType;
+							}
+							$.ajax({
+								type: "GET",
+								url: treeurl,
+								contentType: "application/x-www-form-urlencoded", //post只能写urlencoded,json不能被识别
+								dataType: "json",
+								success: function(data) {
+									if(null != node.children && node.children.length > 0) {
+										return;
+									}
+
+									if(data && data.length > 0) {
+										for(idx = 0; idx < data.length; ++idx) {
+											//因chidren无数据 删除 children的属性
+											delete data[idx].children;
+											setIconSkin(data[idx], $("#curType").text());
+										}
+
+										tree.addNodes(node, data, true); //如果是加载子节点，那么就是父节点下
+										tree.expandNode(node, true, false, false); // 将新获取的子节点展开
+									}
+
+									return;
+
+								},
+								error: function(XMLHttpRequest, textStatus,
+									errorThrown) {
+									alert("获取设备树失败!code=" + XMLHttpRequest.status);
+								}
+							});
+
+						} //init jstree over
+
+						//zTree加载节点
+						function zTreeLoadNodes(event, treeId, treeNode) {
+							if(12002 == treeNode.layerType) {
+								//已经到叶子节点
+								return;
+							} else if(null != treeNode.children && treeNode.children.length > 0) {
+								//已经添加了叶子节点，暂时不再添加
+								return;
+							}
+
+							var treeObj = $.fn.zTree.getZTreeObj(treeId);
+							loadTreeNodes(treeObj, treeNode);
+						}
+
+						//展开时间处理
+						function zTreeOnExpand(event, treeId, treeNode) {
+							zTreeLoadNodes(event, treeId, treeNode);
+						}
+						//处理点击事件
+						function zTreeOnClick(event, treeId, treeNode) {
+
+							
+							zTreeLoadNodes(event, treeId, treeNode);
+							if(12002 == treeNode.layerType || 12003 == treeNode.layerType) {
+
+							}
+						};
+
+//						function getChildren(ids, treeNode) {
+//							ids.push(treeNode.name);
+//							if(treeNode.isParent) {
+//								for(var obj in treeNode.children) {
+//									getChildren(ids, treeNode.children[obj]);
+//								}
+//							}
+//							return ids;
+//						}
+						
+
+						//根节点
+						var zNodes = [{
+							id: "root",
+							parentId: 0,
+							name: "主机列表",
+							layerType: 0,
+							open: true,
+							iconSkin: "pRootIcon"
+						}];
+
+						//初始化树
+						$.fn.zTree.init($("#zTreediv2"), setting, zNodes);
+						var treeObj = $.fn.zTree.getZTreeObj("zTreediv2");
+						var nodes = treeObj.getNodes();
+						loadTreeNodes(treeObj, nodes[0]);
+
+						// / 树形结构
+					}
+					tree();
+	</script>
+</html>

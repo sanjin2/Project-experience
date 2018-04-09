@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		var getSmsUrl = "/aps/smsmould";
+					//test
+					$.ajax({
+						type: "GET",
+						url: getSmsUrl,
+						contentType: "application/x-www-form-urlencoded", //post只能写urlencoded,json不能被识别
+						dataType: "json",
+						success: function(data) {
+							console.log(data);
+							for(var i = 0; i < data.length; i++) {
+										var getSms = $("<option>" + data[i].id + "</option>");
+										getSms.appendTo($("#select_message"));
+									}
+							$(document).off('change', '#select_message').on("change", '#select_message', function() {
+						             for(var i = 0; i < data.length; i++) {
+										if(data[i].id == $(this).val()){
+											$("#getMsgContent").val(data[i].content);
+										}
+									}                
+	
+	
+							});
+							
+						}
+					});
+					//test
+	</script>
+</html>

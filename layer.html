@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+				//					var curHtml = null;
+					$("#doorStop").on("click", function(e) {
+						e.preventDefault();
+						//						if(null == curHtml) {
+						//							curHtml = $("#door").html();
+						//						}
+						//						$("#door").empty();
+						//						$("#door").html(curHtml);
+
+						layer.open({
+							type: 1,
+							title: "联动门禁",
+							closeBtn: 1,
+							area: "400px",
+							shadeClose: true,
+							//								move: 'mine-move',
+							skin: 'yourclass',
+							content: $("#door"), //iframe的url，no代表不显示滚动条
+							cancel: function(index, layero) {
+								return true;
+							}
+						});
+
+						$('#cancel').on("click", function() {
+							//							$("#ratify").css("display", 'none');
+							layer.closeAll('page');
+						})
+
+					})
+	</script>
+</html>

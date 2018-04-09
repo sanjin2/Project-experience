@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+		$(".alarm_class").css('height', $(window).height() - 128);
+					$(".config_info").css('height', $(window).height() - 128);
+					$(".config_info_content").css('height', $(window).height() - 208);
+					$(window).resize(function() {
+						$(".alarm_class").css('height', $(window).height() - 128);
+						$(".config_info").css('height', $(window).height() - 128);
+						$(".config_info_content").css('height', $(window).height() - 208);
+						$(".cont_l").css('height', $(window).height() - 124);
+						$(".cont_r").css('height', $(window).height() - 124);
+
+					}).resize();
+
+					$(window).resize(function() {
+						$('#tb_history_alarms').bootstrapTable('resetView');
+						$('#tb_history_alarms2').bootstrapTable('resetView');
+					});
+	</script>
+</html>

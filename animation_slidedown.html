@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script>
+				//下拉特效
+					var flag = true;
+					var flag2 = true;
+					var flag3 = true;
+					var flag4 = true;
+					var flag5 = true;
+					var flag6 = true;
+					var flag7 = true;
+					var flag8 = true;
+					//					$("#active_denfence").on("click", function() {
+					//						$("#active_denfence_sh").slideToggle();
+					//
+					//						if(flag) {
+					//							$(".config_info .defence_l .active_denfence").css("background", "url(../img/arrow_top.png) right center no-repeat");
+					//							$(".config_info .defence_l .active_denfence").css("backgroundSize", "14px");
+					//						} else {
+					//							$(".config_info .defence_l .active_denfence").css("background", "url(../img/arrow_bottom.png) right center no-repeat");
+					//							$(".config_info .defence_l .active_denfence").css("backgroundSize", "14px");
+					//
+					//						}
+					//						flag = !flag;
+					//					})
+					//downUp方法是页面的上拉下拉特效
+					function downUp(f, elem, elem_sh, elem_icon) {
+						elem.on("click", function() {
+							elem_sh.slideToggle();
+
+							if(f) {
+								elem_icon.css("background", "url(../img/arrow_top.png) right center no-repeat");
+								elem_icon.css("backgroundSize", "14px");
+							} else {
+								elem_icon.css("background", "url(../img/arrow_bottom.png) right center no-repeat");
+								elem_icon.css("backgroundSize", "14px");
+
+							}
+							f = !f;
+						})
+					}
+					//联动布防
+					downUp(flag, $("#active_denfence"), $("#active_denfence_sh"), $(".config_info  .active_denfence"));
+					//联动视频源
+					downUp(flag2, $("#water"), $("#water_sh"), $(".config_info  .water"));
+					//电视墙预案
+					downUp(flag3, $("#tv"), $("#tv_sh"), $(".config_info  .tv"));
+					//联动led
+					downUp(flag4, $("#active_led"), $("#active_led_sh"), $(".config_info  .active_led"));
+					//联动开关主机
+					downUp(flag5, $("#active_on_off"), $("#active_on_off_sh"), $(".config_info  .active_on_off"));
+					//联动时间
+					downUp(flag6, $("#active_time"), $("#active_time_sh"), $(".config_info  .active_time"));
+					//门禁
+					downUp(flag7, $("#door_stop"), $("#door_stop_sh"), $(".config_info  .door_stop"));
+					//联动短信
+					downUp(flag8, $("#active_message"), $("#active_message_sh"), $(".config_info  .active_message"));
+
+					// /下拉特效
+	</script>
+</html>
