@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>告警统计分析</title>
+		<link rel="stylesheet" th:href="@{/css/reset.css}" href="../../static/css/reset.css" />
+		<link rel="stylesheet" th:href="@{/css/ismp_configure.css}" href="../../static/css/ismp_configure.css" />
+	</head>
+
+	<body>
+		<div id="web">
+			<div th:include="ismp_common :: check"></div>
+			<!-- 框架检测片段 -->
+			<section id="content">
+				<div class="col_tb_n73_t col_pbottom_x2" style=" border: 0">
+					<div class="comm_box col_tb_55">
+						<div class="box_header">
+							<h1>报警统计</h1>
+							<div class="img_box">
+								<img src="../../../static/img/btn_e_normal.png" th:src="@{/img/btn_e_normal.png}" />
+								<img src="../../../static/img/btn_z_normal.png" th:src="@{/img/btn_z_normal.png}" />
+							</div>
+						</div>
+						<div class="box_body" id="alarm_total">
+							<div id="alarm_total_excel" style=""></div>
+						</div>
+					</div>
+					<div class="comm_box col_tb_55">
+						<div class="box_header">
+							<h1>报警分布</h1>
+							<div class="img_box">
+								<img src="../../../static/img/btn_e_normal.png" th:src="@{/img/btn_e_normal.png}" />
+								<img src="../../../static/img/btn_z_normal.png" th:src="@{/img/btn_z_normal.png}" />
+							</div>
+						</div>
+						<div class="box_body" id="alram_trend">
+							<div id="alarm_trend_excel" style=""></div>
+						</div>
+					</div>
+				</div>
+				<div class="col_tb_n73_b">
+					<div class="comm_box" style="height:100%;">
+						<div class="box_header">
+							<h1>系统通知</h1>
+							<div class="img_box">
+								<img src="../../../static/img/btn_e_normal.png" th:src="@{/img/btn_e_normal.png}" />
+								<img src="../../../static/img/btn_z_normal.png" th:src="@{/img/btn_z_normal.png}" />
+							</div>
+						</div>
+						<div class="box_body" id="sys_nty"></div>
+					</div>
+				</div>
+				<script th:inline="javascript">
+				//<![CDATA[
+					//echarts图标相关配置与初始化
+					// 基于准备好的dom，初始化echarts实例
+					var myChart1 = echarts.init($('#alarm_total_excel').get(0));
+
+					// 指定图表的配置项和数据
+					var option_ate = {
+						grid: {
+							top: 10,
+							bottom: 8,
+							left: 8,
+							right: 8,
+							containLabel: true
+						},
+						// x轴
+						xAxis: {
+							data: ["7月", "8月", "9月", "10月", "11月"]
+						},
+						yAxis: {},
+						// 数据
+						series: [{
+							name: '销量',
+							type: 'bar',
+							itemStyle: {
+								normal: {
+									color: function(params) {
+										var colorList = [
+											'#63B8FF', '#63B8FF', '#63B8FF', '#63B8FF', '#63B8FF'
+										];
+										return colorList[params.dataIndex]
+									},
+									　　　　　　　　　　　　　
+								}
+							},
+							data: [25, 20, 16, 30, 20]
+						}]
+					};
+					// 使用刚指定的配置项和数据显示图表。
+					myChart1.setOption(option_ate);
+
+					var myChart2 = echarts.init($('#alarm_trend_excel').get(0));
+
+					// 指定图表的配置项和数据
+//					var option_trend = {
+//						grid: {
+//							top: 10,
+//							bottom: 8,
+//							left: 8,
+//							right: 8,
+//							containLabel: true
+//						},
+//						xAxis: {
+//							data: ["7月", "8月", "9月", "10月", "11月"]
+//						},
+//						yAxis: {},
+//						series: [{
+//							itemStyle: {
+//								normal: {
+//									color: '#00FF00', //圈圈的颜色
+//									lineStyle: {
+//										color: '#63B8FF' //线的颜色
+//									}
+//								}
+//							},
+//							name: '产量',
+//							type: 'line',
+//							data: [37, 10, 100, 37, 80]
+//						}]
+//					};
+
+//var weatherIcons = {
+//  'Sunny': './data/asset/img/weather/sunny_128.png',
+//  'Cloudy': './data/asset/img/weather/cloudy_128.png',
+//  'Showers': './data/asset/img/weather/showers_128.png'
+//};
+
+var option_trend = {
+    title: {
+        text: '报警分布统计',
+//      subtext: '虚构数据',
+        left: 'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    series : [
+        {
+            type: 'pie',
+            radius : '65%',
+            center: ['50%', '50%'],
+            selectedMode: 'single',
+            data:[
+                {value:1548,name: '幽州'},
+                {value:535, name: '荆州'},
+                {value:510, name: '兖州'},
+                {value:634, name: '益州'},
+                {value:735, name: '西凉'}
+            ],
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                },
+                normal: {
+							color: function(params) {
+								var colorList = [
+									'#91c7ae', '#d48265', '#61a0a8', '#2f4554', '#ff4306'
+								];
+								return colorList[params.dataIndex]
+							},
+							　　　　　　　　　　　　　
+						}
+            }
+        }
+    ]
+};
+
+					// 使用刚指定的配置项和数据显示图表。
+					myChart2.setOption(option_trend);
+
+					//浏览器大小改变时重置大小
+					window.onresize = function() {
+						myChart1.resize();
+						myChart2.resize();
+					}
+
+				//]]>
+				</script>
+			</section>
+		</div>
+		<!--endWeb-->
+	</body>
+
+</html>
