@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>告警统计分析</title>
+		<link rel="stylesheet" th:href="@{/css/reset.css}" href="../../static/css/reset.css" />
+		<link rel="stylesheet" th:href="@{/css/ismp_configure.css}" href="../../static/css/ismp_configure.css" />
+	</head>
+
+	<body>
+		<div id="web">
+			<div th:include="ismp_common :: check"></div>
+			<!-- 框架检测片段 -->
+			<section id="content">
+				<div class="col_tb_n73_t col_pbottom_x2" style=" border: 0">
+					<div class="comm_box col_tb_55">
+						<div class="box_header">
+							<h1>报警统计</h1>
+							<div class="img_box">
+								<img src="../../../static/img/btn_e_normal.png" th:src="@{/img/btn_e_normal.png}" />
+								<img src="../../../static/img/btn_z_normal.png" th:src="@{/img/btn_z_normal.png}" />
+							</div>
+						</div>
+						<div class="box_body" id="alarm_total">
+							<div id="alarm_total_excel" style=""></div>
+						</div>
+					</div>
+					<div class="comm_box col_tb_55">
+						<div class="box_header">
+							<h1>报警分布</h1>
+							<div class="img_box">
+								<img src="../../../static/img/btn_e_normal.png" th:src="@{/img/btn_e_normal.png}" />
+								<img src="../../../static/img/btn_z_normal.png" th:src="@{/img/btn_z_normal.png}" />
+							</div>
+						</div>
+						<div class="box_body" id="alram_trend">
+							<div id="alarm_trend_excel" style=""></div>
+						</div>
+					</div>
+				</div>
+				<div class="col_tb_n73_b">
+					<div class="comm_box" style="height:100%;">
+						<div class="box_header">
+							<h1>系统通知</h1>
+							<div class="img_box">
+								<img src="../../../static/img/btn_e_normal.png" th:src="@{/img/btn_e_normal.png}" />
+								<img src="../../../static/img/btn_z_normal.png" th:src="@{/img/btn_z_normal.png}" />
+							</div>
+						</div>
+						<div class="box_body" id="sys_nty">
+							<div class="icon_layout sys_nty_table">
+								<ul>
+									<li>系统升级通知</li>
+									<li>2018-5-4</li>
+								</ul>
+								<ul>
+									<li>设备维护排班</li>
+									<li>2018-5-3</li>
+								</ul>
+								<ul>
+									<li>设备维护记录表</li>
+									<li>2018-5-3</li>
+								</ul>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<script th:inline="javascript">
+					//<![CDATA[
+					//echarts图标相关配置与初始化
+					// 基于准备好的dom，初始化echarts实例
+					var myChart1 = echarts.init($('#alarm_total_excel').get(0));
+
+					// 指定图表的配置项和数据
+					var option_ate = {
+						grid: {
+							top: 10,
+							bottom: 8,
+							left: 8,
+							right: 8,
+							containLabel: true
+						},
+						// x轴
+						xAxis: {
+							data: ["6:00", "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00"]
+						},
+						yAxis: {},
+						// 数据
+						series: [{
+							name: '销量',
+							type: 'bar',
+							itemStyle: {
+								normal: {
+									color: function(params) {
+										var colorList = [
+											'#63B8FF', '#63B8FF', '#63B8FF', '#63B8FF', '#63B8FF'
+										];
+										return colorList[params.dataIndex]
+									},
+									　　　　　　　　　　　　　
+								}
+							},
+							data: [25, 20, 16, 30, 20, 15, 20, 35, 14, 22]
+						}]
+					};
+					// 使用刚指定的配置项和数据显示图表。
+					myChart1.setOption(option_ate);
+
+					var myChart2 = echarts.init($('#alarm_trend_excel').get(0));
+
+					// 指定图表的配置项和数据
+				
+					var option_trend = {
+						tooltip: {
+							trigger: 'item',
+							formatter: "{a} <br/>{b}: {c} ({d}%)"
+						},
+						graphic: {
+							type: 'text',
+							left: 'center',
+							top: 'center',
+							align:'center',
+							style: {
+								text: '总数\n100000',
+								textAlign: 'center',
+								fill: '#000',
+								width: 30,
+								height: 30,
+								fontWeight: 'bold',
+								fontSize: '18',
+								fontFamily: '宋体'
+								
+
+							}
+						},
+						series: [{
+							name: '访问来源',
+							type: 'pie',
+							radius: ['50%', '70%'],
+							selectedMode: 'single',
+							data: [{
+									value: 1548,
+									name: '巡更'
+								},
+								{
+									value: 535,
+									name: '报警'
+								},
+								{
+									value: 510,
+									name: '门禁'
+								},
+								{
+									value: 634,
+									name: '传感器'
+								},
+								{
+									value: 735,
+									name: '智能门禁'
+								}
+							],
+							itemStyle: {
+								emphasis: {
+									shadowBlur: 10,
+									shadowOffsetX: 0,
+									shadowColor: 'rgba(0, 0, 0, 0.5)'
+								},
+								emphasis: {
+									show: true,
+									textStyle: {
+										fontSize: '10',
+										fontWeight: 'bold'
+									}
+								},
+								//'#91c7ae', '#d48265', '#61a0a8', '#2f4554', '#ff4306'
+								normal: {
+									color: function(params) {
+										var colorList = [
+											'rgb(61,171,232)', 'rgb(95,193,215)', 'rgb(146,198,96)', 'rgb(59,175,134)', 'rgb(53,128,198)'
+										];
+										return colorList[params.dataIndex]
+									},
+									　　　　　　　　　　　　　
+								}
+							},
+							labelLine: {
+								normal: {
+									show: true,
+									length: 4,
+									length2: 2,
+								}
+							},
+
+						}]
+					};
+
+					// 使用刚指定的配置项和数据显示图表。
+					myChart2.setOption(option_trend);
+
+					//浏览器大小改变时重置大小
+					window.onresize = function() {
+						myChart1.resize();
+						myChart2.resize();
+					}
+
+					//]]>
+				</script>
+			</section>
+		</div>
+		<!--endWeb-->
+	</body>
+
+</html>
