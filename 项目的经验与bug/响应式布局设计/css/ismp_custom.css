@@ -1,0 +1,290 @@
+.cont_costom{
+	width: 95%;
+	/*padding-left: 20px;*/
+	margin: 57px auto 0px auto;
+}
+.cont_costom ul li{
+	width: 293px;
+	height: 123px;
+	border: 1px solid #fff;
+	float: left;
+	text-indent: 115px;
+	position: relative;
+	
+}
+.cont_costom ul li .img1{
+	
+	position: absolute;
+	left: 11px;
+	top: 15px;
+}
+
+.cont_costom ul li:hover{
+	
+	cursor: pointer;
+	border: 1px solid #C2C2C2;
+	background: #F3F3F8;
+	/*background-color: lightgray;*/
+}
+.cont_costom ul li .img1 img{
+	width: 95px;
+	height: 95px;
+	transition: 0.5s;
+	-moz-transition: 0.5s;
+	-webkit-transition: 0.5s;
+	-o-transition: 0.5s;
+}
+.cont_costom ul li:hover .img1 img{
+	
+	/*animation: trans 5s;
+	-moz-animation: trans 5s;
+	-webkit-animation: trans 5s;
+	-o-animation: trans 5s;*/
+	transform: scale(1.05);
+	-moz-transform: scale(1.05);
+	-webkit-transform: scale(1.05);
+	-o-transform: scale(1.05);
+}
+@keyframes trans{
+	0%{
+		transform: rotate(0deg);
+	}
+	25%{
+		transform: rotate(360deg);
+	}
+	50%{
+		transform: rotate(-360deg);
+	}
+	100%{
+		transform: rotate(0deg);
+	}
+}
+@-moz-keyframes trans{
+	0%{
+		transform: rotate(0deg);
+	}
+	25%{
+		transform: rotate(360deg);
+	}
+	50%{
+		transform: rotate(-360deg);
+	}
+	100%{
+		transform: rotate(0deg);
+	}
+}
+@-webit-keyframes trans{
+	0%{
+		transform: rotate(0deg);
+	}
+	25%{
+		transform: rotate(360deg);
+	}
+	50%{
+		transform: rotate(-360deg);
+	}
+	100%{
+		transform: rotate(0deg);
+	}
+}
+@-o-keyframes trans{
+	0%{
+		transform: rotate(0deg);
+	}
+	25%{
+		transform: rotate(360deg);
+	}
+	50%{
+		transform: rotate(-360deg);
+	}
+	100%{
+		transform: rotate(0deg);
+	}
+}
+@-ms-keyframes trans{
+	0%{
+		transform: rotate(0deg);
+	}
+	25%{
+		transform: rotate(360deg);
+	}
+	50%{
+		transform: rotate(-360deg);
+	}
+	100%{
+		transform: rotate(0deg);
+	}
+}
+/*.cont_costom ul li.li_img1{
+	background: url(../img/cims2_03.png) no-repeat 5% center;
+}
+.cont_costom ul li.li_img2{
+	background: url(../img/cims2_10.png) no-repeat 5% center;
+}
+.cont_costom ul li.li_img3{
+	background: url(../img/cims2_05.png) no-repeat 5% center;
+}
+.cont_costom ul li.li_img4{
+	background: url(../img/cims2_07.png) no-repeat 5% center;
+}
+.cont_costom ul li.li_img5{
+	background: url(../img/cims2_16.png) no-repeat 5% center;
+}*/
+
+.cont_costom ul li a{
+	text-decoration: none; 
+}
+
+.cont_costom ul li .p1{
+	font-size: 14px;
+	margin-top: 34px;
+}
+.cont_costom ul li .p2{
+	font-size: 12px;
+	color: #999999;
+	margin-top: 17px;
+}
+.cont_costom ul li .p3{
+	font-size: 12px;
+	color: #999999;
+	margin-top: 10px;
+}
+
+/*.nav_l ul li:hover{
+	background: #d1d4e2;
+}*/
+
+
+
+/* 服务器配置的设置  css_ismp_system */
+.ismp_nav_l{
+	width: 100%;
+}
+
+/*#cont{
+	width: 1270px;
+	margin: 10px auto 0 auto;
+}*/
+
+#cont ul li{
+	font-size: 16px;
+	/*margin-bottom: 10px;*/
+}
+#cont ul li .input1{
+	width: 173px;
+	height: 21px;
+	text-indent: 3px;
+}
+#cont ul li .input2{
+	width: 73px;
+	height: 21px;
+	text-indent: 3px;
+}
+#cont ul li .span1{
+	margin-right: 80px;
+}
+#cont ul li .span2{
+	margin-right: 5px;
+}
+#cont ul li .span3{
+	margin-left: 20px;
+	margin-right: 5px;
+}
+
+
+
+/* /服务器配置的设置  css_ismp_system */
+
+/* 服务器配置的设置  css_ismp_internet */
+/*#cont_inter{
+	width:1270px;
+	margin:0 auto;
+	font-size: 16px;
+}
+#cont_inter .title{
+	font-size: 16px;
+	color:#0770D5 ;
+	margin: 10px 0 20px 0;
+	font-weight: bold;
+}
+.inter_cont{
+	width: 1260px;
+	margin: 0 auto;
+	border: 2px solid #ccc;
+}*/
+.inter_cont .p1{
+	margin-left: 15px;
+	margin-top: 5px;
+}
+.inter_cont .p2{
+	margin-left: 15px;
+	margin-top: 15px;
+}
+.inter_cont .p3{
+	color:#0770D5 ;
+	font-weight: bold;
+	margin-left: 12px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+.ismp_btn{
+	margin:0;
+	padding:0;
+	float:left;
+	position: relative;
+	width:100%;
+}
+.ismp_btn .ismp_btn1{
+	
+    width: 70px;
+    height: 24px;
+    line-height: 24px;
+    border: 1px solid #ccc;
+    float: right;
+    margin-right: 12px;
+    font-size: 14px;
+     text-align: center; 
+    /*text-indent: 30px;*/
+    border-radius: 5px;
+    margin-top: 10px;
+    color: #000000;
+}
+.ismp_btn .ismp_btn1:hover{
+	color: #3c78e6;
+	border: 1px solid #3c78e6;
+}
+
+/*
+.add_dang{
+	width: 400px;
+	height: 21px;
+	line-height: 21px;
+	margin-bottom: 15px;
+}
+.add_dang .input1{
+	width: 150px;
+	height: 21px;
+	line-height: 21px;
+	text-indent: 3px;
+}
+
+.add_dang .s{
+	width: 180px;
+	display: inline-block;
+	margin-left: 10px;
+}
+.add_dang .s1{
+	display: inline-block;
+	vertical-align: top;
+}
+.add_dang .select1{
+	width: 150px;
+	height: 21px;
+	line-height: 21px;
+}
+.add_dang .textarea{
+	width: 150px;
+	height: 110px;
+	resize: none;
+}*/
+/* /服务器配置的设置  css_ismp_internet */

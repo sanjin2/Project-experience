@@ -1,0 +1,208 @@
+/*.content_count {
+	min-width: 1263px;
+}*/
+
+/*#content min-width: 1263px;
+
+}*/
+.cont_mes {
+	width: 95%;
+	/*height: 520px;*/
+	
+	margin: 20px auto 20px auto;
+	overflow: hidden;
+}
+.cont_mes_l {
+	width: 100%;
+	height: 300px;
+	/*border: 1px solid #ccc;*/
+	
+	float: left;
+}
+.cont_mes .cont_mes_l .title {
+	width: 550px;
+	height: 55px;
+	line-height: 55px;
+	font-size: 25px;
+	font-weight: bolder;
+	padding-left: 30px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #ccc;
+}
+.cont_mes_l_c {
+	width: 550px;
+	margin: 0 auto;
+}
+.cont_mes_l ul {
+	display: block;
+	margin-bottom: 0px;
+	margin-left: 101px;
+	margin-top: 15px;
+}
+.cont_mes_l ul li {
+	width: 80px;
+	height: 40px;
+	line-height: 40px;
+	/*margin-right: 10px;*/
+	
+	text-align: center;
+	display: inline-block;
+}
+@media (min-width: 1600px) {
+	.cont_mes_l_c {
+		width: 850px;
+		margin: 0 auto;
+		font-size: 24px;
+	}
+	
+	.cont_mes_l ul {
+		display: block;
+		margin-bottom: 0px;
+		margin-left: 164px;
+		margin-top: 10px;
+	}
+	
+	.cont_mes_l ul li {
+		width: 140px;
+		height: 40px;
+		line-height: 40px;
+		/*margin-right: 10px;*/
+		text-align: center;
+		display: inline-block;
+	}
+}
+.cont_mes .cont_mes_r .title {
+	width: 550px;
+	height: 55px;
+	line-height: 55px;
+	font-size: 25px;
+	font-weight: bolder;
+	padding-left: 30px;
+	margin-bottom: 15px;
+	border-bottom: 1px solid #ccc;
+}
+.cont_mes .cont_mes_r {
+	width: 580px;
+	height: 500px;
+	border: 1px solid #ccc;
+	float: right;
+}
+
+/*来自页面来的样式*/
+#web {
+	min-width: 1260px;
+}
+.ml_list2 ul .li1 {
+	text-indent: 0px;
+	text-align: center;
+	width: 36px;
+}
+.ml_list2 ul .li2 {
+	width: 174px;
+}
+.ml_list2 ul .li3 {
+	width: 215px;
+}
+.ml_list2 ul .li4 {
+	width: 236px;
+}
+.ml_list2 ul .li5 {
+	width: 120px;
+}
+.ml_list2 ul .li6 {
+	width: 184px;
+}
+.ml_list2 ul .li7 {
+	width: 154px;
+}
+.ml_list2 ul .li8 {
+	width: 122px;
+}
+.ml_list2 ul .li5 {
+	border-right: 1px solid #ccc;
+}
+.cont_mes {
+	width: 95%;
+	width: 89% \9;
+	/*height: 520px;*/
+	
+	margin: 20px auto 20px auto;
+	overflow: hidden;
+}
+
+/*1600以上分辨率的显示屏*/
+@media (min-width: 1600px) {
+	.cont_mes {
+		width: 75%;
+		/*height: 520px;*/
+		margin: 20px auto 20px auto;
+		overflow: hidden;
+	}
+}
+.nav_l ul li.li_count {
+	width: 92px;
+	text-align: center;
+	margin-right: 0;
+}
+.nav_l ul .li_count:before {
+	width: 70%;
+	left: 14px;
+}
+/*.content_count {
+	min-width: 1263px;
+}*/
+
+/*ismp_log_query.html*/
+.ml_list2 ul .log_query_li2 {
+	width: 139px;
+	/*text-align: center;*/
+}
+.ml_list2 ul .log_query_li3 {
+	width: 110px;
+	/*text-align: center;*/
+}
+.ml_list2 ul .log_query_li4 {
+	width: 110px;
+	/*text-align: center;*/
+}
+.ml_list2 ul .log_query_li5 {
+	width: 110px;
+	/*text-align: center;*/
+}
+.ml_list2 ul .log_query_li6 {
+	width: 110px;
+	/*text-align: center;*/
+}
+.ml_list2 ul .log_query_li7 {
+	width: 110px;
+	/*text-align: center;*/
+}
+.ml_list2 ul .log_query_li8 {
+	width: 110px;
+}
+
+/*#logType{
+	width: 143px;
+	height: 21px;
+}
+#level{
+	width: 143px;
+	height: 21px;
+}
+#module{
+	width: 143px;
+	height: 21px;
+}*/
+.query_item {
+	margin-bottom: 10px;
+}
+.query_item select {
+	width: 147px;
+	height: 27px;
+	line-height: 27px;
+}
+.query_item input {
+	width: 143px;
+}
+
+/* /ismp_log_query.html*/

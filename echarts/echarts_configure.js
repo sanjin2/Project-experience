@@ -126,12 +126,14 @@
 						type: 'bar',
 						barGap: 0,
 						label: labelOption,
+						barWidth : 40,
 						data: [320, 332, 301, 334, 390]
 					},
 					{
 						name: '离线数',
 						type: 'bar',
 						label: labelOption,
+						barWidth : 40,
 						data: [220, 182, 191, 234, 290]
 					},
 
@@ -232,6 +234,7 @@
 						name: '告警1',
 						type: 'bar',
 						stack: '告警',
+						barWidth : 40,
 						data: [120, 132, 101, 134, 90, 230, 210]
 					},
 					{

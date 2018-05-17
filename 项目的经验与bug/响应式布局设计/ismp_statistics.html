@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<!--/optionclient/rms/statistics/ismp_count-->
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>ISMP配置客户端</title>
+		<link rel="stylesheet" href="css/reset.css" th:href="@{/css/reset.css}" />
+		<link rel="stylesheet" href="css/ismp_configure.css" th:href="@{/css/ismp_configure.css}" />
+		<link rel="stylesheet" href="css/ismp_custom.css" th:href="@{/css/ismp_custom.css}" />
+		<link rel="stylesheet" href="css/ismp_adapter.css" th:href="@{/css/ismp_adapter.css}" />
+		<link rel="stylesheet" href="css/ismp_count.css" th:href="@{/css/ismp_count.css}" />
+		<link rel="stylesheet" href="layer/theme/default/layer.css" th:href="@{/layer/theme/default/layer.css}" />
+		<link rel="shortcut icon" href="../../../../static/img/Keda icon-2.ico" th:href="@{/mg/Keda icon-2.ico}" />
+	</head>
+	<style th:inline="text">
+		#content {
+			min-width: 1263px;
+		}
+	</style>
+
+	<body>
+		<div id="web">
+			<div th:include="ismp_common :: check"></div>
+			<!-- 框架检测片段 -->
+			<div id="content" class="content_count">
+				<!-- 当前页面所属url，用于菜单的实时转换 -->
+				<input id="belong_option_id" type="hidden" value="6101" />
+				<div class="cont_warp">
+					<div class="cd_cont a15_cont_top2 section">
+						<div class="cd_row" >
+							<!--height:892px;-->
+							<div class="col_wdt_y55_l col_joint_pbottom" style="">
+								<div class="comm_box col_tb_55">
+									<div class="box_header">
+										<h1>设备状态信息</h1></div>
+									<div class="box_body box_body_auto">
+										<div class="cont_mes_l">
+											<div class="cont_mes_l_c" style="">
+												
+											
+											<ul>
+												<li>设备总数</li>
+												<li>在线数</li>
+												<li>离线数</li>
+												<li>告警数</li>
+											</ul>
+											<ul style="margin-left: 15px;">
+												<li>监控设备</li>
+												<li>10000</li>
+												<li>9999</li>
+												<li>1</li>
+												<li>10</li>
+											</ul>
+											<ul style="margin-left: 15px;">
+												<li>报警设备</li>
+												<li>10000</li>
+												<li>9999</li>
+												<li>1</li>
+												<li>10</li>
+											</ul>
+											<ul style="margin-left: 15px;">
+												<li>门禁设备</li>
+												<li>10000</li>
+												<li>9999</li>
+												<li>1</li>
+												<li>10</li>
+											</ul>
+											<ul style="margin-left: 15px;">
+												<li>巡更设备</li>
+												<li>10000</li>
+												<li>9999</li>
+												<li>1</li>
+												<li>10</li>
+											</ul>
+											<ul style="margin-left: 15px;">
+												<li>短信猫</li>
+												<li>10000</li>
+												<li>9999</li>
+												<li>1</li>
+												<li>10</li>
+											</ul>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<div class="comm_box col_tb_55">
+									<div class="box_header">
+										<h1>设备实时告警</h1></div>
+									<div class="box_body box_body_auto">
+										<div class="cont_mes_l" style=" height:100%;">
+											<div class="title"></div>
+											<div class="img2" id="warning" style="width: 100%;height: 100%;">
+											</div>
+
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<!--height:892px;-->
+							<div class="col_wdt_y55_r col_joint_pbottom" style="">
+
+								<div class="comm_box col_tb_55">
+									<div class="box_header">
+										<h1>设备状态柱状图</h1></div>
+										<div class="box_body box_body_auto" style="">
+										<div class="cont_mes_r" style="height:100%;">
+											<!--<div class="title"></div>-->
+											<div class="img1" id="online" style="width: 100%; height: 100%;">
+
+											</div>
+										</div>
+
+									</div>
+								</div>
+								<div class="comm_box col_tb_55">
+								<div class="box_header">
+										<h1>自动巡检图</h1></div>
+										<div class="box_body box_body_auto">
+									<div class="cont_mes_r" style="height:100%;">
+										<!--<div class="title"></div>-->
+										<div class="img3" id="auto_check" style="width: 100%;height: 100%;">
+										</div>
+									</div>
+
+								</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<script type="text/javascript" th:src="@{/js/echarts_configure.js}" src="../../static/js/echarts_configure.js"></script>
+				<!--<script type="text/javascript" src="layer/layer.js" th:src="@{layer/layer.js}"></script>-->
+
+				<script th:inline="javascript">
+					//<![CDATA[
+					window.onresize = function () {
+						echarts.init(document.getElementById('warning')).resize();
+						echarts.init(document.getElementById('online')).resize();
+						echarts.init(document.getElementById('auto_check')).resize();
+					 }          
+
+					//]]>
+				</script>
+
+			</div>
+			<!--endContent-->
+
+		</div>
+		<!--endWeb-->
+	</body>
+
+</html>
