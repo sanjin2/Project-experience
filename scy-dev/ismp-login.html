@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!-- 使用thymeleaf命名空间 -->
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8" />
+
+		<title>欢迎登录</title>
+		<link rel="stylesheet" th:href="@{/css/reset.css}" href="css/reset.css" />
+		<link rel="stylesheet" th:href="@{/css/ismp_login.css}" href="css/ismp_login.css" />
+		<link rel="stylesheet" th:href="@{/css/style.css}" href="css/style.css" />
+		<link rel="shortcut icon" th:href="@{/img/Keda icon-2.ico}" href="img/Keda icon-2.ico" />
+		
+		
+	</head>
+	<style>
+		#web {
+			position: fixed;
+			z-index: 1000;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+		}
+		
+		.center_bg {
+			position: fixed;
+			bottom: 0;
+		}
+	</style>
+
+	<body>
+		<div id="web">
+			<!--  <header>
+				<div class="head_wrap">
+					<div class="head">
+						<div class="head_l">
+							ISMP
+						</div>
+						<div class="head_r">
+							<span>	|</span> 下载中心
+						</div>
+					</div>
+				</div>
+
+			</header>  -->
+
+			<div id="content">
+				<div class="login_cont">
+					<div class="login_logo">
+						<div class="head">
+							<div class="head_l"><span class="flag1"></span><span></span><span class="flag3">安防设备接入网关</span></div>
+							<div class="head_r" style="display: none;"><span></span> 下载中心</div>
+						</div>
+
+					</div>
+					<div class="login_box">
+						<div class="cont">
+							<div class="cont_wrap">
+								<div class="cont_l">
+									<!--  <img th:src="@{/img/cims01.png}" /> -->
+								</div>
+								<div class="cont_r">
+									<div class="cont_r_wrap">
+										<form method="post" action="" id="form1">
+											<!--checked="checked"-->
+											<div class="h1">账号登录</div>
+											<p class="p1"><input type="text" class="account wh" placeholder="账号" name="username" id="username" th:text="${username}" /><span class="bg1"><img th:src="@{/img/cims02.png}" /> </span> </p>
+											<p class="p2"><input type="password" class="password wh" placeholder="密码" id="password" name="password" />
+												<input type="hidden" id="PWD" />
+												<span class="bg2"><img th:src="@{/img/cims03.png}"  /> </span> </p>
+											<p class="remember"><input type="checkbox" id="rememberMe" class="checkbox" /><span class="check">记住密码</span><span><a href="javascript:;" style="color:#666;font-size: 14px;float: right;">忘记密码?</a> </span> </p>
+											<p class="error" id="errorspan" style="display: none;"><label id="errorlabel" style="color: red;"></label></p>
+											<p><input type="submit" id="login" class="logo" value="登录" />
+												<input type="hidden" id="SAVE_PWD" name="SAVE_PWD" />
+											</p>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<footer>
+				<div class="center_bg">
+					<div class="center">
+						<p>建议使用IE8及以上浏览器 1024*768以上分辨率浏览 丨 客服热线： 800-828-2866 <span class="f_r">Copyright © 1995-2015KEDACOM.COM苏州科达科技股份有限公司版权所有</span></p>
+					</div>
+				</div>
+			</footer>
+		</div>
+		<div id="particles-js"></div>
+		<!--  
+		<script type="text/javascript" th:src="@{js/mathpwd.js}"></script>
+		<script type="text/javascript" th:src="@{js/cookie.js}"></script>
+		
+		<script type="text/javascript" src="js/login.js" th:src="@{/js/login.js}" ></script>
+		<script type="text/javascript" src="js/bundle.js" th:src="@{js/bundle.js}"></script>-->
+		<script type="text/javascript" th:src="@{/js/jquery-1.11.0.js}" src="js/jquery-1.11.0.js"></script>
+		<!--  <script type="text/javascript" src="js/jquery.form.js" th:src="@{/js/jquery.form.js}"></script> -->
+		<!--[if !(IE)]><!-->
+		<script type="text/javascript" th:src="@{/js/particles.min.js}" src="js/particles.min.js"></script>
+		<script type="text/javascript" th:src="@{/js/index.js}" src="js/index.js"></script>
+		<!--<![endif]-->
+
+	</body>
+	<script th:inline="javascript">
+		//js需要用CDATA括起来
+		/*<![CDATA[*/
+		// wait for the DOM to be loaded 
+		$(document).ready(function() {
+			$('#error').hide(); //显示操作提示的元素不可见 
+			$('#form1').on('submit', function(e) { //提交表单 
+				//				alert($(this).serialize());
+				e.preventDefault(); // <-- important
+				//检验是否继续保存cookie  
+				if($("#rememberMe")[0].checked) {
+					$("#SAVE_PWD").val("_YES");
+				} else {
+					$("#SAVE_PWD").val("_NO");
+				}
+				$.ajax({
+					url: '/login', //提交给哪个执行 
+					type: 'post',
+					data: $('#form1').serialize(),
+					contentType: "application/x-www-form-urlencoded", //post只能写urlencoded,json不能被识别
+					dataType: 'json',
+					success: function(data) {
+						if(data.ret == true) {
+							//end
+							location.href = "/main";
+						} else {
+							$("#password").val("");
+							$('#errorlabel').text(data.data);
+							$('#errorspan').show();
+						}
+					}
+				}); //ajax over
+				return false; //为了不刷新页面,返回false 
+			}); //onsubmit over
+			checkCookie();
+		}); //doc ready over 
+		//获取cookie  
+		function checkCookie() {
+			var name = "userNbr=";
+			var pwd = "userPwd=";
+			var ca = document.cookie.split(';');
+			for(var i = 0; i < ca.length; i++) {
+				var c = ca[i];
+				if(c.indexOf(name) != -1) {
+					$("#username").val(c.substring(name.length, c.length));
+					$("#rememberMe")[0].checked = "checked";
+				}
+				if(c.indexOf(pwd) != -1) {
+					$("#password").val(c.substring(pwd.length + 1, c.length));
+					//$("#password").val("默认密码");  
+				}
+			}
+		}
+		/*]]>*/
+	</script>
+
+</html>
