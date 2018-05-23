@@ -11,7 +11,7 @@
 		<link rel="stylesheet" th:href="@{/css/ismp_configure.css}" href="css/kdfluency.css" />
 		<link rel="shortcut icon" th:href="@{/img/Keda icon-2.ico}" href="img/Keda icon-2.ico" />
 		<script type="text/javascript" th:src="@{/js/jquery-1.11.0.js}" src="js/jquery-1.11.0.js"></script>
-
+		<script type="text/javascript" src="js/kdfluency.js"></script>
 		<!-- bootstrap -->
 		<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.js}" src="bootstrap/js/bootstrap.js"></script>
 		<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}" href="bootstrap/css/bootstrap.css" />
@@ -54,33 +54,34 @@
 					<div class="cont_l" style="">
 						<div class="l_sidebar">
 							<div class="sidebar section">
-								<div class="sidebar_box">
-									<div class="header">
-										<h1>安防设备接入网关</h1></div>
-									<div class="log_query" style="">
-										<div class="scy_query scytodoor">
-											设备查询
-										</div>
-										<div class="sq_alarm scytodoor">
-											告警主机
-										</div>
-										<div class="sq_door scytodoor">
-											门禁主机
-										</div>
-										<div class="sys_man scytodoor">
-											系统管理
-										</div>
-										<div class="sm_cfg scytodoor">
-											系统配置
-										</div>
-										<div class="sm_def scytodoor">
-											系统维护
+								<ul class="sidebar_menu">
+									<li class="sb_treeview active">
+										<a href="#" id="color_s">
+											<span>设备信息</span>
+											<span class="pull_right_container"><i class="fa_angle_left pull_right"></i></span>
+										</a>
+										<div class="treeview_menu ztree ">
+											<div> 告警主机</div>
+											<div>门禁主机</div>
 										</div>
 
-									</div>
-								</div>
+									</li>
+									<li class="sb_treeview">
+										<a href="#" id="color_s">
+											<span>系统管理</span>
+											<span class="pull_right_container"><i class="fa_angle_left pull_right"></i></span>
+										</a>
+										<div class="treeview_menu ztree" style="display: none;">
+											<div>系统配置</div>
+											<div>系统维护</div>
+										</div>
+
+									</li>
+
+								</ul>
 
 							</div>
+						
 						</div>
 					</div>
 					<!--  右边部分-->

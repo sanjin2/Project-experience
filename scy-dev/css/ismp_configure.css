@@ -1,4 +1,8 @@
 @charset "utf-8";
+.sidebar .treeview_menu{
+	margin-left: 15px;
+}
+
 
 #content .scytodoor {
 	width: 100%;
@@ -69,6 +73,13 @@
 }
 .box_body_nohead .accept_cfg_user {
 	margin-left: 15px;
+}
+.box_body_nohead .web_card_cfg{
+	border-bottom: 1px solid #ccc;
+}
+.box_body_nohead .accept_wrap{
+	border-bottom: 1px solid #ccc; 
+	padding-bottom: 15px;
 }
 .box_body_nohead .accept_cfg_id input{
 	width: 478px;

@@ -53,6 +53,7 @@ input{
 a{
 	text-decoration:none ;
 }
+a:focus{text-decoration: none};
 img{
 	display: block;
 }
