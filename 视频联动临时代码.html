@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<script>
+			ismp_alarm_link_conf.html (注意是否误删)
+							// tvWallArr内 删除值为undefinded的元素
+							/*
+														for(var i = 0; i < tvWallArr.length; ++i) {
+															if(tvWallArr[i].tvDivId == undefined && tvWallArr[i].tvWallId == undefined) {
+							//									var k= 0;
+																var index = i;
+																tvWallArr.splice(index, 1);
+							//									k++;
+							//									tvWallArr.splice(0,tvWallArr.length);	
+																tvWallFlag = true;
+															}
+
+														}
+														*/
+															//								columns: [{
+								//									checkbox: false
+								//								}, {
+								//									field: 'alarmId',
+								//									title: '序号',
+								//								}, {
+								//									field: 'nodeId',
+								//									title: '报警点Id',
+								//								}, {
+								//									field: 'nodeName',
+								//									title: '视频源'
+								//								},  {
+								//									field: 'nodeArea',
+								//									title: '电视墙'
+								//								}, ]
+								
+								
+								/*
+									for(var i = 0; i < tvWallArr.length; ++i) {
+										if(tvWallArr[i].tvDivId != undefined && tvWallArr[i].tvWallId != undefined){
+										if(tvWallArr[i].tvDivId != selectContentx && tvWallArr[i].tvWallId != selectContenty) {
+											tvWallFlag = true;
+										}else if(tvWallArr[i].tvDivId == selectContentx && tvWallArr[i].tvWallId != selectContenty ) {
+											tvWallFlag = true;
+										}else{
+											tvWallFlag = true;
+										}
+										}else{
+											tvWallFlag = true;
+										}
+									}
+									*/
+									
+									
+										//判断电视墙序号是否相同
+									//									for(var i = 0; i < tvWallArr.length; ++i) {
+									//									if(tvWallArr[i].tvDivId != undefined && tvWallArr[i].tvWallId != undefined){
+									//										if(tvWallArr[i].tvDivId == selectContentx && tvWallArr[i].tvWallId == selectContenty) {
+									//											tvWallFlag = false;
+									//										} else {
+									//											tvWallFlag = true;
+									//										}
+									//									}else{
+									//										tvWallFlag = true;
+									//									}
+									//									}
+									
+									
+									for(var index = 0; index < getSelectRowsView.length; ++index) {
+								var LinkView = {};
+								LinkView.nodeId      = getSelectRowsView[index].chnId;
+								LinkView.devId       = getSelectRowsView[index].puId;
+								LinkView.platId      = getSelectRowsView[index].platId;
+								LinkView.tvWallId    = getSelectRowsView[index].tvWallId;
+								LinkView.tvWallName  = getSelectRowsView[index].tvWallName;
+								LinkView.decoderId   = getSelectRowsView[index].decoderId;
+								LinkView.tvId        = getSelectRowsView[index].tvId;
+								LinkView.tvDivId     = parseInt(getSelectRowsView[index].viewNum) - 1;
+								devInfoArr.push(LinkView);
+							}
+									
+									
+										treeview = {
+										viewId     : i,
+										devName    : viewIdArr[i].nodeName ,
+										viewNum    : parseInt( viewIdArr[i].tvDivId)+1,
+										tvWallId   : viewIdArr[i].tvWallId,
+										tvWallName  : viewIdArr[i].tvWallName,
+										decoderId  : viewIdArr[i].decoderId,
+										tvId       : viewIdArr[i].tvId,
+										puId       : viewIdArr[i].devId,
+										chnId      : viewIdArr[i].nodeId,
+										platId     : viewIdArr[i].platId,
+										
+										
+										
+									}
+										
+											//					alert("isTime" +getSelectRows.length);
+							//					alert("LinkData.isTime " + LinkData.isTime);
+							//					console.log(getSelectRows);
+							
+							//									$('input[name="check"]').prop("checked",false);
+//									if(alarmTypeArr.length > 0){
+	
+	
+	//	console.log($("#select").find("option:selected").attr("aid"));
+	
+	//						alert(ttt);
+										//test
+										
+										//							contentType: "application/x-www-form-urlencoded", //post只能写urlencoded,json不能被识别
+										//									$('#tb_history_alarms4').bootstrapTable('append', treeTime);
+										
+										//									$('#tb_history_alarms4').bootstrapTable('append', treeTime);
+										zTreeTimeData2.splice(0,zTreeTimeData.length);
+										//									$('input[name="check"]').prop("checked",false);
+//									if(alarmTypeArr.length > 0){//									}
+
+
+//							contentType: "application/x-www-form-urlencoded", //post只能写urlencoded,json不能被识别
+
+					//						alert(ttt);
+									//test
+									console.log("data[0]",data[0]);
+									
+										//var alarmtttt = parseInt(data[0].id);
+//									alert(data[0].id);
+
+//		alert(layerT);
+						//		return layerT;
+						
+						
+													//beforeExpand: zTreeBeforeExpand,
+							//beforeAsync: zTreeBeforeAsync,
+//							onAsyncSuccess: zTreeOnAsyncSuccess
+//console.log("layerTypeCode"+treeNode.layerTypeCode);
+
+//	if (null != node.children&& node.children.length > 0) {
+									//	return;
+									//	}
+									//						alert(layertypee);
+									//						alert(layertt);
+									//						alert(layerdevId);
+									//										 getAlarmType(treeNode.id);
+									
+									
+									
+									ismp_alarm_link_conf_data.html
+									
+									//						if(null == curHtml) {
+						//							curHtml = $("#door").html();
+						//						}
+						//						$("#door").empty();
+						//						$("#door").html(curHtml);
+						!important
+						//					if($("#alarm_class_cont").has('p').length > 0)	{
+					//						
+					//						
+					//					}else{
+					//						layer.alert("请先选择右侧的报警类型！");
+					//					}
+					//	var curHtml = null;
+						//						if(null == curHtml) {
+							//							curHtml = $("#door").html();
+							//						}
+							//						$("#door").empty();
+							//						$("#door").html(curHtml);
+								//							$("#ratify").css("display", 'none');
+								//							$("#ratify").css("display", 'none');
+								
+								//move: 'mine-move',
+								
+								//								onClick2: onClick2
+								//								beforeExpand: zTreeBeforeExpand,
+								//beforeAsync: zTreeBeforeAsync,
+								//onAsyncSuccess: zTreeOnAsyncSuccess
+								//									if(node.level == 2){
+								//									alert(node.level); 
+								//									}
+								//										tree.expandAll(true); 
+										//										$(document).ready(function(){
+										//											tree.expandAll(true);
+										//                                      })
+										//									alert("获取设备树失败!code=" + XMLHttpRequest.status);
+										
+												//						function getChildren(ids, treeNode) {
+						//							ids.push(treeNode.name);
+						//							if(treeNode.isParent) {
+						//								for(var obj in treeNode.children) {
+						//									getChildren(ids, treeNode.children[obj]);
+						//								}
+						//							}
+						//							return ids;
+						//						}
+						
+									//								onClick2: onClick2
+								//								beforeExpand: zTreeBeforeExpand,
+								//beforeAsync: zTreeBeforeAsync,
+								//onAsyncSuccess: zTreeOnAsyncSuccess
+								
+									//									alert("1");
+								//									return (node.layterType == 12003 && node.checked == true);
+								
+								//								var devNode = treeNode.getParentNode();
+								
+								//									console.log(nodes[i].extinfo);	
+								//								alert(devinfo.platId);
+								
+								//							$('#tb_history_alarms').bootstrapTable('removeAll');
+							/*
+							 *onCheck
+							 * 
+							 * */
+							//											$('#tb_history_alarms').bootstrapTable('append', dataxx);
+							
+							//							1.
+							//							for(var j = 0; j < i1.length; j++) {
+							//								var dataxx = i1[j];
+							//								$('#tb_history_alarms').bootstrapTable('append', dataxx);
+							//							}
+
+
+
+							//								$('#tb_history_alarms').bootstrapTable('removeAll');
+							//								treeData();
+							
+													//							function treeData(){
+
+						//							}
+						
+						//									JSON.parse(data.)
+						//											t.iconSkin = "devNormal";
+						//										setNodeIconSkin(data[idx], {});
+						//										tree.expandAll(true); 
+										//										$(document).ready(function(){
+										//											tree.expandAll(true);
+										//                                      })
+										//					$("#active_denfence").on("click", function() {
+					//						$("#active_denfence_sh").slideToggle();
+					//
+					//						if(flag) {
+					//							$(".config_info .defence_l .active_denfence").css("background", "url(../img/arrow_top.png) right center no-repeat");
+					//							$(".config_info .defence_l .active_denfence").css("backgroundSize", "14px");
+					//						} else {
+					//							$(".config_info .defence_l .active_denfence").css("background", "url(../img/arrow_bottom.png) right center no-repeat");
+					//							$(".config_info .defence_l .active_denfence").css("backgroundSize", "14px");
+					//
+					//						}
+					//						flag = !flag;
+					//					})
+					
+					//得到查询的参数
+						//													oTableInit.queryParams = function(params) {
+						//														var temp = { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+						//															pagesize: params.limit, //页面大小
+						//															pageindex: params.offset, //页码
+						//															name: $("#planName").val()
+						//														};
+						//														return temp;
+						//													};
+						
+						//						<a class="remove" href="#" title= "Remove" onclick="onRemoveView(\''+row.viewId+'\')">删除</a>
+						//	var tvWallData;
+							//	tvWallArr.splice(0,tvWallArr.length);
+							//								tvWallData.tvDivId = getSelectRowstvWall[index].viewNum;
+							//move: 'mine-move',
+							
+							//						else{
+								//								alert("请选中一行！");
+								//							}
+								//var selectContentrowx= $("#view").bootstrapTable('getSelections')[0];
+		</script>
+	</body>
+</html>

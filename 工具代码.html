@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		
+		
+		
+		
+		<script>
+			1.阻止默认时间
+			e.preventDefault();
+			2.标准浏览器下面加载浏览器代码
+			<!--[if !(IE)]><!-->
+		<script type="text/javascript" th:src="@{/js/particles.min.js}" src="js/particles.min.js"></script>
+		<script type="text/javascript" th:src="@{/js/index.js}" src="js/index.js"></script>
+		<!--<![endif]-->
+		
+		3.页面刷新
+		parent.location.reload(true);
+		window.parent.reload(true);
+		</script>
+	</body>
+</html>
