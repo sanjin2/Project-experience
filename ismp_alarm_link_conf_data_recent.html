@@ -1,0 +1,2598 @@
+<!DOCTYPE html>
+<!-- 主机列表 /rms/devices-->
+<!--optionclient/rms/scydev/ismp_scy_dev-->
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>主机管理</title>
+		<link rel="stylesheet" th:href="@{/css/reset.css}" href="../../../../static/css/reset.css" />
+		<link rel="stylesheet" th:href="@{/css/ismp_configure.css}" href="../../../../static/css/ismp_configure.css" />
+		<link rel="stylesheet" href="../../../../static/js/layer/theme/default/layer.css" th:href="@{/js/layer/theme/default/layer.css}" />
+		<script type="text/javascript" th:src="@{/js/jquery-1.11.0.js}" src="../../../../static/js/jquery-1.11.0.js"></script>
+		<script type="text/javascript" th:src="@{/js/jquery.form.js}" src="js/jquery.form.js"></script>
+		<script type="text/javascript" th:src="@{/js/layer/layer.js}" src="../../../../static/js/layer/layer.js"></script>
+
+	</head>
+
+	<body>
+		<div id="web">
+			<div th:include="ismp_common :: check"></div>
+
+			<!-- 框架检测片段 -->
+			<section id="content">
+				<style th:inline="text">
+					/*.all_wrap {
+				height: 100%;
+				position: relative;
+				overflow-x: hidden;
+				overflow-y: auto;
+			}*/
+				</style>
+				<input id="devTypeCode" type="hidden" th:value="${devTypeCode}" />
+				<input id="nodeId" type="hidden" th:value="${nodeId}" />
+				<input id="layerTypeCode" type="hidden" th:value="${layerTypeCode}" />
+				<input id="belong_option_id" type="hidden" value="6401" />
+				<div class="data_warp">
+					<!--<div class ="cd_cont">
+						<span style="font-size:20px;color:#F00">功能实现中，敬请期待</span>
+					</div>-->
+					<div class="cd_cont section">
+						<div class="alarm_class">
+							<div class="class_copy title">
+								<span style="font-weight: bold;">报警类型</span>
+							</div>
+							<div class="class_cont">
+								<select id="select">
+									<!--节点动态生成-->
+								</select>
+							</div>
+							<div class="class_copy copy_alarm">
+								<span>复制到报警类型</span>
+							</div>
+							<div class="alarm_class_cont" id="alarm_class_cont">
+								<!--节点动态生成-->
+							</div>
+						</div>
+
+						<div class="config_info">
+
+							<div class="info_head">
+								<div class="head_l">
+									<span class="message">配置信息</span>
+								</div>
+								<!--<div class="head_r">
+									<span class="level">联动级别: </span> <input type="text" value="一级联动" />
+								</div>-->
+								<!--左边树节点保存的数据-->
+								<div id="getjson">
+
+								</div>
+							</div>
+							<div class="config_info_content" style="overflow: auto;">
+
+								<!--联动布防-->
+								<!--link_defence为公共组件 配置信息栏可通用-->
+								<div class="link_defence">
+									<div class="defence_cont">
+										<div class="defence_l">
+											<div class="active_denfence" id="active_denfence">联动布防</div>
+										</div>
+										<div class="defence_r" id="active_denfence_sh">
+											<div class="defence_r_l">
+												<div>
+													<input type="checkbox" style="position: relative;top: 2px;" checked="checked" /><span class="red">布防</span>
+												</div>
+												<div>
+													<span>事件类型</span>
+												</div>
+												<div>
+													<span>报警级别</span>
+												</div>
+
+											</div>
+											<div class="defence_r_r">
+												<div id="" class="defence_bt">
+													<input type="checkbox" style="position: relative;top: 2px;" /><span>报警声音</span>
+												</div>
+												<div class="rr_tip defence_bt">
+													<select>
+														<option>通知</option>
+													</select>
+												</div>
+
+												<div class="rr_alarmLevel defence_bt">
+
+													<select>
+														<option>一级报警</option>
+													</select>
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+								<!-- /联动布防-->
+
+								<!--联动视频源-->
+								<div class="link_defence hs1">
+									<div class="defence_cont">
+										<div class="defence_l">
+											<div class="water" id="water" style="background: ;">联动视频源</div>
+										</div>
+										<div class="defence_r" id="water_sh">
+											<table id="tb_history_alarms"></table>
+											<a href="javascript:;" id="video_link" class="ismp_btn_public link_a"></a>
+										</div>
+									</div>
+								</div>
+								<!-- /联动视频源-->
+
+								<!--联动视频源弹出层-->
+
+								<div id="link_video" style="display: none; padding-bottom: 5px; ">
+									<form method="post" action="" id="">
+										<div class="ztree_wrap" style="height: 200px; overflow: auto;">
+											<div class="ztree" id="zTreediv3" style=""></div>
+										</div>
+										<!--<div style="margin-left: 10px;"><input type="radio" name="radio" value = "1"  /> 开门 <input type="radio" value = "2" name="radio" /> 戒严 </div>-->
+										<div class="" style="overflow: hidden;">
+											<input type="submit" value="确定" style="margin-left: 277px;" id="sure2" class="ismp_btn_layer_sure" />
+											<a href="javascript:;" id="cancel2" class="ismp_btn_layer_cancel">取消</a>
+
+											<!--<a href="javascript:;" id="sure" class="next sure">确定</a>-->
+										</div>
+									</form>
+								</div>
+
+								<!-- /联动视频源弹出层-->
+
+								<!--电视端预案-->
+								<div class="link_defence" style="height: 64px;">
+									<div class="defence_cont">
+										<div class="defence_l">
+											<div class="tv" id="tv">电视墙预案</div>
+										</div>
+										<div class="defence_r" id="tv_sh">
+											<div class="defence_r_l">
+
+												<div>
+													<span>电视墙预案</span>
+												</div>
+
+											</div>
+											<div class="defence_r_r">
+
+												<div class="rr_tip">
+													<select>
+														<option>通知</option>
+													</select>
+												</div>
+
+											</div>
+
+											<div style="margin-top: -23px; float: right;"><input id="on_off2" style="position: relative;top:2px;" type="checkbox" />是否启用 </div>
+
+										</div>
+									</div>
+								</div>
+
+								<!-- /电视端预案-->
+
+								<!--电视墙弹出层-->
+
+								<div id="link_view" style="display: none; padding-bottom: 5px; ">
+									<form method="post" action="" id="">
+										<div id="viewSelectContent">
+
+											电视墙名称:
+											<select id="viewSelect">
+												<!--动态生成电视墙名称-->
+											</select>
+										</div>
+										<div class="table_content">
+
+											<!--<table id="view"></table>-->
+											<div class="channel_box">
+												<ul class="box">
+												</ul>
+											</div>
+											
+										</div>
+										<!--<div style="margin-left: 10px;"><input type="radio" name="radio" value = "1"  /> 开门 <input type="radio" value = "2" name="radio" /> 戒严 </div>-->
+										<div class="" style="margin-top: 20px;">
+											<input type="submit" value="确定" style="margin-left: 706px;" id="sure3" class="ismp_btn_layer_sure" />
+											<a href="javascript:;" id="cancel3" class="ismp_btn_layer_cancel">取消</a>
+
+											<!--<a href="javascript:;" id="sure" class="next sure">确定</a>-->
+										</div>
+									</form>
+								</div>
+
+								<!-- /电视墙弹出层-->
+								
+									<!--电视机通道弹出层-->
+
+								<div id="tv_channel" style="display: none; padding-bottom: 5px; ">
+									<form method="post" action="" id="">
+										<!--<div id="viewSelectContent">
+
+											电视墙名称:
+											<select id="viewSelect">
+											</select>
+										</div>-->
+										<div class="channel_content">
+                                             通道  
+										</div>
+										<!--<div style="margin-left: 10px;"><input type="radio" name="radio" value = "1"  /> 开门 <input type="radio" value = "2" name="radio" /> 戒严 </div>-->
+										<div class="" style="margin-top: 50px;">
+											<input type="submit" value="确定" style="margin-left: 277px;" id="channel_sure" class="ismp_btn_layer_sure" />
+											<a href="javascript:;" id="channel_cancel" class="ismp_btn_layer_cancel">取消</a>
+
+											<!--<a href="javascript:;" id="sure" class="next sure">确定</a>-->
+										</div>
+									</form>
+								</div>
+
+								<!-- /电视机通道弹出层-->
+								
+
+								<!--联动LED-->
+								<!--<div class="link_defence">
+									<div class="defence_cont">
+										<div class="defence_l">
+											<div class="active_led" id="active_led">联动LED</div>
+										</div>
+										<div class="defence_r" id="active_led_sh">
+											<table id="tb_history_alarms2"></table>
+											<a href="javascript:;" class="ismp_btn_public link_a"></a>
+										</div>
+									</div>
+								</div>-->
+
+								<!-- /联动LED-->
+								<!--联动开关主机-->
+								<!--<div class="link_defence">
+									<div class="defence_cont">
+										<div class="defence_l">
+											<div class="active_on_off" id="active_on_off">联动开关主机</div>
+										</div>
+										<div class="defence_r" id="active_on_off_sh">
+											<table id="tb_history_alarms3"></table>
+											<a href="javascript:;" class="ismp_btn_public link_a"></a>
+
+										</div>
+									</div>
+								</div>-->
+
+								<!-- /联动开关主机-->
+
+								<!--联动时间-->
+								<div class="link_defence">
+									<div class="defence_cont">
+										<div class="defence_l">
+											<div class="active_time config_info_common" id="active_time">联动时间</div>
+										</div>
+										<div class="defence_r" id="active_time_sh">
+											<table id="tb_history_alarms4"></table>
+											<a href="javascript:;" id="time_link" class="ismp_btn_public link_a"></a>
+
+										</div>
+									</div>
+								</div>
+								<!-- /联动时间-->
+
+								<!--联动时间弹出层-->
+								<style>
+									.xdsoft_noselect {
+										/*position: relative;*/
+										z-index: 19901015;
+									}
+								</style>
+								<div id="link_time" style="display: none; padding-bottom: 10px; ">
+									<form method="post" action="" id="">
+										<div class="">
+
+											<div class="special_time">
+												<span class="time_width"> <input type="checkbox" checked="checked" class="sp_t"  />指定日期</span>
+												<input id="datetimepicker" class="st datetimepicker" type="text" />
+											</div>
+											<div class="start_time">
+												<span class="time_width">起始时间</span> <input id="datetimepicker2" class="datetimepicker" type="text" />
+											</div>
+											<div class="end_time" style="margin-bottom: 10px;">
+												<span class="time_width">结束时间</span> <input id="datetimepicker3" class="datetimepicker" type="text" />
+											</div>
+
+											<input type="submit" value="确定" style="margin-left: 277px;" id="sure_time" class="ismp_btn_layer_sure" />
+											<a href="javascript:;" id="cancel_time" class="ismp_btn_layer_cancel">取消</a>
+
+											<!--<a href="javascript:;" id="sure" class="next sure">确定</a>-->
+										</div>
+									</form>
+								</div>
+
+								<!-- /联动时间弹出层-->
+
+								<!--门禁-->
+								<div class="link_defence">
+									<div class="defence_cont">
+										<div class="defence_l">
+											<div class="door_stop config_info_common" id="door_stop">联动门禁 </div>
+										</div>
+										<div class="defence_r" id="door_stop_sh">
+											<table id="tb_history_alarms5" data-url="data.json"></table>
+											<a href="javascript:;" id="doorStop" class="ismp_btn_public link_a"></a>
+
+										</div>
+									</div>
+								</div>
+								<!-- /门禁-->
+
+								<!--门禁弹出层-->
+
+								<div id="door" style="display: none; padding-bottom: 5px; ">
+									<form method="post" action="" id="">
+										<div class="ztree" id="zTreediv2" style="height: 150px;overflow: auto;"></div>
+										<div style="margin-left: 10px;"><input type="radio" name="radio" value="1" checked="checked" /> 开门 <input type="radio" value="2" name="radio" /> 戒严 </div>
+										<div class="">
+											<input type="submit" value="确定" style="margin-left: 277px;" id="sure" class="ismp_btn_layer_sure" />
+											<a href="javascript:;" id="cancel" class="ismp_btn_layer_cancel">取消</a>
+
+											<!--<a href="javascript:;" id="sure" class="next sure">确定</a>-->
+										</div>
+									</form>
+								</div>
+
+								<!-- /门禁弹出层-->
+
+								<!--联动短信-->
+								<div class="link_defence" style="border-bottom: none;">
+									<div class="defence_cont">
+										<div class="defence_l">
+											<div class="active_message config_info_common" id="active_message">联动短信</div>
+
+										</div>
+										<div class="defence_r" id="active_message_sh">
+											<div class="defence_r_l">
+												<div>
+													<span>短信模板</span>
+												</div>
+												<div>
+													<span>手机号码</span>
+												</div>
+												<div>
+													<span>短信内容</span>
+												</div>
+
+											</div>
+											<div class="defence_r_r">
+												<div id="" class="message_cat">
+													<select id="select_message">
+														<!--动态数据加载-->
+													</select>
+												</div>
+												<div class="rr_tel" style="position: relative;">
+													<input type="text" id="message_phone" />
+
+												</div>
+
+												<!--手机弹出层-->
+
+												<div id="message_phone_content" style="display: none;  ">
+													<form method="post" action="" id="">
+														<!--<div style="margin-left: 10px;">请输入手机号码 <input id="phoneNumber" type="text" /> </div>-->
+														<p style="margin-left: 20px;margin-top: 20px;"><span><a href="#" id="AddMoreFileBox" style="background-color:#1E9FFF ;border-color: #1E9FFF;font-size: 12px;" class="btn btn btn-primary">添加更多的手机号码</a></span></p>
+														<div style="margin-left: 20px;" id="InputsWrapper">
+															<div><input type="text" name="mytext[]" id="field_1" placeholder="请输入手机号码" />
+																<a href="#" class="removeclass">×</a>
+															</div>
+														</div>
+														<div class="" style="padding-bottom: 20px;padding-top: 15px;">
+															<input type="submit" value="确定" style="margin-left: 222px;" id="sure_message_phone" class="ismp_btn_layer_sure" />
+
+															<a href="javascript:;" id="cancel_message_phone" class="ismp_btn_layer_cancel">取消</a>
+
+															<!--<a href="javascript:;" id="sure" class="next sure">确定</a>-->
+
+														</div>
+														<span id="getNumber" style="display: none;"></span>
+
+													</form>
+												</div>
+
+												<!-- end手机弹出层-->
+
+												<div class="rr_message_cont">
+
+													<textarea id="getMsgContent" disabled="disabled"></textarea>
+												</div>
+												<div style="margin-top: -41px;float: right;"><input id="on_off" style="position: relative;top:2px;" type="checkbox" />是否启用 </div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+								<!-- /联动短信-->
+							</div>
+							<!--.config_info_content end-->
+							<!--电视端预案-->
+							<div class="link_defence" style="height: 50px; border-top:1px solid #ccc ;">
+								<div class="defence_cont" style="margin-top: 5px;">
+									<div class="defence_l">
+
+									</div>
+									<div class="defence_r" id="tv_sh">
+
+										<a href="javascript:;" class="ismp_btn_public link_b">取消</a>
+										<a href="javascript:;" id="save_all" class="ismp_btn_public link_b">保存</a>
+
+									</div>
+								</div>
+							</div>
+
+							<!-- /电视端预案-->
+							<!--关联用户-->
+							<!--<div class="link_defence" style="height: 64px;">
+								<div class="defence_cont">
+									<div class="defence_l">
+										<div>关联用户</div>
+									</div>
+									<div class="defence_r">
+										<div class="defence_r_l">
+
+											<div>
+												<span>一级用户</span>
+											</div>
+
+										</div>
+										<div class="defence_r_r">
+
+											<div class="rr_tip">
+												<select>
+													<option>通知</option>
+												</select>
+											</div>
+
+										</div>
+
+									</div>
+								</div>
+							</div>-->
+							<!-- /关联用户-->
+
+						</div>
+
+					</div>
+				</div>
+				<script th:inline="javascript">
+					/*<![CDATA[*/
+					// 前端添加手机号码的方法
+					function addPhoneNumber() {
+						var MaxInputs = 8; //maximum input boxes allowed  
+						var InputsWrapper = $("#InputsWrapper"); //Input boxes wrapper ID  
+						var AddButton = $("#AddMoreFileBox"); //Add button ID  
+
+						var x = InputsWrapper.length; //initlal text box count  
+						var FieldCount = 1; //to keep track of text box added  
+
+						$(AddButton).click(function(e) //on add input button click  
+							{
+								if(x <= MaxInputs) //max input box allowed  
+								{
+									FieldCount++; //text box added increment  
+									//add input box  
+									$(InputsWrapper).append('<div><input type="text" name="mytext[]" id="field_' + FieldCount + '" placeholder="请输入手机号码 ' + '"/><a href="#" class="removeclass">×</a></div>');
+									x++; //text box increment  
+								}
+								return false;
+							});
+
+						$("body").on("click", ".removeclass", function(e) { //user click on remove text  
+							if(x > 1) {
+								$(this).parent('div').remove(); //remove text box  
+								x--; //decrement textbox  
+							}
+							return false;
+						})
+					}
+					addPhoneNumber();
+
+					function getNumber() {
+						$("#getNumber").text("");
+						$("input[name='mytext[]']").each(function() {
+							$("#getNumber").append($(this).val() + ";");
+						})
+					}
+
+					// /前端添加手机号码的方法
+
+					//联动短信后台接口调用
+					function getSms() {
+						$("input[name='radio']:eq(0)").attr("checked", 'checked');
+						var getSmsUrl = "/aps/smsmould";
+						//test
+						$.ajax({
+							type: "GET",
+							url: getSmsUrl,
+							contentType: "application/x-www-form-urlencoded", //post只能写urlencoded,json不能被识别
+							dataType: "json",
+							success: function(data) {
+								console.log(data);
+								for(var i = 0; i < data.length; i++) {
+									var getSms = $("<option>" + data[i].id + "</option>");
+									getSms.appendTo($("#select_message"));
+								}
+								//初始化短信内容
+								$("#getMsgContent").val(data[0].content);
+								$(document).off('change', '#select_message').on("change", '#select_message', function() {
+									for(var i = 0; i < data.length; i++) {
+										if(data[i].id == $(this).val()) {
+											$("#getMsgContent").val(data[i].content);
+										}
+									}
+								});
+
+							}
+						});
+						//test
+					}
+
+					$("#on_off").on("click", function() {
+						if($("#on_off").prop("checked") === true) {
+							getSms();
+						} else {
+							$("#select_message").empty();
+							$("#message_phone").val("");
+							$("#getMsgContent").val("");
+
+						}
+
+					});
+
+					// /联动短信后台接口调用
+
+					//添加手机的事件
+					
+					$("#message_phone").on("click", function() {
+
+						
+
+						layer.open({
+							type: 1,
+							title: "添加手机号码",
+							closeBtn: 1,
+							area: "350px",
+							shadeClose: true,
+							//								move: 'mine-move',
+							skin: 'yourclass',
+							content: $("#message_phone_content"), //iframe的url，no代表不显示滚动条
+							cancel: function(index, layero) {
+								return true;
+							}
+						});
+						$('#sure_message_phone').off("click").on("click", function(e) {
+							e.preventDefault();
+							getNumber();
+
+							$("#message_phone").val($("#getNumber").text());
+							layer.closeAll('page');
+
+						})
+
+						$('#cancel_message_phone').on("click", function() {
+							layer.closeAll('page');
+						})
+
+					})
+
+					//  /添加手机的事件
+
+					
+					//联动门禁添加按钮的事件
+					
+					$("#doorStop").on("click", function(e) {
+						e.preventDefault();
+						if($("#alarm_class_cont").has('p').length > 0) {
+						
+
+							layer.open({
+								type: 1,
+								title: "联动门禁",
+								closeBtn: 1,
+								area: "400px",
+								shadeClose: true,
+								//								move: 'mine-move',
+								skin: 'yourclass',
+								content: $("#door"), //iframe的url，no代表不显示滚动条
+								cancel: function(index, layero) {
+									return true;
+								}
+							});
+							$('#sure').on("click", function() {
+							
+								layer.closeAll('page');
+							})
+
+							$('#cancel').on("click", function() {
+								
+								layer.closeAll('page');
+							})
+
+						} else {
+							layer.alert("请先选择左侧的报警类型！", {
+								time: 3000
+							});
+						}
+
+					})
+
+					//  /联动门禁添加按钮的事件
+
+					//联动视屏源添加按钮的事件
+
+					$("#video_link").on("click", function(e) {
+
+						e.preventDefault();
+//						if($("#alarm_class_cont").has('p').length > 0) {
+
+							layer.open({
+								type: 1,
+								title: "联动视屏源",
+								closeBtn: 1,
+								area: "400px",
+								shadeClose: true,
+								
+								skin: 'yourclass',
+								content: $("#link_video"), //iframe的url，no代表不显示滚动条
+								cancel: function(index, layero) {
+									return true;
+								}
+							});
+							$('#sure2').on("click", function() {
+								layer.closeAll('page');
+							})
+
+							$('#cancel2').on("click", function() {
+								layer.closeAll('page');
+							})
+
+//						} else {
+//							layer.alert("请先选择左侧的报警类型！", {
+//								time: 3000
+//							});
+//						}
+
+					})
+					// /联动视屏源添加按钮的事件
+
+					//联动时间js脚本
+					var time_number;
+					var timex = [];
+					var flag_time;
+					var linkId = 0;
+
+					$("#time_link").on("click", function(e) {
+						e.preventDefault();
+						if($("#alarm_class_cont").has('p').length > 0) {
+							layer.open({
+								type: 1,
+								title: "联动时间",
+								closeBtn: 1,
+								area: "400px",
+								shadeClose: true,
+								//								move: 'mine-move',
+								skin: 'yourclass',
+								content: $("#link_time"), //iframe的url，no代表不显示滚动条
+								cancel: function(index, layero) {
+									return true;
+								}
+							});
+
+							function isObjEqual(o1, o2) {
+								var props1 = Object.getOwnPropertyNames(o1);
+								var props2 = Object.getOwnPropertyNames(o2);
+								if(props1.length != props2.length) {
+									return false;
+								}
+								for(var i = 0, max = props1.length; i < max; i++) {
+									var propName = props1[i];
+									if(o1[propName] !== o2[propName]) {
+										return false;
+									}
+								}
+								return true;
+							}
+							var time;
+
+							function datetime_data() {
+								linkId++;
+								var datetimepicker = $('.datetimepicker');
+								time = {
+									specTime: datetimepicker[0].value,
+									startTime: datetimepicker[1].value,
+									endTime: datetimepicker[2].value,
+									linkId: linkId
+								}
+								timex.push(time);
+								/*
+								 *时间判重操作
+								 * timex [] 记录上一次操作和本次操作的时间
+								 * time  {} 记录用户选择的时间
+								 * */
+								
+								//时间重复输入判重操作
+								if(timex.length == 0 || timex.length == 1 || 
+									!(timex[0].startTime == timex[1].startTime && timex[0].endTime == timex[1].endTime)
+								   || 	timex[0].specTime != timex[1].specTime
+								) {
+									$('#tb_history_alarms4').bootstrapTable('load', timex);
+									$('#tb_history_alarms4').bootstrapTable('append', time);
+								}
+								if(timex.length == 2) {
+									if(timex[0].startTime == timex[1].startTime && timex[0].endTime == timex[1].endTime
+										&& timex[0].specTime == timex[1].specTime
+									) {
+										layer.alert("两次输入的时间，不能一样！", {
+											time: 2000
+										});
+									}
+									timex.shift();
+								}
+								// /重复输入判重操作
+							}
+							$('#sure_time').unbind("click").click(function(e) {
+								e.preventDefault();
+								//							$('#tb_history_alarms4').bootstrapTable('removeAll');
+								datetime_data();
+								layer.closeAll('page');
+							})
+							$('#cancel_time').on("click", function(e) {
+								e.preventDefault();
+								layer.closeAll('page');
+							})
+
+						} else {
+							layer.alert("请先选择左侧的报警类型！", {
+								time: 3000
+							});
+						}
+
+					})
+
+					$.datetimepicker.setLocale('ch');
+					$('#datetimepicker').datetimepicker({
+						timepicker: false,
+						lang: "ch", //语言选择中文 注：旧版本 新版方法：$.datetimepicker.setLocale('ch');
+						format: "Y-m-d", //格式化日期
+
+					});
+
+					$('#datetimepicker2').datetimepicker({
+						datepicker: false,
+						format: 'H:i:s'
+					})
+					$('#datetimepicker3').datetimepicker({
+						datepicker: false,
+						format: 'H:i:s'
+					})
+
+					// /联动时间js脚本
+
+					//联动门禁树形结构加载
+
+					//树型结构
+					function tree() {
+						//树形结构开展
+						var setting = {
+
+							check: {
+								enable: true,
+								chkStyle: "checkbox",
+								chkboxType: {
+									"Y": "s",
+									"N": "s"
+								}
+							},
+							data: {
+								simpleData: {
+									enable: true,
+									idKey: 'id', //对应json数据中的ID
+									pIdKey: 'parentId' //对应json数据中的父ID
+								}
+							},
+							callback: {
+								onClick: zTreeOnClick,
+								onExpand: zTreeOnExpand,
+								onCheck: onCheck,
+								
+
+							}
+						};
+
+						//联动门禁table表格数据插入
+						//存储所有的节点数据json格式
+						var i1 = [];
+						var valuex;
+						//获取树节点的数据并且插入到table表格中
+						function onCheck(e, treeId, treeNode) {
+							//清空以前的数据
+							i1 = [];
+							var treeObj = $.fn.zTree.getZTreeObj("zTreediv2"),
+
+								m = "";
+							/*	
+							 * 获取所有选中的节点数据
+							 * nodes = treeObj.getCheckedNodes(),
+							 */
+							var nodes = treeObj.getNodesByFilter(filter);
+
+							function filter(node) {
+								
+								return(node.level == 3 && node.checked == true);
+								
+							}
+							console.log(nodes);
+							valuex = $("input[name='radio']:checked").val();
+							//遍历所有树节点数据并且放入到i1的数组中
+							for(var i = 0; i < nodes.length; i++) {
+								m = {
+									name: nodes[i].name,
+									type: valuex,
+									id: nodes[i].id,
+									parentId: nodes[i].parentId,
+									devId: nodes[i].devId,
+									layerTypeCode: nodes[i].layerTypeCode,
+
+								}
+								i1.push(m);
+								//					
+							} // forEnd
+						} //onCheck
+						//点击确定时将数据插入到表格中
+						$('#sure').click(function(e) {
+							e.preventDefault();
+							onCheck();
+							$('#tb_history_alarms5').bootstrapTable('removeAll');
+							treeData();
+						});
+						//将数组里面的告警联动信息逐条添加到table表格中
+						function treeData() {
+							for(var j = 0; j < i1.length; j++) {
+								var dataxx = i1[j];
+								$('#tb_history_alarms5').bootstrapTable('append', dataxx);
+
+							}
+						}
+						// /联动门禁table表格数据插入	
+						//设置图标, devTypeCode
+						function setIconSkin(dObj) {
+
+							if(12003 == dObj.layerTypeCode) {
+								//通道
+								if(typeof(dObj.online) == "undefined") {
+									//无状态表示
+									dObj.iconSkin = "chnNormal";
+								} else if(0 == dObj.online) {
+									//不在线
+									dObj.iconSkin = "chnOffline";
+								} else {
+									//在线
+									dObj.iconSkin = "chnOnline";
+								}
+							} else if(12002 == dObj.layerTypeCode) {
+								//设备
+								if(typeof(dObj.online) == "undefined") {
+									//无状态表示
+									dObj.iconSkin = "devNormal";
+								} else if(0 == dObj.online) {
+									//不在线
+									dObj.iconSkin = "devOffline";
+								} else {
+									//在线
+									dObj.iconSkin = "devOnline";
+								}
+								dObj.isParent = true;
+							} else if(12001 == dObj.layerTypeCode) {
+								//设备
+								if(typeof(dObj.online) == "undefined") {
+									//无状态表示
+									dObj.iconSkin = "devNormal";
+								} else if(0 == dObj.online) {
+									//不在线
+									dObj.iconSkin = "devOffline";
+								} else {
+									//在线
+									dObj.iconSkin = "devOnline";
+								}
+								dObj.isParent = true;
+							} else if(12000 == dObj.layerTypeCode) {
+								//平台
+								if(typeof(dObj.online) == "undefined") {
+									//无状态表示
+									dObj.iconSkin = "platNormal";
+								} else if(0 == dObj.online) {
+									//不在线
+									dObj.iconSkin = "platOffline";
+								} else {
+									//在线
+									dObj.iconSkin = "platOnline";
+								}
+
+								dObj.isParent = true;
+							}
+
+						}
+
+						//树形结点的加载
+						function loadTreeNodes(tree, node) {
+							var treeurl = "/aps/linkconf/" + "door" + "/devtrees";
+							if(!node.id || node.id == "root") {
+								//load device
+								treeurl += "?id=&layertype=0";
+							} else {
+								//load nodes
+								treeurl += "?id=" + node.id + "&layertype=" +
+									node.layerTypeCode;
+							}
+							$.ajax({
+								type: "GET",
+								url: treeurl,
+								contentType: "application/x-www-form-urlencoded", //post只能写urlencoded,json不能被识别
+								dataType: "json",
+								success: function(data) {
+									if(null != node.children && node.children.length > 0) {
+										return;
+									}
+
+									if(data && data.length > 0) {
+										for(idx = 0; idx < data.length; ++idx) {
+											//因chidren无数据 删除 children的属性
+											delete data[idx].children;
+											//											data[idx].iconSkin = "pRootIcon";
+											//, $("#curType").text()
+											setIconSkin(data[idx]);
+										}
+
+										tree.addNodes(node, data, true); //如果是加载子节点，那么就是父节点下
+										
+										tree.expandNode(node, true, false, false); // 将新获取的子节点展开
+
+									}
+
+									return;
+
+								},
+								error: function(XMLHttpRequest, textStatus,
+									errorThrown) {
+										layer.alert("获取设备树失败!code=" + XMLHttpRequest.status,{shade:0,icon: 2});
+
+								}
+							});
+
+						} //init jstree over
+
+						//zTree加载节点
+						function zTreeLoadNodes(event, treeId, treeNode) {
+							//控制最后节点的显示与否
+							if(12003 == treeNode.layerTypeCode) {
+								//已经到叶子节点
+								return;
+							} else if(null != treeNode.children && treeNode.children.length > 0) {
+								//已经添加了叶子节点，暂时不再添加
+								return;
+							}
+
+							var treeObj = $.fn.zTree.getZTreeObj(treeId);
+							loadTreeNodes(treeObj, treeNode);
+						}
+
+						//展开时间处理
+						function zTreeOnExpand(event, treeId, treeNode) {
+							zTreeLoadNodes(event, treeId, treeNode);
+						}
+						//处理点击事件
+						function zTreeOnClick(event, treeId, treeNode) {
+
+							zTreeLoadNodes(event, treeId, treeNode);
+							if(12001 == treeNode.layerTypeCode || 12002 == treeNode.layerTypeCode || 12003 == treeNode.layerTypeCode) {
+
+							}
+						};
+
+				
+
+						//根节点
+						var zNodes = [{
+							id: "root",
+							parentId: 0,
+							name: "主机列表",
+							layerTypeCode: 0,
+							open: true,
+							iconSkin: "pRootIcon"
+						}];
+
+						//初始化树
+						$.fn.zTree.init($("#zTreediv2"), setting, zNodes);
+						var treeObj = $.fn.zTree.getZTreeObj("zTreediv2");
+						var nodes = treeObj.getNodes();
+						loadTreeNodes(treeObj, nodes[0]);
+
+						// / 树形结构
+					}
+					tree();
+
+					// /联动门禁树形结构加载
+
+					// 联动视频源树形结构加载
+
+					//树型结构
+					function tree2() {
+						//树形结构开展
+						var setting = {
+
+							check: {
+								enable: true,
+								chkStyle: "checkbox",
+								chkboxType: {
+									"Y": "s",
+									"N": "s"
+								}
+							},
+							data: {
+								simpleData: {
+									enable: true,
+									idKey: 'id', //对应json数据中的ID
+									pIdKey: 'parentId' //对应json数据中的父ID
+								}
+							},
+							callback: {
+								onClick: zTreeOnClick,
+								onExpand: zTreeOnExpand,
+								onCheck: onCheck,
+					
+
+							}
+						};
+
+						//联动视频源table表格数据插入
+						//存储所有的节点数据json格式
+						var i1 = [];
+						var valuex;
+						var viewId = 0;
+						var up = 0;
+						//获取树节点的数据并且插入到table表格中
+						function onCheck(e, treeId, treeNode) {
+							//清空以前的数据
+							i1 = [];
+							var treeObj = $.fn.zTree.getZTreeObj("zTreediv3"),
+								m = "";
+
+							/*	
+							 * 获取所有选中的节点数据
+							 * nodes = treeObj.getCheckedNodes(),
+							 */
+							var nodes = treeObj.getNodesByFilter(filter);
+							console.log(nodes);
+
+							function filter(node) {
+							
+								return(node.level == 3 && node.checked == true);
+							}
+							console.log(nodes);
+							for(var i = 0; i < nodes.length; i++) {
+								var devinfo = new Object();
+								
+								var dataInfo = JSON.parse(nodes[i].dataInfo);
+								console.log("dataInfo",dataInfo);
+										
+								devinfo.viewId = up++;
+								devinfo.platId = dataInfo.platId;
+								devinfo.puId = nodes[i].parentId;
+								devinfo.chnId = nodes[i].id;
+								devinfo.chnNo = dataInfo.chnNo;
+								devinfo.devName = nodes[i].name;
+								i1.push(devinfo);
+							}
+
+							
+							console.log(i1);
+							console.log(devinfo);
+						} //onCheck
+						/*
+						 *onCheck 数据获取函数（电视墙序号）
+						 * #sure2  弹出电视墙选择确定按钮
+						 * 
+						 * 
+						 * */
+						//点击确定时将数据插入到表格中
+						$('#sure2').click(function(e) {
+							e.preventDefault();
+							
+							onCheck();
+							var getallviewtv = $("#tb_history_alarms").bootstrapTable('getData');
+							console.log("getallviewtv", getallviewtv);
+
+						/*
+						 *getallviewtv 获取当前视屏源的所有数据 []
+						 * 
+						 *getallviewtv.length == 0 用于判断当前用户有无添加视屏源
+						 *i1 存储用户所选择的视屏源数据   [] 
+						 * 
+						 * */
+						$('#tb_history_alarms').bootstrapTable('load', i1);
+						if(getallviewtv.length == 0) {
+								for(var j = 0; j < i1.length; j++) {
+										var dataxx = i1[j];
+										$('#tb_history_alarms').bootstrapTable('append', dataxx);
+									}
+							}	
+
+							if(getallviewtv.length > 0) {
+								/*
+								 * 第一个for 用于删除与原有添加相同的视屏源
+								 * 第二for   用于添加删除后的与已有视屏源不同的视屏源
+								 * */
+								for(var j = 0; j < i1.length-1; j++) {
+										var dataxx = i1[j];
+										for(var k = 0;k<getallviewtv.length;k++){
+										if(i1[j].chnId == getallviewtv[k].chnId ){
+											index = j;
+											i1.splice(index,1);
+
+										}
+										}
+										
+									}
+								
+								for(var j = 0; j < i1.length; j++) {
+									var dataxx = i1[j];
+									$('#tb_history_alarms').bootstrapTable('append', dataxx);
+								}
+
+							}
+							
+							
+
+							
+
+						});
+
+						// /联动视频源table表格数据插入	
+
+						//设置图标, devTypeCode
+						function setIconSkin(dObj) {
+							if(12003 == dObj.layerTypeCode) {
+								//通道
+								if(typeof(dObj.online) == "undefined") {
+									//无状态表示
+									dObj.iconSkin = "chnNormal";
+								} else if(0 == dObj.online) {
+									//不在线
+									dObj.iconSkin = "chnOffline";
+								} else {
+									//在线
+									dObj.iconSkin = "chnOnline";
+								}
+							} else if(12001 == dObj.layerTypeCode) {
+								//设备
+								if(typeof(dObj.online) == "undefined") {
+									//无状态表示
+									dObj.iconSkin = "devNormal";
+								} else if(0 == dObj.online) {
+									//不在线
+									dObj.iconSkin = "devOffline";
+								} else {
+									//在线
+									dObj.iconSkin = "devOnline";
+								}
+								dObj.isParent = true;
+							} else if(12000 == dObj.layerTypeCode) {
+								//平台
+								if(typeof(dObj.online) == "undefined") {
+									//无状态表示
+									dObj.iconSkin = "platNormal";
+								} else if(0 == dObj.online) {
+									//不在线
+									dObj.iconSkin = "platOffline";
+								} else {
+									//在线
+									dObj.iconSkin = "platOnline";
+								}
+
+								dObj.isParent = true;
+							}
+
+						}
+
+						//树形结点的加载
+						function loadTreeNodes(tree, node) {
+							var treeurl = "/aps/pu-tree/trees";
+							if(!node.id || node.id == "root") {
+								//load device
+								treeurl += "?id=&layertype=0";
+							} else {
+								//load nodes
+								treeurl += "?id=" + node.id + "&layertype=" +
+									node.layerTypeCode;
+							}
+							$.ajax({
+								type: "GET",
+								url: treeurl,
+								contentType: "application/x-www-form-urlencoded", //post只能写urlencoded,json不能被识别
+								dataType: "json",
+								success: function(data) {
+									console.log(data);
+									
+									if(null != node.children && node.children.length > 0) {
+										return;
+									}
+
+									if(data && data.length > 0) {
+										for(idx = 0; idx < data.length; ++idx) {
+											//因chidren无数据 删除 children的属性
+											delete data[idx].children;
+											var t = data[idx];
+											
+											setIconSkin(data[idx]);
+										}
+
+										
+
+										tree.addNodes(node, data, true); //如果是加载子节点，那么就是父节点下
+										
+										tree.expandNode(node, true, false, false); // 将新获取的子节点展开
+
+									}
+
+									return;
+
+								},
+								error: function(XMLHttpRequest, textStatus,
+									errorThrown) {
+									layer.alert("获取设备树失败!code=" + XMLHttpRequest.status,{shade:0,icon: 2});
+								}
+							});
+
+						} //init jstree over
+
+						//zTree加载节点
+						function zTreeLoadNodes(event, treeId, treeNode) {
+							//控制最后节点的显示与否
+							if(12003 == treeNode.layerTypeCode) {
+								//已经到叶子节点
+								return;
+							} else if(null != treeNode.children && treeNode.children.length > 0) {
+								//已经添加了叶子节点，暂时不再添加
+								return;
+							}
+
+							var treeObj = $.fn.zTree.getZTreeObj(treeId);
+							loadTreeNodes(treeObj, treeNode);
+						}
+
+						//展开时间处理
+						function zTreeOnExpand(event, treeId, treeNode) {
+							zTreeLoadNodes(event, treeId, treeNode);
+						}
+						//处理点击事件
+						function zTreeOnClick(event, treeId, treeNode) {
+
+							zTreeLoadNodes(event, treeId, treeNode);
+							if(12001 == treeNode.layerTypeCode || 12002 == treeNode.layerTypeCode || 12003 == treeNode.layerTypeCode) {
+
+							}
+						};
+
+						//根节点
+						var zNodes = [{
+							id: "root",
+							parentId: 0,
+							name: "主机列表",
+							layerTypeCode: 0,
+							open: true,
+							iconSkin: "pRootIcon"
+						}];
+
+						//初始化树
+						$.fn.zTree.init($("#zTreediv3"), setting, zNodes);
+						var treeObj = $.fn.zTree.getZTreeObj("zTreediv3");
+						var nodes = treeObj.getNodes();
+						loadTreeNodes(treeObj, nodes[0]);
+
+						// / 树形结构
+					}
+					tree2();
+
+					//  /联动视屏源树形结构加载
+
+					//下拉特效
+					var flag = true;
+					var flag2 = true;
+					var flag3 = true;
+					var flag4 = true;
+					var flag5 = true;
+					var flag6 = true;
+					var flag7 = true;
+					var flag8 = true;
+					
+					//downUp方法是页面的上拉下拉特效
+					function downUp(f, elem, elem_sh, elem_icon) {
+						elem.on("click", function() {
+							elem_sh.slideToggle();
+
+							if(f) {
+								elem_icon.css("background", "url(../img/arrow_top.png) right center no-repeat");
+								elem_icon.css("backgroundSize", "14px");
+							} else {
+								elem_icon.css("background", "url(../img/arrow_bottom.png) right center no-repeat");
+								elem_icon.css("backgroundSize", "14px");
+
+							}
+							f = !f;
+						})
+					}
+					//联动布防
+					downUp(flag, $("#active_denfence"), $("#active_denfence_sh"), $(".config_info  .active_denfence"));
+					//联动视频源
+					downUp(flag2, $("#water"), $("#water_sh"), $(".config_info  .water"));
+					//电视墙预案
+					downUp(flag3, $("#tv"), $("#tv_sh"), $(".config_info  .tv"));
+					//联动led
+					downUp(flag4, $("#active_led"), $("#active_led_sh"), $(".config_info  .active_led"));
+					//联动开关主机
+					downUp(flag5, $("#active_on_off"), $("#active_on_off_sh"), $(".config_info  .active_on_off"));
+					//联动时间
+					downUp(flag6, $("#active_time"), $("#active_time_sh"), $(".config_info  .active_time"));
+					//门禁
+					downUp(flag7, $("#door_stop"), $("#door_stop_sh"), $(".config_info  .door_stop"));
+					//联动短信
+					downUp(flag8, $("#active_message"), $("#active_message_sh"), $(".config_info  .active_message"));
+
+					// /下拉特效
+
+					// ********************电视墙用户选择 **************************************
+					var viewData = [];
+					//树型结构
+					function tvWall(platId) {
+						var platIdx = platId;
+
+						var treeurl = "/rms/pu-dev/plats/" + platIdx + "/tvwalls";
+
+						$.ajax({
+							type: "GET",
+							url: treeurl,
+							contentType: "application/x-www-form-urlencoded", //post只能写urlencoded,json不能被识别
+							dataType: "json",
+							success: function(data) {
+								console.log("电视墙数据",data);
+								// 动态增加电视墙名称	
+								var Data = data.data;
+								if(Data != null) {
+								$("#viewSelect").empty();
+										for(var i = 0; i < Data.length; i++) {
+											var alarmTypeSelect = $("<option value=" + i + ">" + Data[i].tvWallName + "</option>");
+											alarmTypeSelect.appendTo($("#viewSelect"));
+
+										}
+										
+			
+				// 电视机数目
+				function tvNumber(number){
+				for(var i = 0; i < number; i++) {
+					var oli = $('<li class="innerli" data-tvWallId = '+Data[0].tvWallId+' data-decoderId='+Data[0].decoderBinds[0].decoderId+'><div class="tv_view" ><div class="tv_channel_box"><ul class="tv_channel_list"></ul></div></div></li>');
+					oli.appendTo($(".box"));
+				}
+				}
+				tvNumber(Data[0].tvNum);
+				// 为每个电机增加电视机通道
+				function channelNum(index, divNum) {
+					for(var j = 0; j < divNum; j++) {
+						var innerLi = $("<li class='layout" + divNum + "'><div class='tv_view'><div class='tv_channel_box tv_channel_box_select'>" + (j + 1) + "</div></div></li>");
+						innerLi.appendTo($(".tv_channel_list").eq(index));
+					}
+				}
+				
+				for(var i = 0; i < $(".tv_channel_list").length; i++) {
+					var index = i;
+					channelNum(index, Data[0].decoderBinds[0].divNum);
+				}
+               // 电视机数目
+				function tvStyle(number) {
+					$(".channel_box li.innerli").css({
+						"width": (100 / number) + "%",
+						"height": (100 / number) + "%",
+					})
+				}
+
+				tvStyle(Math.sqrt(Data[0].tvNum));
+
+				$(".tv_channel_box_select").click(function() {
+					$(".tv_channel_box_select").each(function() {
+						$(".tv_channel_box_select").removeClass('active')
+					});
+					$(this).addClass('active');
+					console.log($(".active").parents(".innerli").index());
+					console.log($(".active").parents(".innerli").attr("data-tvWallId"));
+				})
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										
+
+
+
+									// /动态增加电视墙名称
+
+
+									// 电视墙选择	
+									$(document).off('change', '#viewSelect').on("change", '#viewSelect', function() {
+										
+										$(".channel_box .box").empty();
+										var cur_view = parseInt($('#viewSelect option:selected').attr("value"));
+										// 电视机数目
+				function tvNumber(number){
+				for(var i = 0; i < number; i++) {
+					var oli = $('<li class="innerli" data-tvWallId = '+Data[cur_view].tvWallId+' data-decoderId='+Data[cur_view].decoderBinds[0].decoderId+'><div class="tv_view" ><div class="tv_channel_box"><ul class="tv_channel_list"></ul></div></div></li>');
+					oli.appendTo($(".box"));
+				}
+				}
+				tvNumber(Data[cur_view].tvNum);
+				// 为每个电机增加电视机通道
+				function channelNum(index, divNum) {
+					for(var j = 0; j < divNum; j++) {
+						var innerLi = $("<li class='layout" + divNum + "'><div class='tv_view'><div class='tv_channel_box tv_channel_box_select'>" + (j + 1) + "</div></div></li>");
+						innerLi.appendTo($(".tv_channel_list").eq(index));
+					}
+				}
+				
+				for(var i = 0; i < $(".tv_channel_list").length; i++) {
+					var index = i;
+					channelNum(index, Data[cur_view].decoderBinds[0].divNum);
+				}
+               // 电视机数目
+				function tvStyle(number) {
+					$(".channel_box li.innerli").css({
+						"width": (100 / number) + "%",
+						"height": (100 / number) + "%",
+					})
+				}
+
+				tvStyle(Math.sqrt(Data[cur_view].tvNum));
+				
+				$(".tv_channel_box_select").click(function() {
+					$(".tv_channel_box_select").each(function() {
+						$(".tv_channel_box_select").removeClass('active')
+					});
+					$(this).addClass('active');
+					
+				})
+										
+										
+
+//										viewData = [];
+//										var cur_view = parseInt($('#viewSelect option:selected').attr("value"));
+//										$('#view').bootstrapTable('removeAll');
+//
+//										for(var i = 0; i < Data[cur_view].tvNum; i++) {
+//											var index = i+1;
+//											var tvnum = {
+//
+//												viewNum: index,
+//												tvWallId: Data[cur_view].tvWallId,
+//												decoderId: Data[cur_view].decoderBinds[0].decoderId,
+//												tvId: i,
+//												divNum: Data[cur_view].decoderBinds[0].divNum
+//
+//											}
+//
+//											viewData.push(tvnum);
+//
+//										}
+//										$('#view').bootstrapTable('load', viewData);
+//										for(var j = 0; j < viewData.length; j++) {
+//											var viewNum = viewData[j];
+//											$('#view').bootstrapTable('append', viewNum);
+//										}
+									});
+									//end 电视墙选择
+									
+								} else {
+									layer.alert("此平台上面没有电视墙!", {
+										time: 3000
+									});
+								}
+
+							},
+							error: function(XMLHttpRequest, textStatus,
+								errorThrown) {
+								layer.alert("获取设备树失败!code=" + XMLHttpRequest.status,{shade:0,icon: 2});
+							}
+						});
+					}
+
+					//  /*********************电视墙用户选择********************************
+
+					//之前是否选用过的电视序号标志		
+					var tvWallFlag;
+					//						联动视频源
+					var TableInit1 = function() {
+						var oTableInit = new Object();
+						//初始化Table
+						oTableInit.Init = function() {
+							$('#tb_history_alarms').bootstrapTable({
+								//									/aps/alarmslist
+								url: '', //请求后台的URL（*）
+								method: 'get', //请求方式（*）
+								//toolbar: '',             //工具按钮用哪个容器
+								striped: true, //是否显示行间隔色
+								cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+								pagination: true, //是否显示分页（*）
+								sortable: false, //是否启用排序
+								sortOrder: "asc", //排序方式
+								queryParams: oTableInit.queryParams, //传递参数（*）
+								sidePagination: "server", //分页方式：client客户端分页，server服务端分页（*）
+								pageNumber: 1, //初始化加载第一页，默认第一页
+								pageSize: 5, //每页的记录行数（*）
+								pageList: [5, 10, 15, 20], //可供选择的每页的行数（*）
+								pagination: false,
+								search: false, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+								strictSearch: true,
+								showColumns: false, //是否显示所有的列
+								showRefresh: false, //是否显示刷新按钮
+								minimumCountColumns: 5, //最少允许的列数
+								clickToSelect: true, //是否启用点击选中行
+								height: 200, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+								uniqueId: "viewId", //每一行的唯一标识，一般为主键列
+								showToggle: false, //是否显示详细视图和列表视图的切换按钮
+								cardView: false, //是否显示详细视图
+								detailView: false, //是否显示父子表
+								columns: [
+									[
+										//									{
+										//									checkbox: false
+										//								},
+										{
+											field: "viewId",
+											title: 'id',
+											//									data:[{id:1},{id:2}]
+										},
+										{
+											field: "devName",
+											title: '视频源',
+											//									data:[{id:1},{id:2}]
+										},
+										
+										{
+											field: "tvWallName",
+											title: '电视墙名称',
+										},
+										{
+											field: "puId",
+											title: 'puId'
+										},
+										{
+											field: "chnId",
+											title: 'chnId'
+										},
+										{
+											field: "platId",
+											title: 'PlatId'
+										},
+										{
+											field: 'viewNum',
+											title: "viewNum"
+										},
+										{
+											field: "tvWallId",
+											title: 'tvWallId'
+										},
+										{
+											field: "decoderId",
+											title: 'decoderId'
+										},
+										{
+											field: "tvId",
+											title: 'tvId'
+										},
+										{
+											field: "divNum",
+											title: 'divNum'
+										},
+										{
+											field: "tvWall",
+											title: '电视墙',
+											events: operateEvents,
+											formatter: AddFunctionAlty
+										},
+										{
+											field: 'oprate',
+											title: '基本操作',
+											formatter: function(value, row, index) {
+												var r = '<a class="remove" href="#" title= "Remove" onclick="onRemoveView(\'' + row.viewId + '\')">删除</a>';
+												return r;
+											}
+										},
+
+									]
+								]
+							});
+//							$('#tb_history_alarms').bootstrapTable('hideColumn', 'viewId');
+//							$('#tb_history_alarms').bootstrapTable('hideColumn', 'alarmId');
+//							$('#tb_history_alarms').bootstrapTable('hideColumn', 'puId');
+//							$('#tb_history_alarms').bootstrapTable('hideColumn', 'chnId');
+//							$('#tb_history_alarms').bootstrapTable('hideColumn', 'platId');
+//							$('#tb_history_alarms').bootstrapTable('hideColumn', 'tvWallId');
+//							$('#tb_history_alarms').bootstrapTable('hideColumn', 'decoderId');
+//							$('#tb_history_alarms').bootstrapTable('hideColumn', 'tvId');
+//							$('#tb_history_alarms').bootstrapTable('hideColumn', 'divNum');
+
+						};
+
+						
+
+						return oTableInit;
+					};
+
+					function onRemoveView(viewId) {
+						$('#tb_history_alarms').bootstrapTable('remove', {
+							field: 'viewId',
+							values: [parseInt(viewId)]
+
+						})
+						
+					}
+
+					//添加选择按钮
+					function AddFunctionAlty(value, row, index) {
+
+						return [
+							'<a href="javascript:;" id="TableSelector" type="button" class="">选择</a>'
+						].join("");
+						
+					}
+					var tvwalldata = {};
+					window.operateEvents = {  
+						"click #TableSelector": function(e, value, row, index) {
+							e.preventDefault();
+							e.stopPropagation();
+							/*
+							 *rowx 获取当前行的所有数据  {} 
+							 *indexx 获取当前行的索引值 
+							 * 
+							 * */
+							single_row = row;
+							var indexx = index;
+							var platId = single_row.platId;
+							$("#viewSelect").empty();
+//							$('#view').bootstrapTable('removeAll');
+							tvWall(platId); //电视墙函数的调用 !important
+
+							//将视频源表格里面的tvWallId，viewNum字段放入tvWall的数组中
+							var tvWallArr = [];
+							
+							tvWallArr = [];
+							var getSelectRowstvWall = $("#tb_history_alarms").bootstrapTable('getData');
+							for(var index = 0; index < getSelectRowstvWall.length; ++index) {
+								var tvWallData = {};
+								tvWallData.tvWallId = getSelectRowstvWall[index].tvWallId;
+
+								tvWallData.tvDivId = getSelectRowstvWall[index].viewNum;
+								tvWallArr.push(tvWallData);
+							}
+			
+
+							console.log("operateEventstvWallArr", tvWallArr);
+
+							//					
+							// 弹出视频墙部分
+							layer.open({
+								type: 1,
+								title: "视频墙",
+								closeBtn: 1,
+								area: "820px",
+								shadeClose: true,
+								
+								skin: 'yourclass',
+								content: $("#link_view"), //iframe的url，no代表不显示滚动条
+								cancel: function(index, layero) {
+									return true;
+								}
+							});
+//							var rowxx = single_row.viewId;
+							//#sure3视频墙弹出框确定按钮
+							$('#sure3').off("click").on("click", function(e) {
+								//									$(document).ready(function(){
+								e.preventDefault();
+								e.stopPropagation();
+								var selectArray = $("#view").bootstrapTable('getSelections');
+//								if(selectArray.length > 0) {
+//									var selectContent = $("#view").bootstrapTable('getSelections')[0];
+//									var selectContentx = selectContent.viewNum; //重新加载数据
+//									var selectContenty = selectContent.tvWallId;
+//									console.log('selectContentx', selectContentx);
+//									console.log('selectContenty', selectContenty);
+									
+									/*
+									 *tvWallArr   []  联动视频源所有数据
+									 * tvDivId    str 电视墙序号     eg:1
+									 * tvWallId   str 视频源唯一Id eg:"3bd6034bdfda4d7486d1ba5bee8800e6@kedacom"
+									 * */
+
+//									tvWallFlag = true;
+//									for(var i = 0; i < tvWallArr.length; ++i) {
+//										if(tvWallArr[i].tvDivId != undefined && tvWallArr[i].tvWallId != undefined) {
+//											if(tvWallArr[i].tvDivId == selectContentx && tvWallArr[i].tvWallId == selectContenty) {
+//												tvWallFlag = false;
+//											}
+//
+//										}
+//									}
+//									for(var i = 0; i < tvWallArr.length; ++i) {
+//										if(tvWallArr[i].tvDivId != undefined && tvWallArr[i].tvWallId != undefined) {
+//											if(tvWallArr[i].tvDivId != selectContentx && tvWallArr[i].tvWallId != selectContenty) {
+//												tvWallFlag = true;
+//											}
+//											if(tvWallArr[i].tvDivId == selectContentx && tvWallArr[i].tvWallId != selectContenty) {
+//												tvWallFlag = true;
+//											}
+//
+//										}
+//									}
+//
+//									console.log("tvWallArr", tvWallArr);
+//								
+//									console.log("tvWallFlag", tvWallFlag);
+//								}   //if end
+								
+
+								//获取单选行数据													
+//								var selectContentrowx = $("#view").bootstrapTable('getSelections', function(row) {
+//									console.log("row:", row);
+//									return row;
+//								});
+//								
+//								console.log("selectContentrowx", selectContentrowx);
+								//							if(tvWallFlag  ){
+
+								// 选中行的数据选择添加
+								//							console.log(selectContentx);
+								//电视墙名称
+
+								
+								//selectContentrowx.length判断是否选中一行 如果选中更新当前行数据
+								if($(".channel_box .active").length > 0) {
+									var viewNum    =  $(".active").parents(".innerli").index();
+									var tvWallName =  $("#viewSelect option:selected").text();
+									var tvWallId   =  $(".active").parents(".innerli").attr("data-tvWallId");
+									var decoderId  =  $(".active").parents(".innerli").attr("data-decoderId");
+									var tvId       =  $(".active").parents(".innerli").index();
+									var divNum     =  $(".innerli").length;
+									
+//									var selectContent = $("#view").bootstrapTable('getSelections')[0];
+//									var selectContentx = selectContent.viewNum; //重新加载数据
+//									var selectContenty = selectContent.tvWallId;
+//									var select_decoderId = selectContent.decoderId;
+//									var select_tvId = selectContent.tvId;
+//									var select_divNum = selectContent.divNum;
+//									var select_viewNum    = viewNum;		
+//									var select_tvwallname = tvWallName;
+									tvwalldata.viewNum = viewNum;
+									tvwalldata.tvWallId = tvWallId;
+									tvwalldata.decoderId = decoderId;
+									tvwalldata.tvId = tvId;
+									tvwalldata.divNum = divNum;
+									tvwalldata.tvWallName = tvWallName;
+									$('#tb_history_alarms').bootstrapTable('updateRow', {
+											index: indexx,
+											row: tvwalldata
+										});
+									console.log("rowx", single_row);
+//									if(!tvWallFlag) {
+//									layer.alert("电视序号，不能相同！",{shade:0,icon: 2});
+//										
+//									} else {
+//										$('#tb_history_alarms').bootstrapTable('updateRow', {
+//											index: indexx,
+//											row: rowx
+//										});
+//
+//									}
+
+								} else {
+									layer.alert("请选中一行！",{shade:0,icon: 2});
+								}
+								// /选中行的数据选择添加
+
+								//							}else{
+								//								alert("电视墙序号不能相同!");
+								//							}                                           
+
+								//							}) //ready over
+								layer.closeAll('page');
+							})
+
+							$('#cancel3').on("click", function() {
+								layer.closeAll('page');
+							})
+						}, //click #TableSelector end
+
+					} //window.operateEvents end
+
+					//						电视墙
+					var TableInit_view = function() {
+						var oTableInit = new Object();
+						//初始化Table
+						oTableInit.Init = function() {
+							$('#view').bootstrapTable({
+								//									/aps/alarmslist
+								url: '', //请求后台的URL（*）
+								method: 'get', //请求方式（*）
+								//toolbar: '',             //工具按钮用哪个容器
+								striped: true, //是否显示行间隔色
+								cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+								pagination: true, //是否显示分页（*）
+								sortable: false, //是否启用排序
+								sortOrder: "asc", //排序方式
+								queryParams: oTableInit.queryParams, //传递参数（*）
+								sidePagination: "server", //分页方式：client客户端分页，server服务端分页（*）
+								pageNumber: 1, //初始化加载第一页，默认第一页
+								pageSize: 5, //每页的记录行数（*）
+								pageList: [5, 10, 15, 20], //可供选择的每页的行数（*）
+								pagination: false,
+								search: false, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+								strictSearch: true,
+								showColumns: false, //是否显示所有的列
+								showRefresh: false, //是否显示刷新按钮
+								minimumCountColumns: 5, //最少允许的列数
+								clickToSelect: true, //是否启用点击选中行
+								height: 200, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+								uniqueId: "alarmId", //每一行的唯一标识，一般为主键列
+								showToggle: false, //是否显示详细视图和列表视图的切换按钮
+								cardView: false, //是否显示详细视图
+								detailView: false, //是否显示父子表
+								singleSelect: true,
+								columns: [
+									[{
+											checkbox: true
+										},
+										{
+											field: "viewNum",
+											title: '电视序号',
+											//									data:[{id:1},{id:2}]
+										},
+										{
+											field: "divNum",
+											title: 'divNum'
+										},
+										{
+											field: "tvNum",
+											title: '电视通道',
+											events: operateEventsTv,
+											formatter: AddFunctionAltyTv
+										},
+										{
+											field: "tvWallId",
+											title: 'tvWallId'
+										},
+										{
+											field: "decoderId",
+											title: 'decoderId'
+										},
+										{
+											field: "tvId",
+											title: 'tvId'
+										},
+//										{
+//											field: "divNum",
+//											title: 'divNum'
+//										},
+
+									]
+								]
+							});
+
+							//$('#view').bootstrapTable('hideColumn', 'type');
+//							$('#view').bootstrapTable('hideColumn', 'nodeId');
+//							$('#view').bootstrapTable('hideColumn', 'tvWallId');
+//							$('#view').bootstrapTable('hideColumn', 'decoderId');
+//							$('#view').bootstrapTable('hideColumn', 'tvId');
+//							$('#view').bootstrapTable('hideColumn', 'divNum');
+						};
+
+						//得到查询的参数
+						//													oTableInit.queryParams = function(params) {
+						//														var temp = { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+						//															pagesize: params.limit, //页面大小
+						//															pageindex: params.offset, //页码
+						//															name: $("#planName").val()
+						//														};
+						//														return temp;
+						//													};
+
+						return oTableInit;
+					};
+					
+					/************ 电视墙选择相关方法  ****************/
+					
+					//选择电视机通道
+					function AddFunctionAltyTv(value, row, index) {
+
+						return [
+							'<a href="javascript:;" id="TableTvSelector" type="button" class="">选择</a>'
+						].join("");
+						
+					}
+					
+					window.operateEventsTv = {
+						"click #TableTvSelector": function(e, value, row, index) {
+							layer.open({
+								type: 1,
+								title: "电视机通道",
+								closeBtn: 1,
+								area: "400px",
+								shadeClose: true,
+								
+								skin: 'yourclass',
+								content: $("#tv_channel"), //iframe的url，no代表不显示滚动条
+								cancel: function(index, layero) {
+									return true;
+								}
+							});
+							
+							$('#channel_sure').on("click", function() {
+								layer.closeAll('page');
+							})
+							$('#channel_cancel').on("click", function() {
+								layer.closeAll('page');
+							})
+							
+							
+							
+							
+						} //click #TableTvSelector end
+
+					} //window.operateEvents end
+					
+					// end选择电视机通道
+							
+					
+					
+                /************ 电视墙选择相关方法  ****************/
+					$(document).ready(function() {
+						//1.初始化Table
+//						var oTable = new TableInit_view();
+//						oTable.Init();
+					});
+
+					//						/电视墙
+
+					$(document).ready(function() {
+						//1.初始化Table
+						var oTable = new TableInit1();
+						oTable.Init();
+					});
+
+					//					/联动视频源
+
+					//						联动LED
+					var TableInit2 = function() {
+						var oTableInit = new Object();
+						//初始化Table
+						oTableInit.Init = function() {
+							$('#tb_history_alarms2').bootstrapTable({
+								//									/aps/alarmslist
+								url: '', //请求后台的URL（*）
+								method: 'get', //请求方式（*）
+								//toolbar: '',             //工具按钮用哪个容器
+								striped: true, //是否显示行间隔色
+								cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+								pagination: true, //是否显示分页（*）
+								sortable: false, //是否启用排序
+								sortOrder: "asc", //排序方式
+								queryParams: oTableInit.queryParams, //传递参数（*）
+								sidePagination: "server", //分页方式：client客户端分页，server服务端分页（*）
+								pageNumber: 1, //初始化加载第一页，默认第一页
+								pageSize: 5, //每页的记录行数（*）
+								pageList: [5, 10, 15, 20], //可供选择的每页的行数（*）
+								pagination: false,
+								search: false, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+								strictSearch: true,
+								showColumns: false, //是否显示所有的列
+								showRefresh: false, //是否显示刷新按钮
+								minimumCountColumns: 5, //最少允许的列数
+								clickToSelect: true, //是否启用点击选中行
+								height: 200, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+								uniqueId: "alarmId", //每一行的唯一标识，一般为主键列
+								showToggle: false, //是否显示详细视图和列表视图的切换按钮
+								cardView: false, //是否显示详细视图
+								detailView: false, //是否显示父子表
+								columns: [{
+									checkbox: false
+								}, {
+									field: 'alarmId',
+									title: '序号',
+								}, {
+									field: 'nodeId',
+									title: '报警点Id',
+								}, {
+									field: 'nodeName',
+									title: 'LED名称'
+								}, {
+									field: 'devName',
+									title: '设备型号'
+								}, {
+									field: 'nodeArea',
+									title: '接入方式'
+								}, {
+									field: 'alarmEvent',
+									title: '操作'
+								}]
+							});
+
+							$('#tb_history_alarms2').bootstrapTable('hideColumn', 'alarmId');
+							$('#tb_history_alarms2').bootstrapTable('hideColumn', 'nodeId');
+						};
+
+						//得到查询的参数
+						//													oTableInit.queryParams = function(params) {
+						//														var temp = { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+						//															pagesize: params.limit, //页面大小
+						//															pageindex: params.offset, //页码
+						//															name: $("#planName").val()
+						//														};
+						//														return temp;
+						//													};
+
+						return oTableInit;
+					};
+
+					$(document).ready(function() {
+						//1.初始化Table
+						var oTable = new TableInit2();
+						oTable.Init();
+					});
+
+					// /联动LED
+
+					//						联动开关主机
+					var TableInit3 = function() {
+						var oTableInit = new Object();
+						//初始化Table
+						oTableInit.Init = function() {
+							$('#tb_history_alarms3').bootstrapTable({
+								//									/aps/alarmslist
+								url: '', //请求后台的URL（*）
+								method: 'get', //请求方式（*）
+								//toolbar: '',             //工具按钮用哪个容器
+								striped: true, //是否显示行间隔色
+								cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+								pagination: true, //是否显示分页（*）
+								sortable: false, //是否启用排序
+								sortOrder: "asc", //排序方式
+								queryParams: oTableInit.queryParams, //传递参数（*）
+								sidePagination: "server", //分页方式：client客户端分页，server服务端分页（*）
+								pageNumber: 1, //初始化加载第一页，默认第一页
+								pageSize: 5, //每页的记录行数（*）
+								pageList: [5, 10, 15, 20], //可供选择的每页的行数（*）
+								pagination: false,
+								search: false, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+								strictSearch: true,
+								showColumns: false, //是否显示所有的列
+								showRefresh: false, //是否显示刷新按钮
+								minimumCountColumns: 5, //最少允许的列数
+								clickToSelect: true, //是否启用点击选中行
+								height: 200, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+								uniqueId: "alarmId", //每一行的唯一标识，一般为主键列
+								showToggle: false, //是否显示详细视图和列表视图的切换按钮
+								cardView: false, //是否显示详细视图
+								detailView: false, //是否显示父子表
+								columns: [{
+										checkbox: false
+									}, {
+										field: 'alarmId',
+										title: '序号',
+									}, {
+										field: 'nodeId',
+										title: '报警点Id',
+									}, {
+										field: 'nodeName',
+										title: '开关主机'
+									}, {
+										field: 'devName',
+										title: '开关点'
+									}, {
+										field: 'nodeArea',
+										title: '操作类型'
+									},
+									{
+										field: 'nodeArea',
+										title: '最大时长'
+									}, {
+										field: 'alarmEvent',
+										title: '操作'
+									}
+								]
+							});
+
+							$('#tb_history_alarms3').bootstrapTable('hideColumn', 'alarmId');
+							$('#tb_history_alarms3').bootstrapTable('hideColumn', 'nodeId');
+						};
+
+						//得到查询的参数
+						//													oTableInit.queryParams = function(params) {
+						//														var temp = { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+						//															pagesize: params.limit, //页面大小
+						//															pageindex: params.offset, //页码
+						//															name: $("#planName").val()
+						//														};
+						//														return temp;
+						//													};
+
+						return oTableInit;
+					};
+
+					$(document).ready(function() {
+						//1.初始化Table
+						var oTable = new TableInit3();
+						oTable.Init();
+					});
+
+					//						/联动开关主机
+
+					//						联动时间
+					var TableInit4 = function() {
+						var oTableInit = new Object();
+						//初始化Table
+						oTableInit.Init = function() {
+							$('#tb_history_alarms4').bootstrapTable({
+								//									/aps/alarmslist
+								url: '', //请求后台的URL（*）
+								method: 'get', //请求方式（*）
+								//toolbar: '',             //工具按钮用哪个容器
+								striped: true, //是否显示行间隔色
+								cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+								pagination: true, //是否显示分页（*）
+								sortable: false, //是否启用排序
+								sortOrder: "asc", //排序方式
+								queryParams: oTableInit.queryParams, //传递参数（*）
+								sidePagination: "server", //分页方式：client客户端分页，server服务端分页（*）
+								pageNumber: 1, //初始化加载第一页，默认第一页
+								pageSize: 5, //每页的记录行数（*）
+								pageList: [5, 10, 15, 20], //可供选择的每页的行数（*）
+								pagination: false,
+								search: false, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+								strictSearch: true,
+								showColumns: false, //是否显示所有的列
+								showRefresh: false, //是否显示刷新按钮
+								minimumCountColumns: 5, //最少允许的列数
+								clickToSelect: true, //是否启用点击选中行
+								height: 200, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+								uniqueId: "alarmId", //每一行的唯一标识，一般为主键列
+								showToggle: false, //是否显示详细视图和列表视图的切换按钮
+								cardView: false, //是否显示详细视图
+								detailView: false, //是否显示父子表
+								//								columns: [{
+								//										checkbox: false
+								//									}, {
+								//										field: 'alarmId',
+								//										title: '序号',
+								//									}, {
+								//										field: 'nodeId',
+								//										title: '报警点Id',
+								//									}, {
+								//										field: 'nodeName',
+								//										title: '指定时间'
+								//									}, {
+								//										field: 'devName',
+								//										title: '起始时间'
+								//									}, {
+								//										field: 'nodeArea',
+								//										title: '结束时间'
+								//									},
+								//
+								//								]
+								columns: [
+									[
+										//									{
+										//										checkbox: true
+										//									},
+										{
+											field: "linkId",
+											title: 'id',
+											//									data:[{id:1},{id:2}]
+										},
+										{
+											field: "specTime",
+											title: '指定日期',
+											//									data:[{id:1},{id:2}]
+										},
+										{
+											field: "startTime",
+											title: '起始时间'
+										},
+										{
+											field: "endTime",
+											title: '结束时间'
+										},
+										{
+											field: 'oprate',
+											title: '基本操作',
+											formatter: function(value, row, index) {
+												var r = '<a class="remove" href="#" title= "Remove" onclick="onRemove(\'' + row.linkId + '\')">删除</a>';
+												return r;
+											}
+										},
+
+									]
+								]
+							});
+
+							$('#tb_history_alarms4').bootstrapTable('hideColumn', 'linkId');
+							$('#tb_history_alarms4').bootstrapTable('hideColumn', 'nodeId');
+						};
+
+						//得到查询的参数
+						//													oTableInit.queryParams = function(params) {
+						//														var temp = { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+						//															pagesize: params.limit, //页面大小
+						//															pageindex: params.offset, //页码
+						//															name: $("#planName").val()
+						//														};
+						//														return temp;
+						//													};
+
+						return oTableInit;
+					};
+
+					//					function operateFormatter(value,row,index) {
+					//						return ['<button type="button" class="btn btn-primary btn-xs">点我</button>',].join('');
+					//					}
+
+					function onRemove(linkId) {
+						$('#tb_history_alarms4').bootstrapTable('remove', {
+							field: 'linkId',
+							values: [parseInt(linkId)]
+
+						})
+					}
+
+					$(document).ready(function() {
+						//1.初始化Table
+						var oTable = new TableInit4();
+						oTable.Init();
+					});
+
+					//						/联动时间
+
+					//						联动门禁
+					var TableInit5 = function() {
+						var oTableInit = new Object();
+						//初始化Table
+						oTableInit.Init = function() {
+							$('#tb_history_alarms5').bootstrapTable({
+								//									/aps/alarmslist
+								url: '', //请求后台的URL（*）
+								method: 'get', //请求方式（*）
+								//toolbar: '',             //工具按钮用哪个容器
+								striped: true, //是否显示行间隔色
+								cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+								pagination: true, //是否显示分页（*）
+								sortable: false, //是否启用排序
+								sortOrder: "asc", //排序方式
+								queryParams: oTableInit.queryParams, //传递参数（*）
+								sidePagination: "server", //分页方式：client客户端分页，server服务端分页（*）
+								pageNumber: 1, //初始化加载第一页，默认第一页
+								pageSize: 5, //每页的记录行数（*）
+								pageList: [5, 10, 15, 20], //可供选择的每页的行数（*）
+								pagination: false,
+								search: false, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+								strictSearch: true,
+								showColumns: false, //是否显示所有的列
+								showRefresh: false, //是否显示刷新按钮
+								minimumCountColumns: 5, //最少允许的列数
+								clickToSelect: true, //是否启用点击选中行
+								height: 200, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+								uniqueId: "alarmId", //每一行的唯一标识，一般为主键列
+								showToggle: false, //是否显示详细视图和列表视图的切换按钮
+								cardView: false, //是否显示详细视图
+								detailView: false, //是否显示父子表
+								//								columns: [{
+								//										checkbox: false
+								//									}, {
+								//										field: 'alarmId',
+								//										title: '序号',
+								//									}, {
+								//										field: 'nodeId',
+								//										title: '报警点Id',
+								//									}, {
+								//										field: 'nodeName',
+								//										title: '名称'
+								//									}, {
+								//										field: 'devName',
+								//										title: '类型'
+								//									}
+								//
+								//								]
+								columns: [
+									[
+										//									{
+										//										checkbox: true
+										//									},
+										{
+											field: "name",
+											title: '门禁',
+											//									data:[{id:1},{id:2}]
+										},
+										{
+											field: "type",
+											title: '类型'
+										},
+										{
+											field: "id",
+											title: '当前节点id'
+										},
+										{
+											field: "parentId",
+											title: '父节点id'
+										},
+										{
+											field: "devId",
+											title: '设备id'
+										},
+										{
+											field: "layerTypeCode",
+											title: '层级类型码 '
+										},
+
+									]
+								]
+							});
+
+							$('#tb_history_alarms5').bootstrapTable('hideColumn', 'alarmId');
+							$('#tb_history_alarms5').bootstrapTable('hideColumn', 'nodeId');
+							$('#tb_history_alarms5').bootstrapTable('hideColumn', 'id');
+							$('#tb_history_alarms5').bootstrapTable('hideColumn', 'parentId');
+							$('#tb_history_alarms5').bootstrapTable('hideColumn', 'devId');
+							$('#tb_history_alarms5').bootstrapTable('hideColumn', 'layerTypeCode');
+						};
+
+						//得到查询的参数
+						//													oTableInit.queryParams = function(params) {
+						//														var temp = { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+						//															pagesize: params.limit, //页面大小
+						//															pageindex: params.offset, //页码
+						//															name: $("#planName").val()
+						//														};
+						//														return temp;
+						//													};
+
+						return oTableInit;
+					};
+
+					$(document).ready(function() {
+						//1.初始化Table
+						var oTable = new TableInit5();
+						oTable.Init();
+					});
+
+					//						/联动门禁
+
+					$(".alarm_class").css('height', $(window).height() - 168);
+					$(".config_info").css('height', $(window).height() - 168);
+					$(".config_info_content").css('height', $(window).height() - 248);
+					$(window).resize(function() {
+						$(".alarm_class").css('height', $(window).height() - 138);
+						$(".config_info").css('height', $(window).height() - 168);
+						$(".config_info_content").css('height', $(window).height() - 248);
+						$(".cont_l").css('height', $(window).height() - 133);
+						//$(".cont_r").css('height', $(window).height() - 124);
+
+					});
+					//.resize() 不用加
+
+					$(window).resize(function() {
+						$('#tb_history_alarms').bootstrapTable('resetView');
+						$('#tb_history_alarms2').bootstrapTable('resetView');
+						$('#tb_history_alarms3').bootstrapTable('resetView');
+						$('#tb_history_alarms4').bootstrapTable('resetView');
+						$('#tb_history_alarms5').bootstrapTable('resetView');
+					});
+					$(document).ready(function() {
+
+					});
+
+					//					var nodeList = {};
+					//					LinkData.nodeList = nodeList;
+
+					//查询码流信息
+
+					//			var getSelectRows = $("#tb_history_alarms4").bootstrapTable('getData'); 
+					//$("#tb_history_alarms4").bootstrapTable('getSelections', function(row) {
+					//							return row;
+					//					}); //使用getSelections即可获得，row是json格式的数据
+
+					//保存按钮	页面数据提交	
+					$("#save_all").on("click", function(e) {
+						e.preventDefault();
+
+						//				$("#alarm_class_cont p input:checked").each(function(index,){
+						//					
+						//				})
+
+						if($("#alarm_class_cont").has('p').length > 0) {
+
+							//				var getid           = $("#leftTreeJsonData").attr("id"); 
+							var getlayertype = parseInt($("#select option:selected").attr("aid"));
+							var getlayernodeid = $("#leftTreeJsonData").attr("getlayernodeid");
+							var getlayerdevid = $("#leftTreeJsonData").attr("getlayerdevid");
+							console.log("getlayernodeid " + getlayernodeid);
+							var alarmtype = [];
+							$.each($('input[name="check"]:checked'), function() {
+								alarmtype.push(parseInt($(this).val()));
+							});
+
+							console.log(alarmtype);
+							//联动数据 对应ApsAlarmLinkTime结构体
+							var LinkData = {};
+							//  左边部分
+							LinkData.isArming = 1;
+							LinkData.devId = getlayerdevid;
+							LinkData.nodeId = getlayernodeid;
+							LinkData.alarmType = getlayertype;
+							LinkData.alarmTypeArr = alarmtype;
+
+							// /左边部分
+
+							// 联动视频源
+							var devInfoArr = new Array();
+							var linkViewData = {};
+							var getSelectRowsView = $("#tb_history_alarms").bootstrapTable('getData');
+							if(getSelectRowsView.length > 0) {
+								LinkData.isView = 1;
+							} else {
+								LinkData.isView = 0;
+							}
+							LinkData.isTvPlan = 0;
+														
+							for(var index = 0; index < getSelectRowsView.length; ++index) {
+								var LinkView = {};
+								LinkView.nodeId      = getSelectRowsView[index].chnId;
+								LinkView.devId       = getSelectRowsView[index].puId;
+								LinkView.platId      = getSelectRowsView[index].platId;
+								LinkView.tvWallId    = getSelectRowsView[index].tvWallId;
+								LinkView.tvWallName  = getSelectRowsView[index].tvWallName;
+								LinkView.decoderId   = getSelectRowsView[index].decoderId;
+								LinkView.tvId        = parseInt(getSelectRowsView[index].viewNum) - 1;
+								LinkView.tvDivId     = 0;
+								devInfoArr.push(LinkView);
+							}
+
+							LinkData.devInfoArr = devInfoArr;
+							
+							console.log("devInfoArr",devInfoArr); 
+
+							// /联动视频源
+
+							//联动时间
+							var linkTimeData = {};
+							var alarmTimeArr = new Array();
+							var getSelectRows = $("#tb_history_alarms4").bootstrapTable('getData');
+							if(getSelectRows.length > 0) {
+								LinkData.isTime = 1;
+							} else {
+								LinkData.isTime = 0;
+							}
+							for(var index = 0; index < getSelectRows.length; ++index) {
+								var LinkTime = {};
+								LinkTime.specTimeStr = getSelectRows[index].specTime;
+								LinkTime.startTimeStr = getSelectRows[index].startTime;
+								LinkTime.endTimeStr = getSelectRows[index].endTime;
+								//						alert(getSelectRows[index].specTime);
+								//						alert(getSelectRows[index].startTime);
+								//						alert(getSelectRows[index].endTime);
+								alarmTimeArr.push(LinkTime);
+							}
+							console.log(getSelectRows);
+
+							LinkData.alarmTimeArr = alarmTimeArr;
+							//linkTimeData.alarmTimeArr = alarmTimeArr;
+							// /联动时间
+
+							//联动门禁
+							//var doorData = {};
+							var doorIdArr = new Array();
+							var getSelectRows2 = $("#tb_history_alarms5").bootstrapTable('getData');
+							console.log(getSelectRows2);
+							for(var index = 0; index < getSelectRows2.length; ++index) {
+								var LinkDoor = {};
+								LinkDoor.nodeId = getSelectRows2[index].id;
+								LinkDoor.parentId = getSelectRows2[index].parentId;
+								LinkDoor.devId = getSelectRows2[index].devId;
+								LinkDoor.layerTypeCode = getSelectRows2[index].layerTypeCode;
+								doorIdArr.push(LinkDoor);
+							}
+							//doorData.doorIdArr = doorIdArr;
+							if(getSelectRows2.length > 0) {
+								LinkData.isDoor = 1;
+							} else {
+								LinkData.isDoor = 0;
+							}
+							var getoperType = parseInt($("input[name='radio']:checked").val());
+							//					alert("getoperType "+ getoperType);
+							LinkData.operType = getoperType;
+
+							LinkData.doorIdArr = doorIdArr;
+							// /联动门禁
+
+							//设备类型
+							var devTypeCode = $("#curDevTypeCode").text();
+//							var getcurType = $("#devTypeCode").text();
+							//					alert(getcurType);
+							LinkData.devTypeCode = devTypeCode;
+							// /设备类型
+
+							// 联动短信
+							var getselect_message = $("#select_message option:selected").val();
+							var getmessage_phone = $("#message_phone").val();
+							var getmsgcontent = $("#getMsgContent").val();
+							var get_select_option = $("#select_message").has("option").length;
+							if(get_select_option > 0) {
+								LinkData.isSms = 1;
+							} else {
+								LinkData.isSms = 0;
+							}
+							//					alert(LinkData.isSms);
+							LinkData.smsMouldId = getselect_message;
+							LinkData.smsPhone = getmessage_phone;
+							LinkData.smsContent = getmsgcontent;
+
+							// /联动短信
+
+							console.log(LinkData);
+
+							//					         	/*
+							$.jsonAjax({
+								url: "/aps/setlinks",
+								data: LinkData,
+								//				
+								success: function(data) {
+									console.log(data);
+									if(data.ret == true) {
+										layer.alert("设置联动成功！");
+									} else {
+										layer.alert("设置联动失败！请重新提交！");
+									}
+								},
+								error: function(XMLHttpRequest, textStatus,
+									errorThrown) {
+//									alert("告警联动保存失败!code=" + XMLHttpRequest.status);
+									layer.alert("告警联动保存失败!code=" + XMLHttpRequest.status,{shade:0,icon: 2});
+								}
+							});
+							//					*/
+
+						} else {
+							layer.alert("请选中需要设置的节点！", {
+								time: 3000
+							});
+						} //if else判断
+
+					})
+
+					//      
+					/*]]>*/
+				</script>
+
+			</section>
+		</div>
+		<!--endWeb-->
+	</body>
+
+</html>
