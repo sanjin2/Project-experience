@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+	</head>
+	<style>
+		/*阴影*/
+		box-shadow: 0 3px 6px 0 rgba(0,0,0,.13);
+		body{
+			/*注意父元素高度的确定 否则滚动条出不来*/
+			/*overflow: auto;
+			height: 100%;*/
+		}
+		/*overflow属性使用细则*/
+		.scrollbar{
+			width: 100px;
+			height: 550px;
+			overflow: auto;
+		}
+		/*css主要部分的样式*/
+		/*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
+ 		
+        ::-webkit-scrollbar {
+            width: 10px; /*对垂直流动条有效*/
+            height: 10px; /*对水平流动条有效*/
+        }
+ 
+        /*定义滚动条的轨道颜色、内阴影及圆角*/
+        ::-webkit-scrollbar-track{
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            background-color: #f1f1f1;
+            border-radius: 3px;
+        }
+ 
+ 
+       /*定义滑块颜色、内阴影及圆角*/
+        ::-webkit-scrollbar-thumb{
+            border-radius: 7px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            background-color: #c1c1c1;
+        }
+        ::-o-scrollbar-thumb{
+            border-radius: 7px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            background-color: #c1c1c1;
+        }
+ 
+        /*定义两端按钮的样式*/
+        ::-webkit-scrollbar-button {
+            background-color:#f1f1f1;
+        }
+        ::-webkit-scrollbar-arrow-color: red; /*三角箭头的颜色*/
+       scrollbar-arrow-color: #f4ae21; /*三角箭头的颜色*/
+ 
+        /*定义右下角汇合处的样式*/
+       ::-webkit-scrollbar-corner {
+            background:#f1f1f1;
+        }
+	</style>
+	<body>
+		
+		<div class="scrollbar">
+			<p>111111111111111111111111111111111111111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+			<p>1111111</p>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" th:href="@{/css/ismp_configure.css}" href="../../../../static/css/ismp_configure.css" />
+		<link rel="stylesheet" th:href="@{/css/kdfluency.css}" href="../../../../static/css/kdfluency.css" />
+		<link rel="stylesheet" th:href="@{/js/layer/theme/default/layer.css}" href="../../../../static/layer/theme/default/layer.css" />
+		<script type="text/javascript" th:src="@{/js/jquery-1.11.0.js}" src="../../../../static/js/jquery-1.11.0.js"></script>
+		<script type="text/javascript" th:src="@{/js/ismp_common.js}" src="/js/ismp_common.js"></script>
+		<script type="text/javascript" th:src="@{/js/layer/layer.js}" src="../static/js/layer/layer.js"></script>
+
+	</head>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		.layui-layer .layui-layer-title {
+			background-color: #2f8eda;
+			border-bottom: none;
+			color: #fff;
+		}
+		
+		.loadContent {
+			height: 550px;
+		}
+		
+		.loadContent .load_common {
+			width: 161px;
+			height: 164px;
+			margin-left: 22px;
+			display: inline-block;
+			position: relative;
+			overflow: hidden;
+			background: #fff;
+			margin-top: 22px;
+		}
+		
+		.loadContent .load_common p {
+			margin-left: 15px;
+			color: #1f6391;
+			margin-top: 4px;
+			font-size: 12px;
+		}
+		
+		.loadContent .img_bg {
+			width: 161px;
+			height: 119px;
+			background: #f0f4f8;
+		}
+		
+		.loadContent .img_bg img {
+			width: 80px;
+			height: 80px;
+		}
+		
+		.loadContent .load_common img {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			padding-top: 24px;
+		}
+		
+		.loadContent .load_line {
+			width: 161px;
+			height: 46px;
+			font-size: 18px;
+			line-height: 46px;
+			text-indent: 79px;
+			color: #fff;
+			background: #1bbc9d url(../img/ismp_load_11.png) no-repeat 50px 45%;
+			background-size: 24px;
+			position: absolute;
+			bottom: -1px;
+			left: 0px;
+			display: none;
+			cursor: pointer;
+		}
+		
+		.loadContent .user_book:hover .load_line {
+			display: block;
+		}
+		
+		.loadContent .ip_search:hover .load_line {
+			display: block;
+		}
+		
+		.loadContent .play_plugins:hover .load_line {
+			display: block;
+		}
+		
+		.loadContent .webdoor:hover .load_line {
+			display: block;
+		}
+	</style>
+
+	<body>
+		<div class="loadCenter" style="background: #e8eff8; ">
+			<div class="loadContent">
+				<div class="user_book load_common">
+					<div class="img_bg">
+						<img th:src="@{/img/ismp_load_02.png}" />
+					</div>
+
+					<p>用户手册</p>
+					<p>用户操作的功能等</p>
+					<div class="load_line">下载</div>
+				</div>
+				<div class="ip_search load_common">
+					<div class="img_bg">
+						<img th:src="@{/img/ismp_load_04.png}" />
+					</div>
+					<p>ipsearch</p>
+					<p>设备搜索工具</p>
+					<div class="load_line">下载</div>
+				</div>
+				<div class="play_plugins load_common">
+					<div class="img_bg">
+						<img th:src="@{/img/ismp_load_06.png}" />
+					</div>
+					<p>播放插件</p>
+					<p>视频播放插件ie下</p>
+					<div class="load_line">下载</div>
+				</div>
+				<div class="webdoor load_common">
+					<div class="img_bg">
+						<img th:src="@{/img/ismp_load_08.png}" />
+					</div>
+					<p>接入网关</p>
+					<p>扩充接入设备</p>
+					<div class="load_line">下载</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+
+</html>

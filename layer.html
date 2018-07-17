@@ -36,5 +36,45 @@
 						})
 
 					})
+					
+					
+					
+					
+					/*************后端加载页面写法***************/
+					//后端载入写法 java
+					/ismp-webui/src/main/java/com/kedacom/ismp/ui/controller/ClientControler.java
+					@RequestMapping(value={"/downloadcenter"}, method = {RequestMethod.GET})
+					public String showDownloadCenter(Model model){
+						return "ismp_download_center";
+					}
+					//css
+					.layui-layer .layui-layer-title {
+						background-color: #2f8eda;
+						border-bottom: none;
+						color: #fff;
+					}
+					//js
+					load: function() {
+							layer.open({
+								type: 2,
+								title: "下载中心",
+								closeBtn: 1,
+								area: ["766px","550px"],
+								shadeClose: true,
+								skin: 'yourclass',
+								content: ['/downloadcenter', 'no'],
+								cancel: function(index, layero) {
+//									$(".loadCenter").css("display","none");
+									return true;
+								},
+//								 end:function(){
+//									  $(".loadCenter").css("display","none");
+//								  }
+							});
+						}
+					
+					//注意：设置页面高度 area: ["766px","550px"], 和全局样式 magin：0 padding0
+					
+					/*************后端加载页面写法***************/
 	</script>
 </html>
