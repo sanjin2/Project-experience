@@ -222,6 +222,7 @@ body {
 /* Fix dropdown menu in navbars */
 .navbar_custom_menu > .navbar_nav{
 	margin-bottom:0px;
+	position: relative;
 }
 
 .navbar_custom_menu > .navbar_nav > li {

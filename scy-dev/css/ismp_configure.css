@@ -1,4 +1,58 @@
 @charset "utf-8";
+/*系统维护*/
+.clearfix{
+	clear: both;
+}
+.status{
+	color: #999;
+	margin-top: 5px;
+}
+
+.treeview_menu div{
+	cursor: pointer;
+}
+.sys_slt{
+	width: 230px;
+    height: 22px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+#netname{
+	width: 210px;
+    height: 30px;
+    line-height: 30px;
+}
+
+
+
+.modify_password{
+	width: 129px;
+    text-align: center;
+    position: absolute;
+    left: 0px;
+    top: 59px;
+    border: 1px solid #ccc;
+    background: #1e79e0;
+    display: none;
+	
+}
+.modify_password a{
+	color: #fff;
+}
+.modify_password a:hover{
+	color: #fff;
+}
+
+.modify_password a:visited{
+	color: #fff;
+}
+.navbar_custom_menu > .navbar_nav:hover .modify_password{
+	display: block;
+}
+ 
+
+
 .sidebar .treeview_menu{
 	margin-left: 15px;
 }
@@ -38,11 +92,12 @@
 	border-radius: 5px;
 }
 .box_body_nohead .restart{
-	width: 140px;
+	width: 100px;
 	height: 30px;
 	margin-bottom: 20px;
 	margin-top: 20px;
 	margin-right: 5px;
+	cursor: pointer;
 }
 .box_body_nohead .versionup{
 	width: 100px;
@@ -65,6 +120,7 @@
 }
 .box_body_nohead .tb_w{
 	width: 60%;
+	/*position: relative;*/
 }
 .box_body_nohead .accept_cfg_id {
 	margin-top: 15px;
@@ -82,12 +138,12 @@
 	padding-bottom: 15px;
 }
 .box_body_nohead .accept_cfg_id input{
-	width: 478px;
+	width: 360px;
 	height: 30px;
 	line-height: 30px;
 }
 .box_body_nohead .accept_cfg_user input{
-	width: 210px;
+	width: 360px;
 	height: 30px;
 	line-height: 30px;
 }
@@ -980,8 +1036,8 @@
 	padding: 0px;
 	/*float: left;*/
 	margin-bottom: 13px;
-	border: 1px solid #ccc;
-	box-shadow: 0 2px 5px 0 rgba(0,0,0,.13);
+	/*border: 1px solid #ccc;*/
+	/*box-shadow: 0 2px 5px 0 rgba(0,0,0,.13);*/
 	border-radius: 4px;
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
@@ -1069,6 +1125,7 @@
 	height: 30px;
 	overflow: hidden;
 	margin-bottom: 15px;
+	margin-left: 30px;
 }
 
 .cd_toolbar ul li {
@@ -2734,7 +2791,7 @@
 			}
 			
 			.contpass .forget_warp {
-				width: 650px;
+				width: 400px;
 				margin: 0 auto;
 				background: white;
 				border: 1px solid #ccc;
@@ -2766,7 +2823,8 @@
 			
 			.contpass .sp {
 				display: inline-block;
-				width: 180px;
+				width: 110px;
+				font-size: 16px;
 			}
 			
 			.contpass .iden1 {
@@ -2794,6 +2852,7 @@
 				line-height: 22px;
 				text-indent: 5px;
 				border: 1px solid #ccc;
+				font-size: 12px;
 			}
 			
 			.contpass #passmodify {

@@ -1,231 +1,118 @@
-<!DOCTYPE html>
-<!-- 查询日志信息，url:/lgs/logs -->
-<!-- /optionclient/system/ismp_log_query.html-->
-<html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="UTF-8"/>
-		<title>安防设备接入网关</title>
-		<link rel="stylesheet" th:href="@{/css/reset.css}"  href="css/reset.css"/>
-		<link rel="stylesheet" th:href="@{/css/ismp_configure.css}"  href="css/ismp_configure.css"/>
-		<link rel="stylesheet" th:href="@{/css/ismp_configure.css}"  href="css/kdfluency.css"/>
-		<link rel="shortcut icon" th:href="@{/img/Keda icon-2.ico}" href="img/Keda icon-2.ico" />
-		<script type="text/javascript" th:src="@{/js/jquery-1.11.0.js}" src="js/jquery-1.11.0.js"></script>
-		<script type="text/javascript" src="js/kdfluency.js"></script>
-		<!-- bootstrap -->
-		<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.js}" src="bootstrap/js/bootstrap.js"></script>
-		<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}" href="bootstrap/css/bootstrap.css" />
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8" />
 
-		<!-- bootstrap table -->
-		<script type="text/javascript" th:src="@{/bootstrap/table/bootstrap-table.js}" src="bootstrap/table/bootstrap-table.js"></script>
-		<link rel="stylesheet" th:href="@{/bootstrap/table/bootstrap-table.css}" href="bootstrap/table/bootstrap-table.css" />
-		<script type="text/javascript" th:src="@{/bootstrap/table/locale/bootstrap-table-zh-CN.js}" src="bootstrap/table/locale/bootstrap-table-zh-CN.js"></script>
-	</head>
-	<body STYLE='OVERFLOW:SCROLL;OVERFLOW-X:HIDDEN;OVERFLOW-Y:HIDDEN;'>
-		<div id="web">
-			<header class="main_header" id="head_sec" style="background: #1e79e0;">
-			<div class="head">
-				<div class="kdf_logo" id="headertitle"> 安防设备接入网关</div>
-				<div class="kdf_navbar">
-					<div class="navbar_custom_menu">
-						<ul class="navbar_nav">
-							<li class="dropdown messages_menu open" style="visibility: hidden;"><span id="curMsg">0 </span></li>
-							<li id="dropdown" class="dropdown user user_menu">
-								<a href="#" data-toggle="dropdown">
-									<img class="user_image" alt="User Image" src="img/cims_03.png">
-									<span id="headerspan" name="headerspan">
-					              	<span id="curUserId" style="display: none;">24e11182b96911e7a2d4000c29e4</span>
-									<span id="curUserName" class="hidden_xs" style="color: #fff;">超级管理员</span>
-									</span>
-								</a>
-							</li>
-							
-						</ul>
+	<title>欢迎登录</title>
+	<link rel="stylesheet"  href="css/reset.css" />
+	<link rel="stylesheet"  href="css/ismp_login.css" />
+	<link rel="stylesheet"  href="css/style.css" />
+	<script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+	<script type="text/javascript" src="js/ajax.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+	
+	
+</head>
+<style>
+	#web {
+		position: fixed;
+		z-index: 1000;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+	}
+	
+	.center_bg {
+		position: fixed;
+		bottom: 0;
+	}
+</style>
+
+<body>
+	<div id="web">
+		<div id="content">
+			<div class="login_cont">
+				<div class="login_logo">
+					<div class="head">
+						<div class="head_l"><span class="flag1"></span><span></span><span class="flag3">安防设备接入网关</span></div>
+						<div class="head_r" style="display: none;"><span></span> 下载中心</div>
 					</div>
+
 				</div>
-			</div>
-
-			
-		</header>
-			<section id="content">
-				<!-- 当前页面所属url，用于菜单的实时转换 -->
-				<input id="belong_option_id" type="hidden" value="05" />
-				<div class="cont_wrap a15_cont_top">
-				<div class="cont_l" style="">
-					<div class="l_sidebar">
-							<div class="sidebar section">
-								<ul class="sidebar_menu">
-									<li class="sb_treeview active">
-										<a href="#" id="color_s">
-											<span>设备信息</span>
-											<span class="pull_right_container"><i class="fa_angle_left pull_right"></i></span>
-										</a>
-										<div class="treeview_menu ztree ">
-											<div> 告警主机</div>
-											<div>门禁主机</div>
-										</div>
-
-									</li>
-									<li class="sb_treeview">
-										<a href="#" id="color_s">
-											<span>系统管理</span>
-											<span class="pull_right_container"><i class="fa_angle_left pull_right"></i></span>
-										</a>
-										<div class="treeview_menu ztree" style="display: none;">
-											<div>系统配置</div>
-											<div>系统维护</div>
-										</div>
-
-									</li>
-
-								</ul>
-
-							</div>
-						<!--<div class= "sidebar section">
-							<div class="sidebar_box">
-								<div class="header"><h1></h1></div>
-								<div class="log_query" style="">
-									<div class="scy_query scytodoor">
-										设备信息
-									</div>
-									<div class="sq_alarm scytodoor">
-										告警主机
-									</div>
-									<div class="sq_door scytodoor">
-										门禁主机
-									</div>
-									<div class="sys_man scytodoor">
-										系统管理
-									</div>
-									<div class="sm_cfg scytodoor">
-										系统配置
-									</div>
-									<div class="sm_def scytodoor">
-										系统维护
-									</div>
-								
+				<div class="login_box">
+					<div class="cont">
+						<div class="cont_wrap">
+							<div class="cont_r">
+								<div class="cont_r_wrap">
+									<form method="post" action="" id="form1">
+										<!--checked="checked"-->
+										<div class="h1">账号登录</div>
+										<p class="p1">
+											<input type="text" class="account wh" placeholder="账号" name="username" id="username"/>
+											<span class="bg1"><img src="img/username.png" /> </span> 
+										</p>
+										<p class="p2">
+											<input type="password" class="password wh" placeholder="密码" id="password" name="password" />
+											<input type="hidden" id="PWD" />
+											<span class="bg2"><img src="img/password.png"  /> </span> 
+										</p>
+										<p class="remember">
+											<input type="checkbox" id="rememberMe" class="checkbox" />
+											<span class="check">记住密码</span>
+											<span><a href="javascript:;" style="color:#666;font-size: 14px;float: right;">忘记密码?</a></span> 
+										</p>
+										<p class="error" id="errorspan" style="display: none;"><label id="errorlabel" style="color: red;"></label></p>
+										<p><input type="submit" id="login" class="logo" value="登录" />
+											<input type="hidden" id="SAVE_PWD" name="SAVE_PWD" />
+										</p>
+									</form>
 								</div>
 							</div>
-
-						</div>-->
-					</div>
-				</div>
-				<!--  右边部分-->
-				<div class="cont_r" id="cont_r">
-					<div class="data_warp" style="height:100%">
-						
-						<div class ="cd_cont" style="height:100%;">
-							<!-- 上下 7 3布局 start-->
-							<!-- 上下 7 3布局 top start-->
-							<div class="col_tb_n73_t col_pbottom">
-								<div class="comm_box" style="float: left;">
-									<div class="box_body_nohead"> 
-									    <!-- 巡更路径插入的地方 -->
-										<img style="width:100%;height:100%;" th:src="@{/img/patrolmap/cell_plane.png}" />
-									</div>
-								</div>
-							</div>
-							<!-- 上下 7 3布局 top end-->
-							<!-- 上下 7 3布局 bottom start-->
-							<div class="col_tb_n73_b">
-								<table id="tb_patrol_plan"></table>
-							</div>
-							<!-- 上下 7 3布局 bottom end-->
-							<!-- 上下 7 3布局 end-->
 						</div>
 					</div>
 				</div>
 			</div>
-		<!--endWeb-->
-			<script th:inline="javascript">
-			/*<![CDATA[*/
-			var index = {
-				table: function () {
-					$('#tb_patrol_plan').bootstrapTable({
-						url: '/patrol/patrolplans',         //请求后台的URL（*）
-						method: 'get',                      //请求方式（*）
-					    //toolbar: '',             //工具按钮用哪个容器
-					    striped: true,                      //是否显示行间隔色
-					    cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
-					    pagination: true,                   //是否显示分页（*）
-					    sortable: false,                    //是否启用排序
-					    sortOrder: "asc",                   //排序方式
-					    queryParams: index.queryParams,//传递参数（*）
-					    sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
-					    pageNumber:1,                       //初始化加载第一页，默认第一页
-					    pageSize: 5,                       //每页的记录行数（*）
-					    pageList: [5, 10, 15, 20],        //可供选择的每页的行数（*）
-					    search: false,                     //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
-					    strictSearch: true,
-					    showColumns: false,                  //是否显示所有的列
-					    showRefresh: false,                  //是否显示刷新按钮
-					    minimumCountColumns: 5,            //最少允许的列数
-					    clickToSelect: true,                //是否启用点击选中行
-					    height: 300,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
-					    uniqueId: "id",                     //每一行的唯一标识，一般为主键列
-					    showToggle:false,                   //是否显示详细视图和列表视图的切换按钮
-					    cardView: false,                    //是否显示详细视图
-					    detailView: false,                   //是否显示父子表
-					    columns: [{
-					        checkbox: true
-					    },{
-					        field: 'id',
-					        title: '预案ID',
-					    }, {
-					        field: 'name',
-					        title: '预案名称'
-					    }, {
-					        field: 'startTime',
-					        title: '开始时间'
-					    }, {
-					        field: 'endTime',
-					        title: '结束时间'
-					    }, {
-					        field: 'status',
-					        title: 'status'
-					    }, {
-					        field: 'statusName',
-					        title: '状态'
-					    },{
-					        field: 'people',
-					        title: '巡更人员'
-					    }, {
-					        field: 'timeSpan',
-					        title: '巡更时长'
-					    }, {
-					        field: 'errTime',
-					        title: '误差时间'
-					    },{
-					        field: 'type',
-					        title: '巡更方式'
-					    },{
-					        field: 'linkStatus',
-					        title: '联动状态'
-					    }]
-					});
-					        
-					$('#tb_patrol_plan').bootstrapTable('hideColumn', 'id');
-					$('#tb_patrol_plan').bootstrapTable('hideColumn', 'status');
-				},
-				
-				queryParams: function (params) {
-					var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
-					    pagesize: params.limit,   //页面大小
-					    pageindex: params.offset,  //页码
-					    name: $("#planName").val()
-					};
-					return temp;
-				}
-				
-			}
-				    
-				$(document).ready(function() {
-					//1.初始化Table
-					index.table();
-				});
-			//});	//doc ready over
-			/*	]]>*/
-			</script>
-			</section>
+
 		</div>
-	</body>
+		<footer>
+			<div class="center_bg">
+				<div class="center">
+					<p>建议使用IE8及以上浏览器 1024*768以上分辨率浏览 丨 客服热线： 800-828-2866 <span class="f_r">Copyright © 1995-2015KEDACOM.COM苏州科达科技股份有限公司版权所有</span></p>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<div id="particles-js"></div>
+	<script type="text/javascript"  src="js/particles.min.js"></script>
+	<script type="text/javascript"  src="js/indexDev.js"></script>
+
+</body>
+<script type="text/javascript">
+	$(document).ready(function (){
+		loadCookie(1);
+	});
+	
+	$("#login").click(function(e){
+		e.preventDefault();
+		ClickLogin();
+	})
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/*]]>*/
+	</script>
+
 </html>

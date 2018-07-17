@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-<!-- 查询日志信息，url:/lgs/logs -->
-<!-- /optionclient/system/ismp_log_query.html-->
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 	<head>
 		<meta charset="UTF-8" />
@@ -9,7 +7,7 @@
 		<link rel="stylesheet" href="css/reset.css" />
 		<link rel="stylesheet" href="css/ismp_configure.css" />
 		<link rel="stylesheet" href="css/kdfluency.css" />
-		<link rel="shortcut icon" href="img/Keda icon-2.ico" />
+		<link rel="shortcut icon" href="favicon.ico" />
 		<script type="text/javascript" src="js/jquery-1.11.0.js"></script>
 		<script type="text/javascript" src="js/kdfluency.js"></script>
 		<!-- bootstrap -->
@@ -17,9 +15,13 @@
 		<link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
 
 		<!-- bootstrap table -->
-		<script type="text/javascript" src="bootstrap/table/bootstrap-table.js"></script>
+		<script type="text/javascript" src="bootstrap/table/bootstrap-table.min.js"></script>
 		<link rel="stylesheet" href="bootstrap/table/bootstrap-table.css" />
 		<script type="text/javascript" src="bootstrap/table/locale/bootstrap-table-zh-CN.js"></script>
+		
+		<script type="text/javascript" src="js/ajax.js"></script>
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript" src="js/sys_den.js"></script>
 	</head>
 
 	<body STYLE='OVERFLOW:SCROLL;OVERFLOW-X:HIDDEN;OVERFLOW-Y:HIDDEN;'>
@@ -35,8 +37,8 @@
 									<a href="#" data-toggle="dropdown">
 										<img class="user_image" alt="User Image" src="img/cims_03.png">
 										<span id="headerspan" name="headerspan">
-					              	<span id="curUserId" style="display: none;">24e11182b96911e7a2d4000c29e4</span>
-										<span id="curUserName" class="hidden_xs" style="color: #fff;">超级管理员</span>
+					              	<span id="curUserId" style="display: none;"></span>
+										<span id="curUserName" class="hidden_xs" style="color: #fff;">admin</span>
 										</span>
 									</a>
 								</li>
@@ -55,25 +57,25 @@
 						<div class="l_sidebar">
 							<div class="sidebar section">
 								<ul class="sidebar_menu">
-									<li class="sb_treeview active">
+									<li class="sb_treeview ">
 										<a href="#" id="color_s">
 											<span>设备信息</span>
 											<span class="pull_right_container"><i class="fa_angle_left pull_right"></i></span>
 										</a>
-										<div class="treeview_menu ztree ">
-											<div> 告警主机</div>
-											<div>门禁主机</div>
+										<div class="treeview_menu ztree " style="display: none;">
+											<div id="alarmhost"> 告警主机</div>
+											<div id="doorhost">门禁主机</div>
 										</div>
 
 									</li>
-									<li class="sb_treeview">
+									<li class="sb_treeview active">
 										<a href="#" id="color_s">
 											<span>系统管理</span>
 											<span class="pull_right_container"><i class="fa_angle_left pull_right"></i></span>
 										</a>
-										<div class="treeview_menu ztree" style="display: none;">
-											<div>系统配置</div>
-											<div>系统维护</div>
+										<div class="treeview_menu ztree" >
+											<div id="sys_cfg">系统配置</div>
+											<div id="sys_den" style="color: #136fb8;">系统维护</div>
 										</div>
 
 									</li>
@@ -97,7 +99,8 @@
 											<!--<div class="line"></div>-->
 											<!-- 巡更路径插入的地方 -->
 											<table id="tb_patrol_plan"></table>
-											<div class="restart webdoor_common">重启接入网关</div>
+											<!--<div class="status">0-未启动，1-正常启动</div>-->
+											<div class="restart webdoor_common">重启网关</div>
 											<div class="clearfix"></div>
 											<h4>软件版本升级</h4>
 											<div class="line"></div>
@@ -121,7 +124,9 @@
 				</div>
 				<!--endWeb-->
 				<script>
-					/*<![CDATA[*/
+					
+					
+					/*bootstrap table相关配置*/
 					var sys_den = {
 						table: function() {
 							function queryParams(params) {
@@ -133,12 +138,12 @@
 								return temp;
 							}
 							$('#tb_patrol_plan').bootstrapTable({
-								url: '/patrol/patrolplans', //请求后台的URL（*）
+//								url: '/patrol/patrolplans', //请求后台的URL（*）
 								method: 'get', //请求方式（*）
 								//toolbar: '',             //工具按钮用哪个容器
 								striped: true, //是否显示行间隔色
 								cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
-								pagination: true, //是否显示分页（*）
+								pagination: false, //是否显示分页（*）
 								sortable: false, //是否启用排序
 								sortOrder: "asc", //排序方式
 								queryParams: queryParams, //传递参数（*）
@@ -152,7 +157,7 @@
 								showRefresh: false, //是否显示刷新按钮
 								minimumCountColumns: 5, //最少允许的列数
 								clickToSelect: true, //是否启用点击选中行
-								height: 300, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+								height: 350, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
 								uniqueId: "id", //每一行的唯一标识，一般为主键列
 								showToggle: false, //是否显示详细视图和列表视图的切换按钮
 								cardView: false, //是否显示详细视图
@@ -160,13 +165,13 @@
 								columns: [{
 									checkbox: true
 								}, {
-									field: 'id',
+									field: 'name',
 									title: '模块名称',
 								}, {
-									field: 'name',
+									field: 'versioninfo',
 									title: '版本信息'
 								}, {
-									field: 'startTime',
+									field: 'status',
 									title: '运行状态'
 								}]
 							});
@@ -188,8 +193,46 @@
 					$(function() {
 						sys_den.table();
 					})
-					//});	//doc ready over
-					/*	]]>*/
+					/* end bootstrap table相关配置*/
+					//请求编写
+					function adpMngVerReq() {
+						var reqData = {};
+						reqData.eventcode = 3;
+						reqData.eventname = "GetAdpMngVerReq";
+						var reqdata = JSON.stringify(reqData); //转为JSON字符串 
+						console.log(reqdata);
+						PostAjaxReq(req_cgiUrl, reqdata, adpMngVerReqCallBack);
+		
+					}
+					adpMngVerReq();
+					function rebootReq() {
+						var reqData = {};
+						reqData.eventcode = 25;
+						reqData.eventname = "RebootReq";
+						var reqdata = JSON.stringify(reqData); //转为JSON字符串 
+						console.log(reqdata);
+						PostAjaxReq(req_cgiUrl, reqdata, rebootReqCallBack);
+					}
+					
+					// 页面切换操作
+					$('#sys_den').click(function(){
+						location="sys_den.html";
+					})
+					$('#sys_cfg').click(function(){
+						location="sys_cfg.html";
+					})
+					$("#alarmhost").click(function() {
+					location = "dev_mes.html";
+					})
+					
+					//重启服务
+					$(".restart").click(function(){
+						rebootReq();
+					})
+					
+					
+					
+					
 				</script>
 			</section>
 		</div>

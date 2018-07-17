@@ -5,6 +5,9 @@
  * @version 1.0.0
  */
 
+//左侧菜单栏
+		
+
 //Make sure jQuery has been loaded before kdfluency.js
 if(typeof jQuery === "undefined") {
 	throw new Error("kdfluency requires jQuery");

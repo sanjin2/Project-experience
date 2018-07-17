@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet"  href="ismp_video.css" />
+		<script type="text/javascript"  src="jquery-1.11.0.js"></script>
+		<script type="text/javascript" th:src="@{/js/svg.min.js}" src="svg.min.js"></script>
+		<script type="text/javascript" th:src="@{/js/kd_ptzdisk.js}" src="kd_ptzdisk.js"></script>
+	</head>
+
+	<body>
+		<div class="l_sidebar sb_backgroup">
+			<div class="sidebar section">
+				<div id="npanel" class="ptz_npanel">
+					<div class="ptz_header header_bb">
+						<h1>云镜控制</h1></div>
+					<div id="ptzpanel" class="ptz_ptzpanel">
+						<div id="ptzDirection" class="ptz_direction">
+						</div>
+						<div class="ptz_chg">
+							<ul>
+								<li><span class="ptz_viewenlarge" onmousedown="ptzCmdCtrl(9);" onmouseup="ptzCmdCtrl(11);" title="视野拉近"></span></li>
+								<li><span class="ptz_viewnarrow" onmousedown="ptzCmdCtrl(10);" onmouseup="ptzCmdCtrl(11);" title="视野拉远"></span></li>
+							</ul>
+							<ul>
+								<li><span class="ptz_focalchg" onmousedown="ptzCmdCtrl(211)" onmouseup="ptzCmdCtrl(213);" title="焦距变化"></span></li>
+								<li><span class="ptz_autofocal" onmousedown="ptzCmdCtrl(212)" onmouseup="ptzCmdCtrl(213);" title="焦距自动"></span></li>
+							</ul>
+							<ul>
+								<li><span class="ptz_circleenlarge" onmousedown="ptzCmdCtrl(213)" onmouseup="ptzCmdCtrl(213);" title="光圈放大"></span></li>
+								<li><span class="ptz_circlenarrow" onmousedown="ptzCmdCtrl(213)" onmouseup="ptzCmdCtrl(213);" title="光圈缩小"></span></li>
+							</ul>
+						</div>
+						<div class="ptz_speed">
+							<ul>
+								<li><span class="ptz_explain">速度</span></li>
+								<li>
+									<select title="改变移动速度" name="speed" id="speed" style="width: 166px;">
+										<option value="2">2x</option>
+										<!--  <%for(int i = 1; i <= 15;i++){%>
+														<option value="<%=i %>"<%if (i == 7){ %>
+															selected<%}%>><%=i %></option><%}%> -->
+									</select>
+								</li>
+							</ul>
+
+						</div>
+					</div>
+				</div>
+				<script>
+					function ptzCmdCtrl(cmdType){
+					//if(layerTypeCode != 12003){return;}
+					//command, range, level, holdTimer
+					getFrameContWin().ptzNormalCtrl(cmdType, 1, 0, 0);
+				}
+				
+				var pztCallbacks = new Object(); 
+				//stop
+				pztCallbacks.ptzStop=function(){ptzCmdCtrl(8);};
+				//up
+				pztCallbacks.ptzUp=function(){ptzCmdCtrl(2);};
+				//down
+				pztCallbacks.ptzDown=function(){ptzCmdCtrl(3);};
+				//right
+				pztCallbacks.ptzRight=function(){ptzCmdCtrl(1);};
+				//left
+				pztCallbacks.ptzLeft=function(){ptzCmdCtrl(0);};
+				//rightup
+				pztCallbacks.ptzRightUp=function(){ptzCmdCtrl(6);};
+				//rightdown
+				pztCallbacks.ptzRightDown=function(){ptzCmdCtrl(7);};
+				//leftup
+				pztCallbacks.ptzLeftUp=function(){ptzCmdCtrl(4);};
+				//leftdown
+				pztCallbacks.ptzLeftDown=function(){ptzCmdCtrl(5);};
+				//reset
+				pztCallbacks.ptzReset=function(){ptzCmdCtrl(12);};
+				//调用按钮盘初始化函数
+				ptzDiskInit('ptzDirection', pztCallbacks);
+					
+				</script>
+	</body>
+
+</html>

@@ -39,36 +39,24 @@
 								showToggle: false, //是否显示详细视图和列表视图的切换按钮
 								cardView: false, //是否显示详细视图
 								detailView: false, //是否显示父子表
-								//								columns: [{
-								//										checkbox: false
-								//									}, {
-								//										field: 'alarmId',
-								//										title: '序号',
-								//									}, {
-								//										field: 'nodeId',
-								//										title: '报警点Id',
-								//									}, {
-								//										field: 'nodeName',
-								//										title: '名称'
-								//									}, {
-								//										field: 'devName',
-								//										title: '类型'
-								//									}
-								//
-								//								]
-								columns: [
-									[{
-											field: "id",
-											title: '名称1',
-											//									data:[{id:1},{id:2}]
-										},
-										{
-											field: "name",
+								singleSelect: true, //是否单选
+									columns: [{
+											checkbox: false
+										}, {
+											field: 'alarmId',
+											title: '序号',
+										}, {
+											field: 'nodeId',
+											title: '报警点Id',
+										}, {
+											field: 'nodeName',
+											title: '名称'
+										}, {
+											field: 'devName',
 											title: '类型'
 										}
-
+	
 									]
-								]
 							});
 
 							$('#tb_history_alarms5').bootstrapTable('hideColumn', 'alarmId');
@@ -76,14 +64,14 @@
 						};
 
 						//得到查询的参数
-						//													oTableInit.queryParams = function(params) {
-						//														var temp = { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
-						//															pagesize: params.limit, //页面大小
-						//															pageindex: params.offset, //页码
-						//															name: $("#planName").val()
-						//														};
-						//														return temp;
-						//													};
+							oTableInit.queryParams = function(params) {
+								var temp = { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+									pagesize: params.limit, //页面大小
+									pageindex: params.offset, //页码
+									name: $("#planName").val()
+								};
+								return temp;
+							};
 
 						return oTableInit;
 					};
@@ -95,6 +83,59 @@
 					});
 
 					//						/门禁
+					
+					
+						var selectContent = $('#serverconfig').bootstrapTable('getSelections')[0];
+					if(typeof(selectContent) == 'undefined') {
+						layer.alert('请选择一列数据!');
+						return false;
+					} else {
+						var sys_slt = $('.sys_slt option:selected').val();
+						$("#server_ip").val(selectContent.serverip);
+						$("#last_ip").val(selectContent.serverip);
+						$("#server_port").val(selectContent.serverport);
+
+						layer.open({
+							type: 1,
+							title: "修改服务器",
+							closeBtn: 1,
+							area: "400px",
+							shadeClose: true,
+							//move: 'mine-move',
+							skin: 'yourclass',
+							content: $("#content"), //iframe的url，no代表不显示滚动条
+							cancel: function(index, layero) {
+								return true;
+							}
+						});
+
+						//						alert(getIdSelections());
+						$("#sure").off("click").on("click", function() {
+							var server_ip = $("#server_ip").val();
+							var server_port = $("#server_port").val();
+							var sys_slt = $('.sys_slt option:selected').val();
+							var serverinfosItem = {
+								serverip: server_ip,
+								serverport: server_port,
+								contrltype: sys_slt,
+								connectstates: 1,
+								serverdec: 1,
+							}
+							var index = $(".selected").attr("data-index");
+							$('#serverconfig').bootstrapTable('updateRow', {
+								index: index,
+								row: serverinfosItem
+							});
+							modifyServer();
+							layer.closeAll("page");
+						})
+						$("#cancel").on("click", function() {
+							layer.closeAll("page");
+						})
+
+					}
+					
+					
 
 	</script>
 </html>
