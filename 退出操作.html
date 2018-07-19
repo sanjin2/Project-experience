@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<form action="/logout" method="post">
+			<button id="loginOut" type="submit" style="display: none;"></button>
+		</form>
+		<script>
+			// 退出
+				$("#logout").click(function(e) {
+					e.preventDefault();
+					$("#loginOut").click();
+					sockCon.socket.close();
+				})
+				// /退出
+		</script>
+		
+	</body>
+</html>
