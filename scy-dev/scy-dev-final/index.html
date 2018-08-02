@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8" />
+
+	<title>欢迎登录</title>
+	<link rel="stylesheet"  href="css/reset.css" />
+	<link rel="stylesheet"  href="css/ismp_login.css" />
+	<link rel="stylesheet"  href="css/style.css" />
+	<script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+	<script type="text/javascript" src="js/ajax.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+	
+	
+</head>
+<style>
+	#web {
+		position: fixed;
+		z-index: 1000;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+	}
+	
+	.center_bg {
+		position: fixed;
+		bottom: 0;
+	}
+</style>
+
+<body>
+	<div id="web">
+		<div id="content">
+			<div class="login_cont">
+				<div class="login_logo">
+					<div class="head">
+						<div class="head_l"><span class="flag1"></span><span></span><span class="flag3">安防设备接入网关</span></div>
+						<div class="head_r" style="display: none;"><span></span> 下载中心</div>
+					</div>
+
+				</div>
+				<div class="login_box">
+					<div class="cont">
+						<div class="cont_wrap">
+							<div class="cont_r">
+								<div class="cont_r_wrap">
+									<form method="post" action="" id="form1">
+										<!--checked="checked"-->
+										<div class="h1">账号登录</div>
+										<p class="p1">
+											<input type="text" class="account wh" placeholder="账号" name="username" id="username"/>
+											<span class="bg1"><img src="img/username.png" /> </span> 
+										</p>
+										<p class="p2">
+											<input type="password" class="password wh" placeholder="密码" id="password" name="password" />
+											<input type="hidden" id="PWD" />
+											<span class="bg2"><img src="img/password.png"  /> </span> 
+										</p>
+										<p class="remember">
+											<input type="checkbox" id="rememberMe" class="checkbox" />
+											<span class="check">记住密码</span>
+											<span><a href="javascript:;" style="color:#666;font-size: 14px;float: right;">忘记密码?</a></span> 
+										</p>
+										<p class="error" id="errorspan" style="display: none;"><label id="errorlabel" style="color: red;"></label></p>
+										<p><input type="submit" id="login" class="logo" value="登录" />
+											<input type="hidden" id="SAVE_PWD" name="SAVE_PWD" />
+										</p>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<footer>
+			<div class="center_bg">
+				<div class="center">
+					<p>建议使用IE8及以上浏览器 1024*768以上分辨率浏览 丨 客服热线： 800-828-2866 <span class="f_r">Copyright © 1995-2015KEDACOM.COM苏州科达科技股份有限公司版权所有</span></p>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<div id="particles-js"></div>
+	<script type="text/javascript"  src="js/particles.min.js"></script>
+	<script type="text/javascript"  src="js/indexDev.js"></script>
+
+</body>
+<script type="text/javascript">
+	$(document).ready(function (){
+		loadCookie(1);
+	});
+	
+	$("#login").click(function(e){
+		e.preventDefault();
+		ClickLogin();
+	})
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/*]]>*/
+	</script>
+
+</html>

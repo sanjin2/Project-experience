@@ -1,0 +1,672 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>系统配置</title>
+		<link rel="stylesheet" href="css/reset.css" />
+		<link rel="stylesheet" href="css/ismp_configure.css" />
+		<link rel="stylesheet" href="css/ismp_public.css" />
+		<link rel="stylesheet" href="css/kdfluency.css" />
+		<link rel="shortcut icon" href="favicon.ico" />
+		<script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+		<script type="text/javascript" src="js/kdfluency.js"></script>
+		<!-- bootstrap -->
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
+		<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+
+		<!-- bootstrap table -->
+		<script type="text/javascript" src="bootstrap/table/bootstrap-table.min.js"></script>
+		<link rel="stylesheet" href="bootstrap/table/bootstrap-table.min.css" />
+		<script type="text/javascript" src="bootstrap/table/locale/bootstrap-table-zh-CN.js"></script>
+
+		<script type="text/javascript" src="js/ajax.js"></script>
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript" src="js/sys_cfg.js"></script>
+		<script type="text/javascript" src="js/dev_mes.js"></script>
+
+		<link rel="stylesheet" href="layer/theme/default/layer.css" />
+		<script type="text/javascript" src="layer/layer.js"></script>
+
+	</head>
+	<style>
+		.fixed-table-container .bs-checkbox,
+		.fixed-table-container .no-records-found {
+			vertical-align: middle;
+		}
+	</style>
+
+	<body STYLE='OVERFLOW:SCROLL;OVERFLOW-X:HIDDEN;OVERFLOW-Y:HIDDEN;'>
+		<div id="web">
+			<header class="main_header" id="head_sec" style="background: #1e79e0;">
+				<div class="head">
+					<div class="kdf_logo" id="headertitle"> 安防设备接入网关</div>
+					<div class="kdf_navbar">
+						<div class="navbar_custom_menu">
+							<ul class="navbar_nav">
+								<li class="dropdown messages_menu open" style="visibility: hidden;"><span id="curMsg">0 </span></li>
+								<li id="dropdown" class="dropdown user user_menu">
+									<a href="#" data-toggle="dropdown">
+										<img class="user_image" alt="User Image" src="img/cims_03.png">
+										<span id="headerspan" name="headerspan">
+					              	<span id="curUserId" style="display: none;"></span>
+										<span id="curUserName" class="hidden_xs" style="color: #fff;">admin</span>
+										</span>
+									</a>
+								</li>
+
+							</ul>
+						</div>
+					</div>
+				</div>
+
+			</header>
+
+			<section id="content" style="display: none;">
+				<div class="cont contpass">
+
+					<div class="forget_warp" id="passmodify" style="display: block;">
+						<div class="pass_forget">
+
+							<div class="safe iden1"><span class="sp">服务器IP : </span> <input class="inp" id="server_ip" type="text" placeholder="请输入服务器IP" /> </div>
+							<div class="safe iden1" style="display: none;"><span class="sp">最近IP : </span> <input class="inp" id="last_ip" type="text" placeholder="请输入服务器IP" /> </div>
+							<div class="safe iden1"><span class="sp"> 服务器端口 : </span> <input class="inp" id="server_port" type="text" placeholder="请输入服务器端口" /> </div>
+							<div class="safe iden1"><span class="sp"> 控制类型 : </span>
+								<select class="sys_slt">
+									<option value="0">辅控</option>
+									<option value="1">主控</option>
+								</select>
+							</div>
+							<div style="margin-left: 30px;margin-top: 10px;"><span id="item_" class="item_"></span></div>
+							<div class="sc_content" style="float: right; margin-right: 10px;padding-bottom: 10px;">
+								<div class="ismp_btn_layer_sure" id="sure">
+									确认
+								</div>
+								<div class="ismp_btn_layer_cancel" id="cancel">
+									取消
+								</div>
+							</div>
+
+							<div class="clear_fix">
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</section>
+
+			<!--<section id="content-cfg" style="display: none;">
+				<div class="cont contpass">
+
+					<div class="forget_warp" id="passmodify" style="display: block;">
+						<div class="pass_forget">
+
+							<div class="safe iden1"><span class="sp">网卡别名 : </span> <input class="inp" id="net-name" type="text" placeholder="请输入网卡别名" /> </div>
+							<div class="safe iden1"><span class="sp"> IP地址 : </span> <input class="inp" id="net-ip" type="text" placeholder="请输入IP地址" /> </div>
+							<div class="safe iden1"><span class="sp"> 子网掩码 : </span> <input class="inp" id="subnet-ip" type="text" placeholder="请输入子网掩码" /> </div>
+							<div class="safe iden1"><span class="sp"> 网关 : </span> <input class="inp" id="gate-Ip" type="text" placeholder="请输入网关" /> </div>
+
+							<div style="margin-left: 30px;margin-top: 10px;"><span id="item_" class="item_"></span></div>
+							<div class="sc_content" style="float: right; margin-right: 10px;padding-bottom: 10px;">
+								<div class="ismp_btn_layer_sure" id="sure-cfg">
+									确认
+								</div>
+								<div class="ismp_btn_layer_cancel" id="cancel-cfg">
+									取消
+								</div>
+							</div>
+
+							<div class="clear_fix">
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</section>-->
+
+			<!--<section id="content">-->
+			<!-- 当前页面所属url，用于菜单的实时转换 -->
+			<input id="belong_option_id" type="hidden" value="05" />
+			<div class="cont_wrap a15_cont_top">
+				<div class="cont_l" style="">
+					<div class="l_sidebar">
+						<div class="sidebar section">
+							<ul class="sidebar_menu">
+								<li class="sb_treeview ">
+									<a href="#" id="color_s">
+										<span>设备信息</span>
+										<span class="pull_right_container"><i class="fa_angle_left pull_right"></i></span>
+									</a>
+									<div class="treeview_menu ztree  " style="display: none;">
+										<div id="alarmhost"> 告警主机</div>
+										<div id="doorhost">门禁主机</div>
+									</div>
+
+								</li>
+								<li class="sb_treeview active">
+									<a href="#" id="color_s">
+										<span>系统管理</span>
+										<span class="pull_right_container"><i class="fa_angle_left pull_right"></i></span>
+									</a>
+									<div class="treeview_menu ztree" >
+										<div id="sys_cfg" style="color: #136fb8;">系统配置</div>
+										<div id="sys_den">系统维护</div>
+									</div>
+
+								</li>
+
+							</ul>
+
+						</div>
+
+					</div>
+				</div>
+				<!--  右边部分-->
+				<div class="cont_r" id="cont_r">
+					<div class="data_warp" style="height:100%">
+
+						<div class="cd_cont" style="height:100%;">
+							<!-- 上下 7 3布局 start-->
+							<!-- 上下 7 3布局 top start-->
+							<div class="col_tb_n73_t col_pbottom">
+								<!--min-height: 800px;-->
+								<div class="comm_box" style="float: left; ">
+									<div class="box_body_nohead" style="overflow: auto; min-height: 800px;">
+										<div class="accept_mes_cfg_wrap web_card_cfg">
+											<h4>网卡配置</h4>
+											<!--<div id="cd_toolbar" class="cd_toolbar">
+														<ul>
+															
+															<li class="modify modify-cfg">
+																<a href="javascript:;">修改</a>
+															</li>
+															
+														</ul>
+													</div>-->
+											<div class="web_card wc"> <span class="wd_w"> 网卡别名:</span> <select id="netname"></select> <!--<input id="netname" type="text" disabled="disabled" />--></div>
+											<div class="web_card_ip wc"> <span class="wd_w"> IP地址:</span> <input id="netip" type="text" /> </div>
+											<div class="web_card_code wc"> <span class="wd_w"> 子网掩码:</span> <input id="subnetip" type="text" /></div>
+											<div class="web_card_door wc"><span class="wd_w"> 网关:</span> <input id="gateIp" type="text" /></div>
+											<div id="cd_toolbar" style="margin-left: 493px;float: left;width: 50%;margin-top: -45px;" class="cd_toolbar">
+												<ul>
+
+													<li class="modify modify-cfg">
+														<a href="javascript:;">修改</a>
+													</li>
+
+												</ul>
+											</div>
+											<div class="clearfix"></div>
+										</div>
+
+										<div class="accept_mes_cfg_wrap">
+											<div class="accept_wrap">
+
+												<h4>接入配置信息</h4>
+												<div class="accept_cfg_id ac"> <span class="wd_w"> 网关Id:</span> <input type="text" id="adpid"  /></div>
+												<div class="accept_cfg_user ac"> <span class="wd_w">网关名:</span> <input id="adpname" type="text"  /> <!--<span class="wd_w"> 密码:</span> <input type="text" />--></div>
+												<div id="cd_toolbar" style="margin-left: 493px;float: left;width: 50%;margin-top: -30px;" class="cd_toolbar">
+												<ul>
+
+													<li class="modify modify-cfg-mes">
+														<a href="javascript:;">修改</a>
+													</li>
+
+												</ul>
+											</div>
+											</div>
+
+											<h4 class="server_list">服务器列表</h4>
+											<div class="fixed-table-toolbar" style="overflow: hidden;">
+												<div class="bs-bars pull-left">
+													<div id="cd_toolbar" class="cd_toolbar">
+														<ul>
+															<li class="add">
+																<a href="javascript:;">添加</a>
+															</li>
+															<li class="modify modify-svr">
+																<a href="javascript:;">修改</a>
+															</li>
+															<li class="delete">
+																<a href="javascript:;">删除</a>
+															</li>
+														</ul>
+													</div>
+												</div>
+
+											</div>
+
+											<!-- 服务器配置的地方 -->
+											<div class="tb_w" style="">
+												<!--<div class="s_table_w" style="width: 600px;position: relative;">-->
+												<table id="serverconfig"></table>
+												<!--</div>-->
+
+											</div>
+										</div>
+										<!--<div class="restart webdoor_common">重启接入网关</div>-->
+
+										<!--<img style="width:100%;height:100%;" th:src="@{/img/patrolmap/cell_plane.png}" />-->
+									</div>
+								</div>
+							</div>
+							<!-- 上下 7 3布局 top end-->
+							<!-- 上下 7 3布局 bottom start-->
+							<div class="col_tb_n73_b">
+
+							</div>
+							<!-- 上下 7 3布局 bottom end-->
+							<!-- 上下 7 3布局 end-->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--endWeb-->
+			<script th:inline="javascript">
+				var sys_cfg = {
+					table: function() {
+						function queryParams(params) {
+							var temp = { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+								pagesize: params.limit, //页面大小
+								pageindex: params.offset, //页码
+								name: $("#planName").val()
+							};
+							return temp;
+						}
+						$('#serverconfig').bootstrapTable({
+							url: "",
+							//								url: '/patrol/patrolplans', //请求后台的URL（*）
+							method: 'get', //请求方式（*）
+							//toolbar: '',             //工具按钮用哪个容器
+							striped: true, //是否显示行间隔色
+							cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+							pagination: false, //是否显示分页（*）
+							sortable: false, //是否启用排序
+							sortOrder: "asc", //排序方式
+							queryParams: queryParams, //传递参数（*）
+							sidePagination: "server", //分页方式：client客户端分页，server服务端分页（*）
+							pageNumber: 1, //初始化加载第一页，默认第一页
+							pageSize: 5, //每页的记录行数（*）
+							pageList: [5, 10, 15, 20], //可供选择的每页的行数（*）
+							search: false, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+							strictSearch: true,
+							showColumns: false, //是否显示所有的列
+							showRefresh: false, //是否显示刷新按钮
+							minimumCountColumns: 5, //最少允许的列数
+							clickToSelect: true, //是否启用点击选中行
+							height: 200, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+							uniqueId: "serverip", //每一行的唯一标识，一般为主键列
+							showToggle: false, //是否显示详细视图和列表视图的切换按钮
+							cardView: false, //是否显示详细视图
+							detailView: false, //是否显示父子表
+							singleSelect: true,
+							columns: [{
+								checkbox: true
+							}, {
+								field: 'serverip',
+								title: '服务器IP'
+							}, {
+								field: 'serverport',
+								title: '端口'
+							}, {
+								field: 'contrltype',
+								title: '控制类型'
+							}, {
+								field: 'connectstates',
+								title: '连接状态'
+							}, {
+								field: 'serverdec',
+								title: '服务器描述'
+							}]
+						});
+
+						//					$('#tb_patrol_plan').bootstrapTable('hideColumn', 'id');
+						//					$('#tb_patrol_plan').bootstrapTable('hideColumn', 'status');
+
+					},
+					//						queryParams: function(params) {
+					//							var temp = { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+					//								pagesize: params.limit, //页面大小
+					//								pageindex: params.offset, //页码
+					//								name: $("#planName").val()
+					//							};
+					//							return temp;
+					//						}
+
+				}
+				$(function() {
+					sys_cfg.table();
+				})
+
+				//获取服务器信息请求
+				function adpMngServerInfoReq() {
+					var reqData = {};
+					reqData.eventcode = 11;
+					reqData.eventname = "GetAdpMngServerInfoReq";
+					var reqdata = JSON.stringify(reqData); //转为JSON字符串 
+					console.log(reqdata);
+					PostAjaxReq(req_cgiUrl, reqdata, adpMngServerInfoReqCallBack);
+
+				}
+				$(function() {
+					adpMngServerInfoReq();
+				})
+				function devMes() {
+				var reqData = {};
+				reqData.eventcode = 5;
+				reqData.eventname = "GetAdpMngReq";
+				var reqdata = JSON.stringify(reqData); //转为JSON字符串 
+				console.log(reqdata);
+				PostAjaxReq(req_cgiUrl, reqdata, devMesCallBack);
+
+				}
+				$(function() {
+					setTimeout(function() {
+						devMes();
+					}, 2000)
+				})
+				
+
+				//获取服务器信息请求
+				function netCardInfoReq() {
+					var reqData = {};
+					reqData.eventcode = 19;
+					reqData.eventname = "GetAdpMngNetCfgReq";
+					var reqdata = JSON.stringify(reqData); //转为JSON字符串 
+					console.log(reqdata);
+					PostAjaxReq(req_cgiUrl, reqdata, netCardInfoReqCallBack);
+
+				}
+				$(function() {
+					setTimeout(function() {
+						netCardInfoReq();
+					}, 3000)
+				})
+
+				//添加服务器请求
+				function addServer() {
+					var server_ip = $("#server_ip").val();
+					var server_port = parseInt($("#server_port").val());
+					var sys_slt = parseInt($('.sys_slt option:selected').val());
+					var serverinfo = {
+						serverip: server_ip,
+						serverport: server_port,
+						contrltype: sys_slt,
+						connectstates: 0,
+						serverdec: ""
+					}
+					var reqData = {};
+					reqData.eventcode = 13;
+					reqData.serverinfo = serverinfo;
+					reqData.eventname = "AddAdpMngServerInfoReq";
+					var reqdata = JSON.stringify(reqData); //转为JSON字符串 
+					console.log(reqdata);
+					PostAjaxReq(req_cgiUrl, reqdata, addServerInfoReqCallBack);
+
+				}
+				//修改服务器请求
+				function modifyServer() {
+					var server_ip     = $("#server_ip").val();
+					var server_port   = parseInt($("#server_port").val());
+					var sys_slt       = parseInt($('.sys_slt option:selected').text());
+//					var selectContent = $('#serverconfig').bootstrapTable('getSelections')[0];
+					var last_ip    =    $("#last_ip").val();
+					var serverinfo = {
+//						lastip: last_ip,
+						serverip: server_ip,
+						serverport: server_port,
+						contrltype: sys_slt
+
+					};
+					var reqData = {};
+					reqData.eventcode = 15;
+					reqData.eventname = "ModAdpMngServerInfoReq";
+					reqData.lastip = last_ip;
+					reqData.serverinfo = serverinfo;
+
+					var reqdata = JSON.stringify(reqData); //转为JSON字符串 
+					console.log(reqdata);
+					PostAjaxReq(req_cgiUrl, reqdata, modifyServerReqCallBack);
+				}
+
+				//删除服务器请求
+				function deleteServer() {
+					var selectContent = $('#serverconfig').bootstrapTable('getSelections')[0];
+					var server_ip = selectContent.serverip;
+					
+
+					var reqData = {};
+					reqData.eventcode = 17;
+					reqData.eventname = "DelAdpMngServerInfoReq";
+					reqData.serverip = server_ip;
+					var reqdata = JSON.stringify(reqData); //转为JSON字符串 
+					console.log(reqdata);
+					PostAjaxReq(req_cgiUrl, reqdata, deleteServerReqCallBack);
+
+				}
+
+				//修改网卡配置请求
+				function modifyCfg() {
+//					var m_netname = $("#net-name").val();
+					var m_netip = $("#netip").val();
+					var m_subnetip = $("#subnetip").val();
+					var m_gateIp = $("#gateIp").val();
+					var cfginfo = [{
+//						netname: m_netname,
+						netip: m_netip,
+						subnetip: m_subnetip,
+						gateIp: m_gateIp
+					}];
+					var reqData = {};
+					reqData.eventcode = 21;
+					reqData.eventname = "ModAdpMngNetCfgReq";
+					reqData.netinfocfgs = cfginfo;
+					var reqdata = JSON.stringify(reqData); //转为JSON字符串 
+					console.log(reqdata);
+					PostAjaxReq(req_cgiUrl, reqdata, modifyCfgReqCallBack);
+				}
+				
+				function modifyCfgMes() {
+				var reqData = {};
+				reqData.eventcode        = 9;
+				reqData.eventname        = "ModAdpMngReq";
+				reqData.adpid            = $("#adpid").val();
+				reqData.adpname          = $("#adpname").val();
+//				reqData.password_        = $("#password_").val();
+				var reqdata = JSON.stringify(reqData); //转为JSON字符串 
+				console.log(reqdata);
+				PostAjaxReq(req_cgiUrl, reqdata, modifyCfgMesCallBack);
+
+			}
+
+				$(".add").on("click", function() {
+					// 弹出添加服务器部分
+					layer.open({
+						type: 1,
+						title: "添加服务器",
+						closeBtn: 1,
+						area: "400px",
+						shadeClose: true,
+						//move: 'mine-move',
+						skin: 'yourclass',
+						content: $("#content"), //iframe的url，no代表不显示滚动条
+						cancel: function(index, layero) {
+							return true;
+						}
+					});
+
+					$("#sure").off("click").on("click", function() {
+//						var server_ip = $("#server_ip").val();
+//						var server_port = $("#server_port").val();
+//						var sys_slt = $('.sys_slt option:selected').val();
+//						var serverinfosItem = {
+//							serverip: server_ip,
+//							serverport: server_port,
+//							contrltype: sys_slt,
+//							connectstates: 1,
+//							serverdec: 1,
+//						}
+//						$('#serverconfig').bootstrapTable('append', serverinfosItem);
+						//						$('#serverconfig').bootstrapTable('resetView');
+						addServer();
+						layer.closeAll("page");
+					})
+					$("#cancel").on("click", function() {
+						layer.closeAll("page");
+					})
+
+				})
+
+				$(".modify-svr").click(function() {
+
+					var selectContent = $('#serverconfig').bootstrapTable('getSelections')[0];
+					if(typeof(selectContent) == 'undefined') {
+						layer.alert('请选择一列数据!');
+						return false;
+					} else {
+						var sys_slt = $('.sys_slt option:selected').val();
+						$("#server_ip").val(selectContent.serverip);
+						$("#last_ip").val(selectContent.serverip);
+						$("#server_port").val(selectContent.serverport);
+
+						layer.open({
+							type: 1,
+							title: "修改服务器",
+							closeBtn: 1,
+							area: "400px",
+							shadeClose: true,
+							//move: 'mine-move',
+							skin: 'yourclass',
+							content: $("#content"), //iframe的url，no代表不显示滚动条
+							cancel: function(index, layero) {
+								return true;
+							}
+						});
+
+						//						alert(getIdSelections());
+						$("#sure").off("click").on("click", function() {
+							var server_ip = $("#server_ip").val();
+							var server_port = $("#server_port").val();
+							var sys_slt = $('.sys_slt option:selected').val();
+							var serverinfosItem = {
+								serverip: server_ip,
+								serverport: server_port,
+								contrltype: sys_slt,
+								connectstates: 1,
+								serverdec: 1,
+							}
+							var index = $(".selected").attr("data-index");
+							$('#serverconfig').bootstrapTable('updateRow', {
+								index: index,
+								row: serverinfosItem
+							});
+							modifyServer();
+							layer.closeAll("page");
+						})
+						$("#cancel").on("click", function() {
+							layer.closeAll("page");
+						})
+
+					}
+
+				})
+				$(".delete").click(function() {
+					var selectContent = $('#serverconfig').bootstrapTable('getSelections')[0];
+					if(typeof(selectContent) == 'undefined') {
+						layer.alert('请选择一列数据!');
+						return false;
+					} else {
+						var id = $(".selected").attr("data-uniqueid");
+
+						layer.confirm('确定删除?', {
+							icon: 3,
+							title: '提示'
+						}, function(index) {
+							deleteServer();
+							$('#serverconfig').bootstrapTable('removeByUniqueId', id);
+							var serverinfosItem = {
+								serverip: 1,
+								serverport: 1,
+								contrltype: 1,
+								connectstates: 1,
+								serverdec: 1,
+							}
+							var arr = [];
+							arr.push(serverinfosItem);
+							$('#serverconfig').bootstrapTable('load', arr);
+							layer.close(index);
+						});
+					}
+				})
+
+				$(".modify-cfg").click(function() {
+					var net_name = $("#netname").val();
+					var net_ip = $("#netip").val();
+					var subnet_ip = $("#subnetip").val();
+					var gate_Ip = $("#gateIp").val();
+					layer.confirm('确定修改?', {
+							icon: 3,
+							title: '提示'
+						}, function(index) {
+							modifyCfg();
+							layer.close(index);
+						});
+					
+//					$("#net-name").val(net_name);
+//					$("#net-ip").val(net_ip);
+//					$("#subnet-ip").val(subnet_ip);
+//					$("#gate-Ip").val(gate_Ip);
+//					layer.open({
+//						type: 1,
+//						title: "修改网卡配置",
+//						closeBtn: 1,
+//						area: "400px",
+//						shadeClose: true,
+//						//move: 'mine-move',
+//						skin: 'yourclass',
+//						content: $("#content-cfg"), //iframe的url，no代表不显示滚动条
+//						cancel: function(index, layero) {
+//							return true;
+//						}
+//					});
+//					$("#sure-cfg").off("click").on("click", function() {
+//						modifyCfg();
+//
+//						layer.closeAll("page");
+//					})
+//					$("#cancel-cfg").on("click", function() {
+//						layer.closeAll("page");
+//					})
+				})
+				
+				$(".modify-cfg-mes").click(function() {
+					layer.confirm('确定修改?', {
+							icon: 3,
+							title: '提示'
+						}, function(index) {
+							modifyCfgMes();
+							layer.close(index);
+						});
+				})
+				
+				
+
+				$('#sys_den').click(function() {
+					location = "sys_den.html";
+				})
+				$('#sys_cfg').click(function() {
+					location = "sys_cfg.html";
+				})
+				$("#alarmhost").click(function() {
+					location = "dev_mes.html";
+				})
+				$(window).resize(function() {
+					//					$('#serverconfig').bootstrapTable('resetView');
+				})
+			</script>
+		</div>
+	</body>
+
+</html>

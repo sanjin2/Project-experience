@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>系统维护</title>
+		<link rel="stylesheet" href="css/reset.css" />
+		<link rel="stylesheet" href="css/ismp_configure.css" />
+		<link rel="stylesheet" href="css/kdfluency.css" />
+		<link rel="shortcut icon" href="favicon.ico" />
+		<script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+		<script type="text/javascript" src="js/kdfluency.js"></script>
+		<!-- bootstrap -->
+		<script type="text/javascript" type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
+
+		<!-- bootstrap table -->
+		<script type="text/javascript" src="bootstrap/table/bootstrap-table.min.js"></script>
+		<link rel="stylesheet" href="bootstrap/table/bootstrap-table.css" />
+		<script type="text/javascript" src="bootstrap/table/locale/bootstrap-table-zh-CN.js"></script>
+		
+		<script type="text/javascript" src="js/ajax.js"></script>
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript" src="js/sys_den.js"></script>
+	</head>
+
+	<body STYLE='OVERFLOW:SCROLL;OVERFLOW-X:HIDDEN;OVERFLOW-Y:HIDDEN;'>
+		<div id="web">
+			<header class="main_header" id="head_sec" style="background: #1e79e0;">
+				<div class="head">
+					<div class="kdf_logo" id="headertitle"> 安防设备接入网关</div>
+					<div class="kdf_navbar">
+						<div class="navbar_custom_menu">
+							<ul class="navbar_nav">
+								<li class="dropdown messages_menu open" style="visibility: hidden;"><span id="curMsg">0 </span></li>
+								<li id="dropdown" class="dropdown user user_menu">
+									<a href="#" data-toggle="dropdown">
+										<img class="user_image" alt="User Image" src="img/cims_03.png">
+										<span id="headerspan" name="headerspan">
+					              	<span id="curUserId" style="display: none;"></span>
+										<span id="curUserName" class="hidden_xs" style="color: #fff;">admin</span>
+										</span>
+									</a>
+								</li>
+
+							</ul>
+						</div>
+					</div>
+				</div>
+
+			</header>
+			<section id="content">
+				<!-- 当前页面所属url，用于菜单的实时转换 -->
+				<input id="belong_option_id" type="hidden" value="05" />
+				<div class="cont_wrap a15_cont_top">
+					<div class="cont_l" style="">
+						<div class="l_sidebar">
+							<div class="sidebar section">
+								<ul class="sidebar_menu">
+									<li class="sb_treeview ">
+										<a href="#" id="color_s">
+											<span>设备信息</span>
+											<span class="pull_right_container"><i class="fa_angle_left pull_right"></i></span>
+										</a>
+										<div class="treeview_menu ztree " style="display: none;">
+											<div id="alarmhost"> 告警主机</div>
+											<div id="doorhost">门禁主机</div>
+										</div>
+
+									</li>
+									<li class="sb_treeview active">
+										<a href="#" id="color_s">
+											<span>系统管理</span>
+											<span class="pull_right_container"><i class="fa_angle_left pull_right"></i></span>
+										</a>
+										<div class="treeview_menu ztree" >
+											<div id="sys_cfg">系统配置</div>
+											<div id="sys_den" style="color: #136fb8;">系统维护</div>
+										</div>
+
+									</li>
+
+								</ul>
+
+							</div>
+						</div>
+					</div>
+					<!--  右边部分-->
+					<div class="cont_r" id="cont_r">
+						<div class="data_warp" style="height:100%">
+
+							<div class="cd_cont" style="height:100%;">
+								<!-- 上下 7 3布局 start-->
+								<!-- 上下 7 3布局 top start-->
+								<div class="col_tb_n73_t col_pbottom">
+									<div class="comm_box" style="float: left;border: none;-webkit-box-shadow: none;">
+										<div class="box_body_nohead">
+											<h4>版本信息</h4>
+											<!--<div class="line"></div>-->
+											<!-- 巡更路径插入的地方 -->
+											<table id="tb_patrol_plan"></table>
+											<!--<div class="status">0-未启动，1-正常启动</div>-->
+											<div class="restart webdoor_common">重启网关</div>
+											<div class="clearfix"></div>
+											<h4>软件版本升级</h4>
+											<div class="line"></div>
+											<div class="versionup webdoor_common">版本升级</div>
+
+											<!--<img style="width:100%;height:100%;" th:src="@{/img/patrolmap/cell_plane.png}" />-->
+										</div>
+									</div>
+
+								</div>
+								<!-- 上下 7 3布局 top end-->
+								<!-- 上下 7 3布局 bottom start-->
+								<div class="col_tb_n73_b">
+
+								</div>
+								<!-- 上下 7 3布局 bottom end-->
+								<!-- 上下 7 3布局 end-->
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--endWeb-->
+				<script>
+					
+					
+					/*bootstrap table相关配置*/
+					var sys_den = {
+						table: function() {
+							function queryParams(params) {
+								var temp = { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+									pagesize: params.limit, //页面大小
+									pageindex: params.offset, //页码
+									name: $("#planName").val()
+								};
+								return temp;
+							}
+							$('#tb_patrol_plan').bootstrapTable({
+//								url: '/patrol/patrolplans', //请求后台的URL（*）
+								method: 'get', //请求方式（*）
+								//toolbar: '',             //工具按钮用哪个容器
+								striped: true, //是否显示行间隔色
+								cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+								pagination: false, //是否显示分页（*）
+								sortable: false, //是否启用排序
+								sortOrder: "asc", //排序方式
+								queryParams: queryParams, //传递参数（*）
+								sidePagination: "server", //分页方式：client客户端分页，server服务端分页（*）
+								pageNumber: 1, //初始化加载第一页，默认第一页
+								pageSize: 5, //每页的记录行数（*）
+								pageList: [5, 10, 15, 20], //可供选择的每页的行数（*）
+								search: false, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+								strictSearch: true,
+								showColumns: false, //是否显示所有的列
+								showRefresh: false, //是否显示刷新按钮
+								minimumCountColumns: 5, //最少允许的列数
+								clickToSelect: true, //是否启用点击选中行
+								height: 350, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+								uniqueId: "id", //每一行的唯一标识，一般为主键列
+								showToggle: false, //是否显示详细视图和列表视图的切换按钮
+								cardView: false, //是否显示详细视图
+								detailView: false, //是否显示父子表
+								columns: [{
+									checkbox: true
+								}, {
+									field: 'name',
+									title: '模块名称',
+								}, {
+									field: 'versioninfo',
+									title: '版本信息'
+								}, {
+									field: 'status',
+									title: '运行状态'
+								}]
+							});
+
+							//					$('#tb_patrol_plan').bootstrapTable('hideColumn', 'id');
+							//					$('#tb_patrol_plan').bootstrapTable('hideColumn', 'status');
+
+						},
+						//						queryParams: function(params) {
+						//							var temp = { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+						//								pagesize: params.limit, //页面大小
+						//								pageindex: params.offset, //页码
+						//								name: $("#planName").val()
+						//							};
+						//							return temp;
+						//						}
+
+					}
+					$(function() {
+						sys_den.table();
+					})
+					/* end bootstrap table相关配置*/
+					//请求编写
+					function adpMngVerReq() {
+						var reqData = {};
+						reqData.eventcode = 3;
+						reqData.eventname = "GetAdpMngVerReq";
+						var reqdata = JSON.stringify(reqData); //转为JSON字符串 
+						console.log(reqdata);
+						PostAjaxReq(req_cgiUrl, reqdata, adpMngVerReqCallBack);
+		
+					}
+					adpMngVerReq();
+					function rebootReq() {
+						var reqData = {};
+						reqData.eventcode = 25;
+						reqData.eventname = "RebootReq";
+						var reqdata = JSON.stringify(reqData); //转为JSON字符串 
+						console.log(reqdata);
+						PostAjaxReq(req_cgiUrl, reqdata, rebootReqCallBack);
+					}
+					
+					// 页面切换操作
+					$('#sys_den').click(function(){
+						location="sys_den.html";
+					})
+					$('#sys_cfg').click(function(){
+						location="sys_cfg.html";
+					})
+					$("#alarmhost").click(function() {
+					location = "dev_mes.html";
+					})
+					
+					//重启服务
+					$(".restart").click(function(){
+						rebootReq();
+					})
+					
+					
+					
+					
+				</script>
+			</section>
+		</div>
+	</body>
+
+</html>

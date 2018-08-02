@@ -1,0 +1,438 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="UTF-8" />
+		<title>设备信息</title>
+		
+		<link rel="stylesheet" href="css/reset.css" />
+		<link rel="stylesheet" href="css/ismp_configure.css" />
+		<link rel="shortcut icon" href="favicon.ico" />
+		<link rel="stylesheet" href="css/kdfluency.css" />
+		<link rel="stylesheet" href="css/ismp_public.css" />
+		
+		<script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+		<script type="text/javascript" src="js/kdfluency.js"></script>
+		<!-- bootstrap -->
+		<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.css" />
+
+		<!-- bootstrap table -->
+		<script type="text/javascript" src="bootstrap/table/bootstrap-table.js"></script>
+		<link rel="stylesheet" href="bootstrap/table/bootstrap-table.css" />
+		<script type="text/javascript" src="bootstrap/table/locale/bootstrap-table-zh-CN.js"></script>
+
+		<script type="text/javascript" src="js/ajax.js"></script>
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript" src="js/dev_mes.js"></script>
+		
+		<link rel="stylesheet" href="layer/theme/default/layer.css" />
+		<script type="text/javascript" src="layer/layer.js" ></script>
+		
+		
+
+	</head>
+
+	<body STYLE='OVERFLOW:SCROLL;OVERFLOW-X:HIDDEN;OVERFLOW-Y:HIDDEN;'>
+		<!--<div id="web">-->
+			<header class="main_header" id="head_sec" style="background: #1e79e0;">
+				<div class="head">
+					<div class="kdf_logo" id="headertitle"> 安防设备接入网关</div>
+					<div class="kdf_navbar">
+						<div class="navbar_custom_menu">
+							<ul class="navbar_nav">
+								<li class="dropdown messages_menu open" style="visibility: hidden;"><span id="curMsg">0 </span></li>
+								<li id="dropdown" class="dropdown user user_menu">
+									<a href="#" data-toggle="dropdown">
+										<img class="user_image" alt="User Image" src="img/cims_03.png">
+										<span id="headerspan" name="headerspan">
+					              	<span id="curUserId" style="display: none;"></span>
+										<span id="curUserName" class="hidden_xs" style="color: #fff;">admin</span>
+										</span>
+									</a>
+									<div class="modify_password">
+										<a class="modifyPassword" href="javascript:;">修改密码</a>
+									</div>
+								</li>
+								<li>
+
+								</li>
+
+							</ul>
+						</div>
+					</div>
+				</div>
+
+			</header>
+			<!--<div id="content2">-->
+
+				<div class="cont_wrap a15_cont_top">
+					<div class="cont_l" style="">
+						<div class="l_sidebar">
+							<div class="sidebar section">
+								<ul class="sidebar_menu">
+									<li class="sb_treeview active">
+										<a href="#" id="color_s">
+											<span>设备信息</span>
+											<span class="pull_right_container"><i class="fa_angle_left pull_right"></i></span>
+										</a>
+										<div class="treeview_menu ztree ">
+											<div id="alarmhost" style="color: #136fb8;"> 告警主机</div>
+											<div id="doorhost">门禁主机</div>
+										</div>
+
+									</li>
+									<li class="sb_treeview">
+										<a href="#" id="color_s">
+											<span>系统管理</span>
+											<span class="pull_right_container"><i class="fa_angle_left pull_right"></i></span>
+										</a>
+										<div class="treeview_menu ztree" style="display: none;">
+											<div id="sys_cfg">系统配置</div>
+											<div id="sys_den">系统维护</div>
+										</div>
+
+									</li>
+
+								</ul>
+
+							</div>
+
+						</div>
+					</div>
+					<!--  右边部分-->
+					<div class="cont_r" id="cont_r">
+						<div class="data_warp" style="height:100%">
+
+							<div class="cd_cont" style="height:100%;">
+								<!-- 上下 7 3布局 start-->
+								<!-- 上下 7 3布局 top start-->
+								<div class="col_tb_n73_t col_pbottom">
+									<div class="comm_box" style="float: left;">
+										<div class="box_body_nohead">
+											<h4>告警主机信息表</h4>
+											<!-- 巡更路径插入的地方 -->
+											<table id="alarmHost"></table>
+											<!--<img style="width:100%;height:100%;" th:src="@{/img/patrolmap/cell_plane.png}" />-->
+										</div>
+									</div>
+								</div>
+								<!-- 上下 7 3布局 top end-->
+								<!-- 上下 7 3布局 bottom start-->
+								<div class="col_tb_n73_b">
+
+								</div>
+								<!-- 上下 7 3布局 bottom end-->
+								<!-- 上下 7 3布局 end-->
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--endWeb-->
+
+				<!--style="position: absolute;z-index: 9999; top:10px"-->
+				<section id="content">
+					<div class="cont contpass">
+						<!--修改密码-->
+						<div class="forget_warp" id="passmodify" style="display: block;">
+							<div class="pass_forget">
+								<!--<div class="fgt">
+								修改密码
+							</div>-->
+								<div class="safe iden1"><span class="sp">旧密码 : </span> <input class="inp" id="password" type="password" placeholder="请输入旧密码" /> </div>
+								<div class="safe iden1"><span class="sp"><span class="must">*</span> 新密码 : </span> <input class="inp" id="newPassword" type="password" placeholder="请输入新密码" /> </div>
+								<div class="safe iden1"><span class="sp"><span class="must">*</span> 确认密码 : </span> <input class="inp" type="password" id="password_" placeholder="请确认密码" /> </div>
+								<div style="margin-left: 30px;margin-top: 10px;"><span id="item_" class="item_"></span></div>
+
+								<div class="next" id="sure">
+									确认
+								</div>
+
+								<div class="clear_fix">
+
+								</div>
+							</div>
+						</div>
+						<!-- /修改密码-->
+					</div>
+				</section>
+			<!--</div>-->
+		<!--</div>-->
+	</body>
+
+	<script >
+		/*******table表格************/
+		var dev_mes = {
+			table: function() {
+				function queryParams(params) {
+					var temp = { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+						pagesize: params.limit, //页面大小
+						pageindex: params.offset, //页码
+						name: $("#planName").val()
+					};
+					return temp;
+				}
+				$('#alarmHost').bootstrapTable({
+					url: '', //请求后台的URL（*）
+					method: 'get', //请求方式（*）
+					//toolbar: '',             //工具按钮用哪个容器
+					striped: true, //是否显示行间隔色
+					cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+					pagination: true, //是否显示分页（*）
+					sortable: false, //是否启用排序
+					sortOrder: "asc", //排序方式
+					queryParams: queryParams, //传递参数（*）
+					sidePagination: "server", //分页方式：client客户端分页，server服务端分页（*）
+					pageNumber: 1, //初始化加载第一页，默认第一页
+					pageSize: 5, //每页的记录行数（*）
+					pageList: [5, 10, 15, 20], //可供选择的每页的行数（*）
+					search: false, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+					strictSearch: true,
+					showColumns: false, //是否显示所有的列
+					showRefresh: false, //是否显示刷新按钮
+					minimumCountColumns: 5, //最少允许的列数
+					clickToSelect: true, //是否启用点击选中行
+					height: 300, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+					uniqueId: "id", //每一行的唯一标识，一般为主键列
+					showToggle: false, //是否显示详细视图和列表视图的切换按钮
+					cardView: false, //是否显示详细视图
+					detailView: false, //是否显示父子表
+					columns: [{
+						checkbox: true
+					}, {
+						field: 'devid',
+						title: 'ID',
+					}, {
+						field: 'devname',
+						title: '名称'
+					}, {
+						field: 'manufacId',
+						title: '厂商'
+					}, {
+						field: 'modelId',
+						title: '类型'
+					}, {
+						field: 'contype',
+						title: '接入方式'
+					}, {
+						field: 'isonline',
+						title: '状态'
+					}, {
+						field: 'advcfg',
+						title: '详细信息'
+					}]
+				});
+
+				//					$('#tb_patrol_plan').bootstrapTable('hideColumn', 'id');
+				//					$('#tb_patrol_plan').bootstrapTable('hideColumn', 'status');
+				$('#alarmHost').bootstrapTable('hideColumn', 'devid');
+			},
+			//						queryParams: function(params) {
+			//							var temp = { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+			//								pagesize: params.limit, //页面大小
+			//								pageindex: params.offset, //页码
+			//								name: $("#planName").val()
+			//							};
+			//							return temp;
+			//						}
+
+		}
+		
+		$(function() {
+			dev_mes.table();
+		})
+		
+		
+		
+		/******* end table表格************/
+		
+		
+
+		
+		
+        
+/******************接口请求************************/
+			function devMes() {
+				var reqData = {};
+				reqData.eventcode = 5;
+				reqData.eventname = "GetAdpMngReq";
+				var reqdata = JSON.stringify(reqData); //转为JSON字符串 
+				console.log(reqdata);
+				PostAjaxReq(req_cgiUrl, reqdata, devMesCallBack);
+
+			}
+			devMes();
+			
+
+			function modifyPassword() {
+				var reqData = {};
+				reqData.eventcode        = 9;
+				reqData.eventname        = "ModAdpMngReq";
+//				reqData.adpid            = $("#curUserId").text();
+//				reqData.name             = $("#curUserName").text();
+				reqData.oldpassword      = $("#password").val();
+				reqData.password         = $("#password_").val();
+				var reqdata = JSON.stringify(reqData); //转为JSON字符串 
+				console.log(reqdata);
+				PostAjaxReq(req_cgiUrl, reqdata, modifyPasswordCallBack);
+
+			}
+			
+			function devInfo(){
+				var reqData = {};
+				reqData.eventcode        = 23;
+				reqData.eventname        = "QueDevInfoReq";
+				reqData.adpid            = $("#curUserId").text();
+				reqData.adptype          = "alarm";
+				reqData.pagesize         = 10; 
+				reqData.pageindex        = 0; 
+				reqData.searchkey        = ""; 
+				reqData.searchvalue      = "";
+				var reqdata = JSON.stringify(reqData); //转为JSON字符串 
+				console.log(reqdata);
+				PostAjaxReq(req_cgiUrl, reqdata, devInfoCallBack);
+			}
+			
+			setTimeout(function(){
+				devInfo();
+			},5000)
+			
+			
+/******************end 接口请求************************/
+			
+/*******************修改密码功能*************************/
+		$(".modifyPassword").on("click", function() {
+			// 弹出视频墙部分
+			layer.open({
+				type: 1,
+				title: "修改密码",
+				closeBtn: 1,
+				area: "400px",
+				shadeClose: true,
+				//move: 'mine-move',
+				skin: 'yourclass',
+				content: $("#content"), //iframe的url，no代表不显示滚动条
+				cancel: function(index, layero) {
+					return true;
+				}
+			});
+			$("#sure").on("click", function() {
+
+			})
+
+		})
+
+		var userpass = document.getElementById("password");
+		var newPassword = document.getElementById("newPassword");
+		var password_ = document.getElementById("password_");
+		var sure = document.getElementById("sure");
+
+		var test2 = false;
+		var test3 = false;
+		var test4 = false;
+
+		var items = document.querySelectorAll(".item_");
+		var item = document.getElementById("item_");
+		//		alert(items);
+
+		userpass.onfocus = function() {
+			item.innerText = "请输入6-18位的数字、字母、_";
+			item.style.color = "green";
+		}
+
+		userpass.onblur = function() {
+			var reg = /^\w{6,18}$/;
+			if(this.value == "") {
+				item.innerText = "密码不能为空!";
+				item.style.color = "red";
+				this.style.border = "1px solid red";
+			} else {
+				if(!reg.exec(userpass.value)) {
+					item.innerText = "请输入6-18位的数字、字母、_";
+					item.style.color = "red";
+					this.style.border = "1px solid red";
+				} else {
+					item.innerText = "密码格式正确";
+					item.style.color = "green";
+					this.style.border = "1px solid green";
+					test2 = true;
+				}
+			}
+		}
+
+		newPassword.onfocus = function() {
+			item.innerText = "请输入6-18位的数字、字母、_";
+			item.style.color = "green";
+		}
+
+		newPassword.onblur = function() {
+			var reg = /^\w{6,18}$/;
+			if(this.value == "") {
+				item.innerText = "密码不能为空!";
+				item.style.color = "red";
+				this.style.border = "1px solid red";
+			} else {
+				if(!reg.exec(newPassword.value)) {
+					item.innerText = "请输入6-18位的数字、字母、_";
+					item.style.color = "red";
+					this.style.border = "1px solid red";
+				} else {
+					item.innerText = "密码格式正确";
+					item.style.color = "green";
+					this.style.border = "1px solid green";
+					test3 = true;
+				}
+			}
+		}
+		password_.onfocus = function() {
+			item.innerText = "请确认两次密码一致！";
+			item.style.color = "green";
+		}
+		password_.onblur = function() {
+			if(this.value == "") {
+				item.innerText = "确认密码不能为空!";
+				item.style.color = "red";
+				this.style.border = "1px solid red";
+			} else {
+				if(this.value != newPassword.value) {
+					item.innerText = "两次密码不同";
+					item.style.color = "red";
+					this.style.border = "1px solid red";
+				} else {
+					item.innerText = "确认密码正确";
+					item.style.color = "green";
+					this.style.border = "1px solid green";
+					test4 = true;
+				}
+			}
+		}
+
+		sure.onclick = function() {
+			if(test2 == false || test3 == false || test4 == false) {
+				alert("您填写的信息有误");
+			} else {
+				alert("确认提交");
+				modifyPassword();
+				layer.closeAll('page');
+			}
+		}
+		
+		/*******************end修改密码功能*************************/
+		
+		
+		// 点击页面切换
+		$('#sys_den').click(function() {
+			location = "sys_den.html";
+		})
+		$('#sys_cfg').click(function() {
+			location = "sys_cfg.html";
+		})
+		$("#alarmhost").click(function() {
+			location = "dev_mes.html";
+		})
+		
+		
+		
+		
+	</script>
+
+</html>
