@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title th:text="#{ui.view.04.title}">人员出入管理</title>
+		<link rel="stylesheet" th:href="@{/css/reset.css}" href="../../static/css/reset.css" />
+		<link rel="stylesheet" th:href="@{/css/ismp_configure.css}" href="../../static/css/ismp_configure.css" />
+	</head>
+
+	<body>
+		<div id="web">
+			<div th:include="ismp_common :: check"></div>
+			<!-- 框架检测片段 -->
+			<section id="content">
+				<input id="belong_option_id" type="hidden" value="0402" />
+				<div class="cont_wrap" style="height:100%;">
+					<style>
+						html,
+						body {
+							height: 100%;
+						}
+						
+						.box_body {
+							height: 100%;
+						}
+						
+						.grant {
+							background: url(/img/btn_peizhi_highlight.png) no-repeat 20% center;
+							width: 68px;
+							height: 28px;
+							text-align: right;
+							padding-right: 10px;
+							border-radius: 2px;
+							border-style: none;
+						}
+						
+						.sync {
+							background: url(/img/btn_sync.png) no-repeat 6px 5px;
+							background-size: 20px;
+							width: 68px;
+							height: 28px;
+							text-align: right;
+							padding-right: 10px;
+							border-radius: 2px;
+							border-style: none;
+						}
+						
+						.grant:disabled {
+							cursor: not-allowed;
+							background-color: buttonface;
+							box-sizing: inherit;
+							border-image: none;
+							border-style: none;
+						}
+						
+						.headImg {
+							height: 100px;
+							width: 100px;
+						}
+						
+						.bs-checkbox {
+							vertical-align: middle !important;
+						}
+					</style>
+					<div class="cd_cont section" style="height:100%;">
+						<div class="table_box" style="height:100%; min-height:800px;">
+							<div class="table_header">
+								<h1>用户列表</h1>
+							</div>
+							<div class="box_body">
+								<div id="cd_toolbar" class="cd_toolbar">
+									<ul>
+										<li class="add">
+											<a href="javascript:;">添加</a>
+										</li>
+										<li class="modify">
+											<a href="javascript:;">修改</a>
+										</li>
+										<li class="delete">
+											<a href="javascript:;">删除</a>
+										</li>
+										<li style="text-indent: 0;cursor: default;">
+											<button class="grant">授权</button>
+										</li>
+										<li style="text-indent: 0;cursor: default;">
+											<button class="sync" title="从用户管理同步用户数据">同步</button>
+										</li>
+									</ul>
+								</div>
+								<table id="tb_doorcards"></table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<script th:inline="javascript">
+					//@ sourceURL=ismp_door_user.js
+					//		<![CDATA[
+					var table = {
+						init: function() {
+							$('#tb_doorcards').bootstrapTable({
+								url: '/door/user/query/all', //请求后台的URL（*）
+								method: 'get', //请求方式（*）
+								toolbar: '#cd_toolbar', //工具按钮用哪个容器
+								striped: true, //是否显示行间隔色
+								cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+								pagination: true, //是否显示分页（*）
+								sortable: false, //是否启用排序
+								sortOrder: "asc", //排序方式
+								queryParams: table.queryParams, //传递参数（*）
+								//								onCheck: table.onCheck, //点击行事件
+								//								onUncheck: table.onCheck, //点击行事件
+								//								onCheckAll: table.onCheckAll, //点击行事件
+								//								onUncheckAll: table.onUncheckAll, //点击行事件
+								sidePagination: "server", //分页方式：client客户端分页，server服务端分页（*）
+								pageNumber: 1, //初始化加载第一页，默认第一页
+								pageSize: 10, //每页的记录行数（*）
+								pageList: [10, 25, 50, 100], //可供选择的每页的行数（*）
+								search: false, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+								strictSearch: true,
+								showColumns: true, //是否显示所有的列
+								showRefresh: true, //是否显示刷新按钮
+								minimumCountColumns: 5, //最少允许的列数
+								clickToSelect: true, //是否启用点击选中行
+								height: 700, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+								uniqueId: "id", //每一行的唯一标识，一般为主键列
+								showToggle: true, //是否显示详细视图和列表视图的切换按钮
+								cardView: false, //是否显示详细视图
+								detailView: false, //是否显示父子表
+								pagination: true,
+								paginationLoop: true,
+								columns: [{
+										field: 'check',
+										checkbox: true,
+										valign: 'middle'
+									},
+									{
+										field: 'userId',
+										visible: false,
+										valign: 'middle'
+									},
+									{
+										field: 'headPortrait',
+										title: "头像",
+										formatter: function(value) {
+											return "<img src='" + value + "' style='max-height: 90px;max-width: 90px;'/>";
+										},
+										class: 'headImg',
+										valign: 'middle',
+										align: 'center'
+									},
+									{
+										field: 'userName',
+										title: '姓名',
+										valign: 'middle'
+									},
+									{
+										field: 'sex',
+										title: '性别',
+										valign: 'middle'
+									},
+									{
+										field: 'birthDate',
+										title: '出生日期',
+										valign: 'middle'
+									},
+									{
+										field: 'ethnicGroup',
+										title: '名族',
+										valign: 'middle'
+									},
+									{
+										field: 'nationality',
+										title: '国籍',
+										valign: 'middle'
+									},
+									{
+										field: 'permanentRegion',
+										title: '行政区域',
+										valign: 'middle'
+									},
+									{
+										field: 'permanentAddress',
+										title: '户籍地址',
+										valign: 'middle'
+									},
+									{
+										field: 'permanentCode',
+										title: '户籍编码',
+										valign: 'middle'
+									},
+									{
+										field: 'credentialsTypeCode',
+										title: '证件类型',
+										formatter: function(value, row, index) {
+											if(value == 1) {
+												return "身份证";
+											}
+											if(value == 2) {
+												return "居住证";
+											}
+											if(value == 3) {
+												return "护照";
+											}
+											if(value == 4) {
+												return "其它";
+											}
+										},
+										valign: 'middle'
+									},
+									{
+										field: 'idCard',
+										title: '证件号',
+										valign: 'middle'
+									},
+									{
+										field: 'acquisitionTime',
+										title: '录入时间',
+										valign: 'middle'
+									},
+									{
+										field: 'enaexTypeCodes',
+										title: '出入方式',
+										formatter: function(value, row, index) {
+											var tp = ""
+											var arr = value.split(',')
+											for(var i in arr) {
+												if(arr[i] == 1) {
+													tp += "刷卡 | "
+												} else if(arr[i] == 2) {
+													tp += "刷脸 | ";
+												} else if(arr[i] == 3) {
+													tp += "指纹 | "
+												}
+											}
+											tp = tp.substring(0, tp.lastIndexOf("|"))
+											return tp;
+										},
+										valign: 'middle'
+									},
+									{
+										field: 'doorCardId',
+										title: '门禁卡卡号',
+										valign: 'middle'
+									},
+									{
+										field: 'groupNames',
+										title: '所属分组',
+										valign: 'middle'
+									},
+									{
+										field: 'groupCodes',
+										visible: false,
+									},
+									{
+										field: 'userGrants',
+										title: '身份',
+										formatter: function(value, row, index) {
+											var userId = row.userId;
+											return "<a href='#' onclick='toolbarEvent.lookGrants(" + userId + ")'>查看</a>"
+										},
+										valign: 'middle'
+									}
+								]
+							});
+						},
+						queryParams: function(params) {
+							var temp = { //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+								pagesize: params.limit, //页面大小
+								pageindex: (params.offset / params.limit) + 1, //页码
+							};
+							return temp;
+						},
+						onCheck: function(row) {
+							var sels = $("#tb_doorcards").bootstrapTable('getAllSelections');
+							var check = true;
+							for(var i = 0; i < sels.length; i++) {
+								if(sels[i].userTypeCode == 1) {
+									check = false;
+									break;
+								};
+							}
+							if(row.check && row.userTypeCode != 1) {
+								check = true;
+							} else {
+								if(sels.length == 0) check = false;
+							}
+							if(check) {
+								$(".grant").removeAttr("disabled");
+							} else {
+								$(".grant").attr("disabled", "disabled");
+							}
+						},
+						onCheckAll: function(rows) {
+							var check = true;
+							for(var i = 0; i < rows.length; i++) {
+								if(rows[i].userTypeCode == 1) {
+									check = false;
+									break;
+								};
+							}
+							if(rows.length == 0) check = false;
+							if(check) {
+								$(".grant").removeAttr("disabled");
+							} else {
+								$(".grant").attr("disabled", "disabled");
+							}
+						},
+						onUncheckAll: function() {
+							$(".grant").attr("disabled", "disabled");
+						}
+					};
+					var toolbarEvent = {
+						init: function() {
+							toolbarEvent.add();
+							toolbarEvent.modify();
+							toolbarEvent.delete();
+							toolbarEvent.grant();
+							toolbarEvent.sync();
+						},
+						add: function() {
+							$("#cd_toolbar").on('click', '.add', function() {
+								layer.open({
+									id: "addlayer",
+									type: 2,
+									title: "新增用户",
+									area: ['600px', '650px'],
+									shadeClose: true,
+									skin: 'yourclass',
+									content: ['/door/adduserpage', 'yes'], //iframe的url，no代表不显示滚动条
+									cancel: function(index, layero) {
+										return true;
+									},
+									btn: ['确认', '取消'],
+									yes: function(index, layero) {
+										var id = $("#addlayer").find("iframe").attr("id");
+										var pass = $("#" + id)[0].contentWindow.validate();
+										if(pass) {
+											var data = $("#addlayer").find("iframe").contents().find("#addUserForm").formToJson();
+											if(data.enaexCodes.length < 2) {
+												data.enaexCodes = [data.enaexCodes];
+											}
+											console.log(data);
+											toolbarEvent.saveUserInfo(data, index);
+										}
+									},
+									btn2: function(index, layero) {},
+								});
+							});
+						},
+						modify: function() {
+							$("#cd_toolbar").on('click', '.modify', function() {
+								var sel = $('#tb_doorcards').bootstrapTable('getSelections');
+								if(sel.length > 1) {
+									layer.alert("只能单行修改！", {
+										shade: 0.3,
+										icon: 2
+									});
+									return;
+								} else if(sel.length < 1) {
+									layer.alert("未选中数据！", {
+										shade: 0.3,
+										icon: 2
+									});
+									return;
+								}
+								var user = sel[0];
+								var params = "";
+								for(var k in user) {
+									var p = k + "=" + eval("user." + k) + "&";
+									params += p;
+								}
+								params = params.substring(0, params.lastIndexOf("&"));
+								var url = "/door/uptuserpage?" + params;
+								var newUrl = ismp.encodeUrl(url);
+								//console.log(newUrl);
+								layer.open({
+									id: "updatelayer",
+									type: 2,
+									title: "修改用户信息",
+									area: ['600px', '650px'],
+									shadeClose: true,
+									skin: 'yourclass',
+									content: [newUrl, 'yes'], //iframe的url，no代表不显示滚动条
+									cancel: function(index, layero) {
+										return true;
+									},
+									btn: ['确认', '取消'],
+									yes: function(index, layero) {
+										var id = $("#updatelayer").find("iframe").attr("id");
+										var pass = $("#" + id)[0].contentWindow.validate();
+										if(pass) {
+											var data = $("#updatelayer").find("iframe").contents().find("#addUserForm").formToJson();
+											data.userId = user.userId;
+											if(data.enaexCodes.length < 2) {
+												data.enaexCodes = [data.enaexCodes];
+											}
+											toolbarEvent.uptUserInfo(data, index);
+										}
+									},
+									btn2: function(index, layero) {},
+								});
+							});
+
+						},
+						saveUserInfo: function(data, index) {
+							var url = "/door/user/add";
+							$.jsonAjax({
+								data: data,
+								async: true,
+								url: url,
+								success: function(data) {
+									if(data.ret == true) {
+										layer.close(index);
+										$('#tb_doorcards').bootstrapTable('refresh', {
+											silent: true
+										});
+										layer.alert("增加成功!", {
+											shade: 0.3,
+											icon: 1
+										});
+									} else {
+										layer.alert("操作失败！" + data.message, {
+											shade: 0.3,
+											icon: 2
+										});
+									}
+								},
+								error: function(e) {
+									layer.alert("服务器错误，请稍后再试！", {
+										shade: 0.3,
+										icon: 2
+									});
+								}
+							});
+						},
+						uptUserInfo: function(data, index) {
+							var url = "/door/user/upt";
+							$.jsonAjax({
+								data: data,
+								async: true,
+								url: url,
+								success: function(data) {
+									if(data.ret == true) {
+										layer.close(index);
+										$('#tb_doorcards').bootstrapTable('refresh', {
+											silent: true
+										});
+										layer.alert("修改成功!", {
+											shade: 0.3,
+											icon: 1
+										});
+									} else {
+										layer.alert("操作失败！" + data.message, {
+											shade: 0.3,
+											icon: 2
+										});
+									}
+								},
+								error: function(e) {
+									layer.alert("服务器错误，请稍后再试！", {
+										shade: 0.3,
+										icon: 2
+									});
+								}
+							});
+						},
+						delete: function() {
+							$("#cd_toolbar").on('click', '.delete', function() {
+								var sels = $('#tb_doorcards').bootstrapTable('getSelections');
+								if(sels.length == 0) return;
+								layer.confirm('确认删除选中的' + sels.length + '行卡号？', {
+									btn: ['确认', '取消'] //可以无限个按钮
+										,
+									btn1: function(index, layero) {
+										//按钮【确认】的回调
+										layer.close(index);
+										$.jsonAjax({
+											url: "/door/user/del",
+											data: sels,
+											async: true,
+											success: function(data) {
+												if(data.ret == true) {
+													$('#tb_doorcards').bootstrapTable('refresh', {
+														silent: true
+													});
+												} else {
+													layer.alert("操作失败！" + data.message, {
+														shade: 0.3,
+														icon: 2
+													});
+												}
+											},
+											error: function(e) {
+												layer.alert("服务器错误，请稍后再试！", {
+													shade: 0.3,
+													icon: 2
+												});
+											}
+										});
+									},
+									btn2: function(index) {
+										//按钮【取消】的回调
+										return true;
+									}
+								});
+							})
+						},
+						grant: function() {
+							$(".grant").click(function() {
+								var userIds = [];
+								var sels = $('#tb_doorcards').bootstrapTable('getSelections');
+								for(var i = 0; i < sels.length; i++) {
+									var id = sels[i].userId;
+									userIds.push(id);
+								}
+								if(userIds.length > 0) {
+									toolbarEvent.bindGrant(userIds);
+								}
+							});
+						},
+						sync: function() {
+							$(".sync").click(function() {
+								var index = layer.load(2);
+								$.jsonAjax({
+									data: "",
+									type:"get",
+									async: true,
+									url: "/door/user/sync",
+									success: function(data) {
+										if(data.ret == true) {
+											layer.close(index);
+											$('#tb_doorcards').bootstrapTable('refresh', {
+												silent: true
+											});
+											layer.alert("同步成功!", {
+												shade: 0.3,
+												icon: 1
+											});
+										} else {
+											layer.alert("操作失败！" + data.message, {
+												shade: 0.3,
+												icon: 2
+											});
+										}
+									},
+									error: function(e) {
+										layer.close(index);
+										layer.alert("服务器错误，请稍后再试！", {
+											shade: 0.3,
+											icon: 2
+										});
+									}
+								});
+							})
+						},
+						bindGrant: function(userIds) {
+							var url = "/door/grantuserpage";
+							layer.open({
+								id: "settingPlayer",
+								type: 2,
+								title: "身份权限管理",
+								area: ['600px', '400px'],
+								shadeClose: true,
+								skin: 'yourclass',
+								content: [url, 'no'], //iframe的url，no代表不显示滚动条
+								btn: ['确认', '取消'],
+								btn1: function(index, layero) {
+									var arr = $("#settingPlayer").find("iframe").contents().find("#selected").find("li");
+									var grantIds = new Array();
+									for(var i = 0; i < arr.length; i++) {
+										var da = $("#settingPlayer").find("iframe").contents().find(arr[i]).attr("id");
+										grantIds.push(da);
+									};
+									var request = {
+										userIds: userIds,
+										grantIds: grantIds
+									};
+									$.jsonAjax({
+										data: request,
+										url: "/door/user/grant",
+										success: function(data) {
+											if(data.ret == true) {
+												layer.close(index);
+												layer.alert("操作成功！", {
+													shade: 0.3,
+													icon: 1
+												});
+											} else {
+												layer.alert("操作失败！" + data.message, {
+													shade: 0.3,
+													icon: 2
+												});
+											}
+										}
+									})
+								},
+								btn2: function(index, layero) {
+									return true;
+								},
+							});
+						},
+						lookGrants: function(userId) {
+							console.log("userId", userId);
+							layer.open({
+								id: "viewPlayer",
+								type: 2,
+								title: "身份列表",
+								area: ['300px', '400px'],
+								shadeClose: true,
+								skin: 'yourclass',
+								content: ["/door/usergrantview/" + userId, 'yes'], //iframe的url，no代表不显示滚动条
+								btn: ['退出'],
+								btn1: function(index, layero) {
+									layer.close(index);
+								}
+							});
+						}
+					};
+
+					$(document).ready(function() {
+						//1.初始化Table
+						table.init();
+						toolbarEvent.init();
+					});
+					//			]]>
+				</script>
+
+			</section>
+
+		</div>
+		<!--endWeb-->
+	</body>
+
+</html>
