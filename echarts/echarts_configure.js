@@ -255,7 +255,188 @@
 			// 使用刚指定的配置项和数据显示图表。
 			app_warning.setOption(option2);
 			
-//})			
+//})
+
+
+
+
+
+//彩环图
+					//<![CDATA[
+					//echarts图标相关配置与初始化
+					// 基于准备好的dom，初始化echarts实例
+					// 每日报警对应图表
+					var option_ate = {
+						grid: {
+							top: 10,bottom: 8, left: 8,right: 8, containLabel: true
+						},
+						// x轴
+						xAxis: {
+							data: ["1:00","2:00","3:00","4:00","5:00", "6:00",
+							       "7:00", "8:00", "9:00","10:00", "11:00", "12:00", 
+							       "13:00", "14:00", "15:00","16:00", "17:00", "18:00",
+							       "19:00", "20:00","21:00","22:00", "23:00","24:00"]
+						},
+						yAxis: {},
+						// 数据
+						series: [{
+							name: '报警统计',
+							type: 'bar',
+							itemStyle: {
+								normal: {
+									color: function(params) {
+										var colorList = [
+											'#4c84ff', '#4c84ff', '#4c84ff', '#4c84ff', '#4c84ff','#4c84ff',
+											'#4c84ff', '#4c84ff', '#4c84ff', '#4c84ff', '#4c84ff','#4c84ff',
+											'#4c84ff', '#4c84ff', '#4c84ff', '#4c84ff', '#4c84ff','#4c84ff',
+											'#4c84ff', '#4c84ff', '#4c84ff', '#4c84ff', '#4c84ff','#4c84ff'
+										];
+										return colorList[params.dataIndex]
+									},
+									　　　　　　　　　　　　　
+								}
+							},
+							barWidth : 5,
+							data: [14,25, 20, 16, 30, 20, 15, 20, 35, 14, 22,24,
+							       14,25, 20, 16, 30, 20, 15, 20, 35, 14, 22,24]
+						}]
+					};
+
+					// 报警分布对应的图表
+					var option_distribution = {
+						tooltip: {
+							trigger: 'item',
+							formatter: "{a} <br/>{b}: {c} ({d}%)"
+						},
+						graphic: {
+							type: 'text',
+							left: 'center',
+							top: 'center',
+							align:'center',
+							style: {
+								text: '总数\n85479',
+								textAlign: 'center',
+								fill: '#000',
+								width: 30,
+								height: 30,
+								fontWeight: 'bold',
+								fontSize: '18',
+								fontFamily: '宋体'
+								
+
+							}
+						},
+						series: [{
+							name: '报警分布',
+							type: 'pie',
+							radius: ['50%', '70%'],
+							selectedMode: 'single',
+							data: [{value: 1548,name: '巡更'},
+								   {value: 535, name: '报警'},
+								   {value: 510, name: '门禁'},
+								   {value: 634, name: '传感器'},
+								   {value: 735, name: '智能门禁'}],
+							itemStyle: {
+								emphasis: {
+									shadowBlur: 10,
+									shadowOffsetX: 0,
+									shadowColor: 'rgba(0, 0, 0, 0.5)'
+								},
+								emphasis: {
+									show: true,
+									textStyle: {
+										fontSize: '10',
+										fontWeight: 'bold'
+									}
+								},
+								//'#91c7ae', '#d48265', '#61a0a8', '#2f4554', '#ff4306'
+								normal: {
+									color: function(params) {
+										var colorList = [
+											'#E34F27', '#39D02B', '#F3C420', '#10D9B9', '#0AAFE1'
+										];
+										return colorList[params.dataIndex]
+									},
+									　　　　　　　　　　　　　
+								}
+							},
+							labelLine: {
+								normal: {
+									show: true,
+									length: 4,
+									length2: 2,
+								}
+							},
+
+						}]
+					};
+
+					//报警趋势
+					trend_option = {
+						grid: {
+							top: 10,bottom: 8, left: 8,right: 8, containLabel: true
+						},
+					   /* title: {
+					       text: "趋势图",
+					       x: "center"
+					   },
+					   tooltip: {
+					       trigger: "item",
+					       formatter: "{a} <br/>{b} : {c}"
+					   },
+					   legend: {
+					       x: 'left',
+					       data: ["按月份"]
+					   }, */
+					   xAxis: [
+					       {
+					           type: "category",
+					          /*  name: "x", */
+					            boundaryGap : false,
+					           data: ["1", "2", "3", "4", "5", "6", "7", "8", "9","10","11","12"]
+					       }
+					   ],
+					   yAxis: [{type: "value"/* ,name: "y" */}],
+					   /* toolbox: {
+					      show: true,
+					      feature: {
+					         mark: {show: true},
+					         dataView: {show: true,readOnly: true},
+					         restore: {show: true},
+					         saveAsImage: {show: true}
+					      }
+					   }, */
+					   /* calculable: true, */
+					   series: [
+					      {name: "按月份",type: "line",
+					       data: [6, 4, 12, 27, 33, 16, 15, 8, 7]
+					       }
+					   ]
+					};
+					
+					var myChart1 = echarts.init($('#alarm_total_excel').get(0));
+					myChart1.setOption(option_ate);
+					var myChart2 = echarts.init($('#alarm_distribution_excel').get(0));
+					myChart2.setOption(option_distribution);
+					//var myChart3 = echarts.init($('#alarm_trend_excel').get(0));
+					//myChart3.setOption(trend_option);
+					
+					//重新刷一下数据
+					setTimeout(function() {
+						myChart1.resize();
+						myChart2.resize();
+						//myChart3.resize();
+					}, 200);
+					
+					//浏览器大小改变时重置大小
+					window.onresize = function() {
+						myChart1.resize();
+						myChart2.resize();
+						//myChart3.resize();
+					}
+
+					//]]>
+				
 			
 			
 			

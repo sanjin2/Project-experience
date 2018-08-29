@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="jquery.mCustomScrollbar.css" />
+		<script type="text/javascript" src="jquery-1.11.0.js"></script>
+		<script type="text/javascript" src="jquery.mCustomScrollbar.concat.min.js"></script>
+	</head>
+	<style>
+		.box{
+			position: relative;
+			width: 200px;
+			height: 200px;
+			overflow: auto;
+			max-width: 97%;
+			padding: 20px;
+			box-sizing: border-box;
+			    margin: 0 20px 20px 0;
+		}
+		.mCSB_container{
+			width: 100%;
+			/*overflow: auto;*/
+		}
+		.box p{
+			display: inline-block;
+			
+			white-space: nowrap;
+		}
+	</style>
+	<body>
+		<div class="all-themes-switch">
+				<ul>
+					<li><a href="#" rel="toggle-content">Expand/contract content horizontally (for y &amp; x scrollbars)</a></li>
+				</ul>
+			</div>
+		<div id="box" class="box ">
+			<p>love</p>
+			
+			<p>love</p>
+			<p>love</p>
+			<p>love</p>
+			<p>love</p>
+			<p>love</p>
+			<p>love</p>
+			<p>love</p>
+			<p>love</p>
+			<p>love</p>
+			<p>love</p>
+			<p>love</p>
+			<p>love</p>
+			<p>love</p>
+			<p>lovemeplease,sorry ,Icannot,1
+				111111111111111111111</p>
+				<p>lovemeplease,sorry ,Icannot,1
+				111111111111111111111</p>
+				<p>lovemeplease,sorry ,Icannot,1
+				111111111111111111111</p>
+				<p>lovemeplease,sorry ,Icannot,1
+				111111111111111111111</p>
+				<p>lovemeplease,sorry ,Icannot,1
+				111111111111111111111</p>
+		</div>
+		
+		
+		
+		<script>
+			(function($){
+//				$.mCustomScrollbar.defaults.scrollButtons.enable=true; //enable scrolling buttons by default
+				$.mCustomScrollbar.defaults.axis="yx"; 
+        $(window).on("load",function(){
+            $("#box").mCustomScrollbar({
+            	theme:"dark"
+//axis:"yx" // vertical and horizontal scrollbar
+            });
+            
+            
+            
+            
+            
+            $(".all-themes-switch a").click(function(e){
+					e.preventDefault();
+					var $this=$(this),
+						rel=$this.attr("rel"),
+						el=$(".box");
+					switch(rel){
+						case "toggle-content":
+							el.toggleClass("expanded-content");
+							break;
+					}
+				});
+            
+        });
+//      alert(1);
+    })(jQuery);
+			
+		</script>
+	</body>
+</html>
