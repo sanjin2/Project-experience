@@ -18,3 +18,6 @@ https://www.imooc.com/article/20379
 
 ### border 对line-height居中对齐的影响
 https://blog.csdn.net/mia1106/article/details/79174351
+
+###渐变色网站
+https://uigradients.com/#BrightVault
