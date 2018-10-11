@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+//			replace(/(^\s*)|(\s*$)/g, "")
+function Foo(name){
+	this.name = name;
+	
+}
+Foo.prototype.printname = function(){
+	console.log("xiaoming");
+}
+var foo1 = new Foo();
+foo1.alert = function(){
+	console.log("alert");
+}
+
+alert(foo1.toString());
+			
+			
+		</script>
+	</body>
+</html>

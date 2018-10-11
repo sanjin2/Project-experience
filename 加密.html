@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/purple.min.js"></script>
+	</head>
+
+	<body>
+
+		
+			<script type="text/javascript">   
+				var b = new Purple();          
+				var str = b.encode("admin:admin");          
+				alert("base64 encode:" + str);　　　　
+//				　解密        
+				str = b.decode(str);
+				alert("base64 decode:" + str);
+		</script>
+
+	
+	</body>
+
+</html>

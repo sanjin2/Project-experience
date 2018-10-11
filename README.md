@@ -21,3 +21,15 @@ https://blog.csdn.net/mia1106/article/details/79174351
 
 ###渐变色网站
 https://uigradients.com/#BrightVault
+
+###密码强度验证
+https://blog.csdn.net/quanqinyang/article/details/38821795
+var reg = /^[A-Za-z0-9_#@]{8,18}$/;
+var regStrong = /^\d+$/;
+var regStrong2 =/^(?!\d+$)(?![a-zA-Z]+$)[a-zA-Z\d]+$/;
+var regStrong3 =/^(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*]).{8,}$/;			
+### 图片默认
+https://www.jb51.net/article/80253.htm
+
+###登录加密
+https://blog.csdn.net/u010035154/article/details/42581633

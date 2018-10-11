@@ -91,53 +91,104 @@
 			};
 
 			option = {
-//				color: ['#ffffff', '#8ecc59', '#ffffff', '#ce9839'],
-				color: ['#8ecc59', '#FF4500', '#4cabce', '#e5323e'],
-				tooltip: {
-					trigger: 'axis',
-					axisPointer: {
-//						type: 'shadow'
-					}
-				},
-				legend: {
-					data: ['在线数', '离线数']
-				},
+//				color: ['#8ecc59', '#FF4500', '#4cabce', '#e5323e'],
+//				tooltip: {
+//					trigger: 'axis',
+//					axisPointer: {
+////						type: 'shadow'
+//					}
+//				},
+//				legend: {
+//					data: ['在线数', '离线数']
+//				},
+//
+//				calculable: true,
+//				xAxis: [{
+//					type: 'category',
+//					axisTick: {
+//						show: false
+//					},
+//					data: ['4月', '5月', '6月', '7月', '8月']
+//				}],
+//				yAxis: [{
+//					type: 'value'
+//				}],
+//				grid: {
+//							top: 50,
+//							bottom: 8,
+//							left:8,
+//							right:8,
+//							containLabel: true
+//						},
+//				series: [{
+//						name: '在线数',
+//						type: 'bar',
+//						barGap: 0,
+//						label: labelOption,
+//						barWidth : 40,
+//						data: [32, 32, 30, 33, 39]
+//					},
+//					{
+//						name: '离线数',
+//						type: 'bar',
+//						label: labelOption,
+//						barWidth : 40,
+//						data: [10, 8, 9, 13, 12]
+//					},
+//
+//				]
 
-				calculable: true,
-				xAxis: [{
-					type: 'category',
-					axisTick: {
-						show: false
-					},
-					data: ['2012年', '2013年', '2014年', '2015年', '2016年']
-				}],
-				yAxis: [{
-					type: 'value'
-				}],
-				grid: {
-							top: 50,
-							bottom: 8,
-							left:8,
-							right:8,
-							containLabel: true
-						},
-				series: [{
-						name: '在线数',
-						type: 'bar',
-						barGap: 0,
-						label: labelOption,
-						barWidth : 40,
-						data: [320, 332, 301, 334, 390]
-					},
-					{
-						name: '离线数',
-						type: 'bar',
-						label: labelOption,
-						barWidth : 40,
-						data: [220, 182, 191, 234, 290]
-					},
 
-				]
+
+
+    tooltip : {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'cross',
+            label: {
+                backgroundColor: '#6a7985'
+            }
+        }
+    },
+    legend: {
+        data:['在线数','离线数']
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis : [
+        {
+            type : 'category',
+            boundaryGap : false,
+            data : ['周一','周二','周三','周四','周五','周六','周日']
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'在线数',
+            type:'line',
+            stack: '总量',
+            areaStyle: {normal: {}},
+            data:[120, 132, 101, 134, 90, 230, 210]
+        },
+        {
+            name:'离线数',
+            type:'line',
+            stack: '总量',
+            areaStyle: {normal: {}},
+            data:[220, 182, 191, 234, 290, 330, 310]
+        }
+       
+        
+    ]
 			};
 			// 使用刚指定的配置项和数据显示图表。
 			app.setOption(option);
@@ -194,8 +245,8 @@
 			app_auto_check.setOption(option1);
 			
 			
-			//堆叠柱状图
-					var app_warning = echarts.init(document.getElementById('warning'));
+			//堆叠柱状图(设备实时告警)
+		
 
 //			app.title = '堆叠柱状图';
 
@@ -207,7 +258,7 @@
 					}
 				},
 				legend: {
-					data: ['告警1', '告警2', '告警3']
+					data: ['告警x', '告警2', '告警3']
 				},
 				grid: {
 					left: '3%',
@@ -231,212 +282,221 @@
 				}],
 				series: [
 					{
-						name: '告警1',
+						name: '报警主机',
 						type: 'bar',
 						stack: '告警',
 						barWidth : 40,
 						data: [120, 132, 101, 134, 90, 230, 210]
 					},
 					{
-						name: '告警2',
+						name: '门禁主机',
 						type: 'bar',
 						stack: '告警',
+						barWidth : 40,
 						data: [220, 182, 191, 234, 290, 330, 310]
 					},
 					{
-						name: '告警3',
+						name: '巡更主机',
 						type: 'bar',
 						stack: '告警',
+						barWidth : 40,
 						data: [150, 232, 201, 154, 190, 330, 410]
-					}
+					},
+					{
+						name: '短信猫',
+						type: 'bar',
+						stack: '告警',
+						barWidth : 40,
+						data: [150, 232, 201, 154, 190, 330, 410]
+					},
+					{
+						name: '传感器',
+						type: 'bar',
+						stack: '告警',
+						barWidth : 40,
+						data: [150, 232, 201, 154, 190, 330, 410]
+					},
+					{
+						name: '智能终端',
+						type: 'bar',
+						stack: '告警',
+						barWidth : 40,
+						data: [150, 232, 201, 154, 190, 330, 410]
+					},
+					{
+						name: '车辆道闸',
+						type: 'bar',
+						stack: '告警',
+						barWidth : 40,
+						data: [150, 232, 201, 154, 190, 330, 410]
+					},
+					{
+						name: '智能NVR',
+						type: 'bar',
+						stack: '告警',
+						barWidth : 40,
+						data: [150, 232, 201, 154, 190, 330, 410]
+					},
+					
 				]
-			};
 
+//  color: ['#3398DB'],
+//  tooltip : {
+//      trigger: 'axis',
+//      axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+//          type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+//      }
+//  },
+//  grid: {
+//      left: '3%',
+//      right: '4%',
+//      bottom: '3%',
+//      containLabel: true
+//  },
+//
+//  xAxis : [
+//      {
+//          type : 'category',
+//          data : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun','xxx'],
+//          axisTick: {
+//              alignWithLabel: true
+//          }
+//      }
+//  ],
+//  yAxis : [
+//      {
+//          type : 'value'
+//      }
+//  ],
+//  series : [
+//      {
+//          name:'直接访问',
+//          type:'bar',
+//          barWidth: '60%',
+//          data:[10, 52, 200, 334, 390, 330, 220,10]
+//      }
+//  ]
+			};
+			var app_warning = echarts.init(document.getElementById('warning'));
 			// 使用刚指定的配置项和数据显示图表。
 			app_warning.setOption(option2);
 			
-//})
-
-
-
-
-
-//彩环图
-					//<![CDATA[
-					//echarts图标相关配置与初始化
-					// 基于准备好的dom，初始化echarts实例
-					// 每日报警对应图表
-					var option_ate = {
-						grid: {
-							top: 10,bottom: 8, left: 8,right: 8, containLabel: true
-						},
-						// x轴
-						xAxis: {
-							data: ["1:00","2:00","3:00","4:00","5:00", "6:00",
-							       "7:00", "8:00", "9:00","10:00", "11:00", "12:00", 
-							       "13:00", "14:00", "15:00","16:00", "17:00", "18:00",
-							       "19:00", "20:00","21:00","22:00", "23:00","24:00"]
-						},
-						yAxis: {},
-						// 数据
-						series: [{
-							name: '报警统计',
-							type: 'bar',
-							itemStyle: {
-								normal: {
-									color: function(params) {
-										var colorList = [
-											'#4c84ff', '#4c84ff', '#4c84ff', '#4c84ff', '#4c84ff','#4c84ff',
-											'#4c84ff', '#4c84ff', '#4c84ff', '#4c84ff', '#4c84ff','#4c84ff',
-											'#4c84ff', '#4c84ff', '#4c84ff', '#4c84ff', '#4c84ff','#4c84ff',
-											'#4c84ff', '#4c84ff', '#4c84ff', '#4c84ff', '#4c84ff','#4c84ff'
-										];
-										return colorList[params.dataIndex]
-									},
-									　　　　　　　　　　　　　
-								}
-							},
-							barWidth : 5,
-							data: [14,25, 20, 16, 30, 20, 15, 20, 35, 14, 22,24,
-							       14,25, 20, 16, 30, 20, 15, 20, 35, 14, 22,24]
-						}]
-					};
-
-					// 报警分布对应的图表
-					var option_distribution = {
-						tooltip: {
-							trigger: 'item',
-							formatter: "{a} <br/>{b}: {c} ({d}%)"
-						},
-						graphic: {
-							type: 'text',
-							left: 'center',
-							top: 'center',
-							align:'center',
-							style: {
-								text: '总数\n85479',
-								textAlign: 'center',
-								fill: '#000',
-								width: 30,
-								height: 30,
-								fontWeight: 'bold',
-								fontSize: '18',
-								fontFamily: '宋体'
+			
+					function devWarning(){
+						$.jsonAjax({
+							//http://172.16.248.78/rms/devtypes
+							url: "/rms/devtypes", // 
+							type: 'get',
+							success: function(data) {
+								console.log("app_warn", data);
+								var deviceWarningData = data.rows;
+								//返回设备类型码
+								var devTypeCode = $.map(deviceWarningData,function(ele,dom){
+									return ele.devTypeCode;
+								});
+								console.log("devTypeCode",devTypeCode)
+								//返回告警设备类型名称
+								var deviceWarningTypeName = $.map(deviceWarningData,function(ele,dom){
+									return ele.devTypeName ;
+								});
 								
-
-							}
-						},
-						series: [{
-							name: '报警分布',
-							type: 'pie',
-							radius: ['50%', '70%'],
-							selectedMode: 'single',
-							data: [{value: 1548,name: '巡更'},
-								   {value: 535, name: '报警'},
-								   {value: 510, name: '门禁'},
-								   {value: 634, name: '传感器'},
-								   {value: 735, name: '智能门禁'}],
-							itemStyle: {
-								emphasis: {
-									shadowBlur: 10,
-									shadowOffsetX: 0,
-									shadowColor: 'rgba(0, 0, 0, 0.5)'
-								},
-								emphasis: {
-									show: true,
-									textStyle: {
-										fontSize: '10',
-										fontWeight: 'bold'
+								
+								if(data.retCode == 0) {
+									var seriesArray = [];
+									var seriesObject = {
+										name: '',
+										type: 'bar',
+										stack: '告警',
+										barWidth : 40,
+										data: []
+									};
+//									seriesArray.push()
+//									
+//								$.map(array, function() {
+//									
+//								});
+									var aaa = [];
+									var alarmNumber = [];
+									$.each(devTypeCode, function(index,value) {
+										
+										$.jsonAjax({
+											url: "/aps/stat/week/"+value, // 
+											type: 'get',
+											async: false,
+											success: function(data) {
+											console.log("devTypeCode", data.rows);
+											var devTypeData = data.rows;
+											//value 值的数组集合 (报警数量集合)
+												var devTypeDataArray = $.map(devTypeData,function(ele,dom){
+													return ele.value ;
+												});
+												 var alarmNumberArray = alarmNumber.push(devTypeDataArray);
+												console.log("devTypeDataArray",devTypeDataArray);
+												
+											if(data.retCode == 0) {
+												// 填入数据
+											} else {
+												console.log("每日报警查询失败，err="+data.retCode);
+											}
+										},
+										error: function(XMLHttpRequest, textStatus, errorThrown) {
+											console.log("每日报警查询失败！error=" + XMLHttpRequest.status);
+										},
+											
+											
+										})	
+										
+										
+									});
+									for(var i=0;i<alarmNumber.length;i++){
+										var obj = {
+											name:deviceWarningTypeName[i],
+											type: 'bar',
+											stack: '告警',
+											barWidth : 40,
+											data: alarmNumber[i]
+										};
+										aaa.push(obj);
 									}
-								},
-								//'#91c7ae', '#d48265', '#61a0a8', '#2f4554', '#ff4306'
-								normal: {
-									color: function(params) {
-										var colorList = [
-											'#E34F27', '#39D02B', '#F3C420', '#10D9B9', '#0AAFE1'
-										];
-										return colorList[params.dataIndex]
-									},
-									　　　　　　　　　　　　　
+								console.log("aaa:",aaa);
+//									
+//								
+									
+									
+									
+									console.log("alarmNumberArray里面的告警数量",alarmNumber);
+									console.log("deviceWarningTypeName告警类型名称",deviceWarningTypeName);
+									
+									
+									// 填入数据
+								    app_warning.setOption({
+								    	legend: {
+											data: deviceWarningTypeName
+										},
+//								    	xAxis:[{
+//								    		data:deviceWarningType
+//								    	}],
+								        series:aaa
+								    });
+								} else {
+									console.log("每日报警查询失败，err="+data.retCode);
 								}
 							},
-							labelLine: {
-								normal: {
-									show: true,
-									length: 4,
-									length2: 2,
-								}
+							error: function(XMLHttpRequest, textStatus, errorThrown) {
+								console.log("每日报警查询失败！error=" + XMLHttpRequest.status);
 							},
-
-						}]
-					};
-
-					//报警趋势
-					trend_option = {
-						grid: {
-							top: 10,bottom: 8, left: 8,right: 8, containLabel: true
-						},
-					   /* title: {
-					       text: "趋势图",
-					       x: "center"
-					   },
-					   tooltip: {
-					       trigger: "item",
-					       formatter: "{a} <br/>{b} : {c}"
-					   },
-					   legend: {
-					       x: 'left',
-					       data: ["按月份"]
-					   }, */
-					   xAxis: [
-					       {
-					           type: "category",
-					          /*  name: "x", */
-					            boundaryGap : false,
-					           data: ["1", "2", "3", "4", "5", "6", "7", "8", "9","10","11","12"]
-					       }
-					   ],
-					   yAxis: [{type: "value"/* ,name: "y" */}],
-					   /* toolbox: {
-					      show: true,
-					      feature: {
-					         mark: {show: true},
-					         dataView: {show: true,readOnly: true},
-					         restore: {show: true},
-					         saveAsImage: {show: true}
-					      }
-					   }, */
-					   /* calculable: true, */
-					   series: [
-					      {name: "按月份",type: "line",
-					       data: [6, 4, 12, 27, 33, 16, 15, 8, 7]
-					       }
-					   ]
-					};
-					
-					var myChart1 = echarts.init($('#alarm_total_excel').get(0));
-					myChart1.setOption(option_ate);
-					var myChart2 = echarts.init($('#alarm_distribution_excel').get(0));
-					myChart2.setOption(option_distribution);
-					//var myChart3 = echarts.init($('#alarm_trend_excel').get(0));
-					//myChart3.setOption(trend_option);
-					
-					//重新刷一下数据
-					setTimeout(function() {
-						myChart1.resize();
-						myChart2.resize();
-						//myChart3.resize();
-					}, 200);
-					
-					//浏览器大小改变时重置大小
-					window.onresize = function() {
-						myChart1.resize();
-						myChart2.resize();
-						//myChart3.resize();
+						}); //ajax over
+						
 					}
-
-					//]]>
-				
+					
+					devWarning();
+			
+			
+			
+			
+			
+			
+//})			
 			
 			
 			

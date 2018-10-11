@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="UTF-8" />
+		<!--  <title>告警统计分析</title> -->
+		<link rel="stylesheet" th:href="@{/css/reset.css}" href="../../static/css/reset.css" />
+		<link rel="stylesheet" th:href="@{/css/ismp_configure.css}" href="../../static/css/ismp_configure.css" />
+	</head>
+
+	<body>
+		<div id="web">
+			<div th:include="ismp_common :: check"></div>
+			<!-- 框架检测片段 -->
+			<section id="content">
+				<div class="data_warp" style="height:100%;">
+					<div class="cd_cont no_margin" style="height:100%;">
+						<!-- 上下三等分 -->
+						<div class= "col_ht_equal3 in_row1">
+							<div class="box_layout">
+								<div class="comm_box all_border">
+									<div class="box_header b_border">
+										<h1>每日报警</h1>
+										<div class="img_box">
+											<img src="../../../static/img/btn_e_normal.png" th:src="@{/img/btn_e_normal.png}" />
+										   <img src="../../../static/img/btn_z_normal.png" th:src="@{/img/btn_z_normal.png}" />
+										</div>
+									</div>
+									<div class="box_body">
+										<div id="alarm_total_excel" style=""></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class= "col_ht_equal3 in_row2">
+							<div class="box_layout">
+								<div class="comm_box all_border ">
+									<div class="box_header b_border">
+										<h1>报警分布</h1>
+										<div class="img_box">
+											<img src="../../../static/img/btn_e_normal.png" th:src="@{/img/btn_e_normal.png}" />
+										   <img src="../../../static/img/btn_z_normal.png" th:src="@{/img/btn_z_normal.png}" />
+										</div>
+									</div>
+									<div class="box_body">
+										<div id="alarm_distribution_excel" style="height:100%;width:100%;position:relative;"></div>
+									</div>
+								</div>
+							</div>
+							<!-- 左右两等分 -->
+							<!-- <div class="col_wd_equal2">
+								<div class="box_layout" style="padding-right:4px; padding-top:0px; padding-bottom:8px;">
+								</div>
+							</div>
+							<div class="col_wd_equal2">
+								<div class="box_layout" style="padding-left:4px; padding-top:0px; padding-bottom:8px;">
+								</div>
+							</div> -->
+						</div>
+						<div class= "col_ht_equal3 in_row3">
+							<div class="box_layout">
+								<div class="comm_box all_border" style="height:100%;">
+									<div class="box_header b_border">
+										<h1>系统通知</h1>
+										<div class="img_box">
+											<img src="../../../static/img/btn_e_normal.png" th:src="@{/img/btn_e_normal.png}" />
+										   <img src="../../../static/img/btn_z_normal.png" th:src="@{/img/btn_z_normal.png}" />
+										</div>
+									</div>
+									<div class="box_body">
+										<div class="icon_layout sys_nty_table" style="margin-left: 10px;">
+											<ul>
+												<li>系统升级通知</li>
+												<li>2018-5-4</li>
+											</ul>
+											<ul>
+												<li>设备维护排班</li>
+												<li>2018-5-3</li>
+											</ul>
+											<ul>
+												<li>设备维护记录表</li>
+												<li>2018-5-3</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<!-- 左右两等分 -->	
+							<!-- <div class="col_wd_equal2">
+								<div class="box_layout" style="padding-right:4px; padding-top:0px; padding-bottom:8px;">
+								</div>
+							</div>
+							<div class="col_wd_equal2">
+								<div class="box_layout" style="padding-left:4px; padding-top:0px; padding-bottom:8px;">
+								</div>
+							</div> -->
+						</div>
+					</div>
+				</div>
+				
+				<script th:inline="javascript">
+					//<![CDATA[
+					//echarts图标相关配置与初始化
+					// 基于准备好的dom，初始化echarts实例
+					// 每日报警对应图表
+					var option_ate = {
+						grid: {
+							top: 10,bottom: 8, left: 8,right: 8, containLabel: true
+						},
+						// x轴
+						xAxis: {
+							data: ["1:00","2:00","3:00","4:00","5:00", "6:00",
+							       "7:00", "8:00", "9:00","10:00", "11:00", "12:00", 
+							       "13:00", "14:00", "15:00","16:00", "17:00", "18:00",
+							       "19:00", "20:00","21:00","22:00", "23:00"]
+						},
+						yAxis: {},
+						// 数据
+						series: [{
+							name: '报警统计',
+							type: 'bar',
+							itemStyle: {
+								normal: {
+									color: function(params) {
+										var colorList = [
+											'#4c84ff', '#4c84ff', '#4c84ff', '#4c84ff', '#4c84ff','#4c84ff',
+											'#4c84ff', '#4c84ff', '#4c84ff', '#4c84ff', '#4c84ff','#4c84ff',
+											'#4c84ff', '#4c84ff', '#4c84ff', '#4c84ff', '#4c84ff','#4c84ff',
+											'#4c84ff', '#4c84ff', '#4c84ff', '#4c84ff', '#4c84ff','#4c84ff'
+										];
+										return colorList[params.dataIndex]
+									},
+									　　　　　　　　　　　　　
+								}
+							},
+							barWidth : 5,
+							data: [0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,
+							       0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+						}]
+					};
+
+					// 报警分布对应的图表
+					var option_distribution = {
+						tooltip: {
+							trigger: 'item',
+							formatter: "{a} <br/>{b}: {c} ({d}%)"
+						},
+						graphic: {
+							type: 'text',
+							left: 'center',
+							top: 'center',
+							align:'center',
+							style: {
+								text: '总数\n85479',
+								textAlign: 'center',
+								fill: '#000',
+								width: 30,
+								height: 30,
+								fontWeight: 'bold',
+								fontSize: '18',
+								fontFamily: '宋体'
+								
+
+							}
+						},
+						series: [{
+							name: '报警分布',
+							type: 'pie',
+							radius: ['50%', '70%'],
+							selectedMode: 'single',
+							data: [{value: 1548,name: '巡更'},
+								   {value: 535, name: '报警'},
+								   {value: 510, name: '门禁'},
+								   {value: 634, name: '传感器'},
+								   {value: 735, name: '智能门禁'}],
+							itemStyle: {
+								emphasis: {
+									shadowBlur: 10,
+									shadowOffsetX: 0,
+									shadowColor: 'rgba(0, 0, 0, 0.5)'
+								},
+								emphasis: {
+									show: true,
+									textStyle: {
+										fontSize: '10',
+										fontWeight: 'bold'
+									}
+								},
+								//'#91c7ae', '#d48265', '#61a0a8', '#2f4554', '#ff4306'
+								normal: {
+									color: function(params) {
+										var colorList = [
+											'#E34F27', '#39D02B', '#F3C420', '#10D9B9', '#0AAFE1'
+										];
+										return colorList[params.dataIndex]
+									},
+									　　　　　　　　　　　　　
+								}
+							},
+							labelLine: {
+								normal: {
+									show: true,
+									length: 4,
+									length2: 2,
+								}
+							},
+
+						}]
+					};
+
+					//报警趋势
+					trend_option = {
+						grid: {
+							top: 10,bottom: 8, left: 8,right: 8, containLabel: true
+						},
+					   /* title: {
+					       text: "趋势图",
+					       x: "center"
+					   },
+					   tooltip: {
+					       trigger: "item",
+					       formatter: "{a} <br/>{b} : {c}"
+					   },
+					   legend: {
+					       x: 'left',
+					       data: ["按月份"]
+					   }, */
+					   xAxis: [
+					       {
+					           type: "category",
+					          /*  name: "x", */
+					            boundaryGap : false,
+					           data: ["1", "2", "3", "4", "5", "6", "7", "8", "9","10","11","12"]
+					       }
+					   ],
+					   yAxis: [{type: "value"/* ,name: "y" */}],
+					   /* toolbox: {
+					      show: true,
+					      feature: {
+					         mark: {show: true},
+					         dataView: {show: true,readOnly: true},
+					         restore: {show: true},
+					         saveAsImage: {show: true}
+					      }
+					   }, */
+					   /* calculable: true, */
+					   series: [
+					      {name: "按月份",type: "line",
+					       data: [6, 4, 12, 27, 33, 16, 15, 8, 7]
+					       }
+					   ]
+					};
+					
+					var hourOfDayChart = echarts.init($('#alarm_total_excel').get(0));
+					hourOfDayChart.setOption(option_ate);
+					var myChart2 = echarts.init($('#alarm_distribution_excel').get(0));
+					myChart2.setOption(option_distribution);
+					//var myChart3 = echarts.init($('#alarm_trend_excel').get(0));
+					//myChart3.setOption(trend_option);
+					
+					//重新刷一下数据
+					setTimeout(function() {
+						hourOfDayChart.resize();
+						myChart2.resize();
+						//myChart3.resize();
+					}, 200);
+					
+					//浏览器大小改变时重置大小
+					window.onresize = function() {
+						hourOfDayChart.resize();
+						myChart2.resize();
+						//myChart3.resize();
+					}
+					function refreshStatHourOfDay(){
+						$.jsonAjax({
+							url: "/aps/stat/hourofday", // 
+							type: 'get',
+							success: function(data) {
+								console.log("hourofday", data.rows);
+								var alarmData = data.rows;
+								var alarm = $.map(alarmData,function(index,dom){
+									return Number(index.name) ;
+								});
+								console.log("alarm",alarm);
+								console.log("alarmarray",alarm instanceof Array  );
+								if(data.retCode == 0) {
+									// 填入数据
+								    hourOfDayChart.setOption({
+								        series: [{
+								            data: alarm
+								        }]
+								    });
+								} else {
+									console.log("每日报警查询失败，err="+data.retCode);
+								}
+							},
+							error: function(XMLHttpRequest, textStatus, errorThrown) {
+								console.log("每日报警查询失败！error=" + XMLHttpRequest.status);
+							},
+						}); //ajax over
+						
+					}
+					function refreshStatDevType(){
+						$.jsonAjax({
+							url: "/aps/stat/devtype/30", // 
+							type: 'get',
+							success: function(data) {
+								console.log("devtype", data);
+								if(data.retCode == 0) {
+									
+									// 填入数据
+								    myChart2.setOption({
+								    	graphic: {
+											style: {
+												text: '总数\n'+data.rows.length
+											}
+								    	},
+								        series: [{
+								            data: data.rows
+								        }]
+								    });
+								} else {
+									console.log("报警分布查询失败，err="+data.retCode);
+								}
+							},
+							error: function(XMLHttpRequest, textStatus, errorThrown) {
+								console.log("报警分布查询失败！error=" + XMLHttpRequest.status);
+							},
+						}); //ajax over
+					}
+					refreshStatHourOfDay();
+					refreshStatDevType();
+
+					//]]>
+				</script>
+			</section>
+		</div>
+		<!--endWeb-->
+	</body>
+
+</html>
