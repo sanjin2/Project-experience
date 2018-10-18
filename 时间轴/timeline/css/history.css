@@ -1,0 +1,34 @@
+body, p, form, input, textarea, ul, li, h1, h2, h3, h4, dl, dt, dd, table, td, th { margin:0; padding:0; }
+table, td, th { border-collapse:collapse; }
+ul, li { list-style:none; }
+h1, h2, h3, h4 { font-size:100%; }
+img, input, textarea { vertical-align: middle; border:0; }
+a { text-decoration:none; color:#787878; outline:none; }
+a:hover { text-decoration:underline; }
+body { font:12px/1.5,"tahoma", Verdana, Geneva, sans-serif; color:#666; position:relative;}
+.clearfix:after{content:" "; display:block; height:0; clear:both; visibility:hidden;}
+.clearfix{zoom:1;}
+.fl { float:left;}
+.fr { float:right;}
+/*.public*/
+a { outline:none; } 
+.main { margin-top:105px; }
+/*history*/
+.history{ padding-top:5px; }
+.history-date ul {display:inline-block;padding-top:10px; }
+.history ul li { background:url(../images/line04.gif) repeat-y 147px 0; overflow:hidden; position:relative;cursor:pointer;;}
+.history-date ul li h3{ background:url(../images/icon07.gif) no-repeat 140px 0; zoom:1;}
+.history-date ul li.last { padding-bottom:0;}
+.history-date ul li:after{content:" "; display:block; height:0; clear:both; visibility:hidden;}
+.history-date ul li h3 { float:left; min-height:15px; text-align:right; padding-right:37px;color:#c3c3c3; font:12px;}  /* color:#c3c3c3; font:normal 18px/16px Arial; */
+.history-date ul li h3 span {display:block; width:130px; color:#504b4b; font-size:12px;}  
+.history-date ul li dl {  float:left;font:20px/22px; color:#737373; max-width:110px;min-height:36px;}
+.history-date ul li dl span { display:block; color:#787878; font-size:12px;}  
+
+.active{color:#ff9900 !important; }
+.currt{ background:url(../images/icon007.jpg) no-repeat 140px 0 !important; }
+.currtent{ background:url(../images/line004.png) repeat-y 147px 0 !important; }
+
+*body .history-date ul li dl {_font-size:12px !important; _font-weight:bold;}
+*body .history-date ul li dl span {_font-weight:normal !important;}
+*body .history-date ul li.green dl a {_background:transparent !important; *background:transparent !important;*font-size:12px !important; _font-weight:normal !important;}

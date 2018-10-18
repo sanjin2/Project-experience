@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery纵向时间轴 </title>
+    <link href="css/history.css" rel="stylesheet" />
+    <script src="./js/jquery.js"></script>
+    <style>
+      body{
+        background:#f4f4f4;
+      }
+    </style>
+</head>
+<body>
+    <div class="main">
+      <div class="history">
+        <div class="history-date" id="Timeline">
+          
+        </div>
+      </div>
+    </div>
+<script>
+  // function timeLine(arr,){
+
+  // }
+
+  $.fn.addList = function(data){ 
+    var $ul = $("<ul></ul>"); 
+    for(i =0 ;i<data.length;i++){ 
+      var $li = $("<li>"+data[i]+"</li>"); 
+      var $li = $("<li> <h3><span>"+ data[i].time +"</span></h3><dl><span>"+ data[i].addr+"</span>  </dl> </li>")
+      $li.appendTo($ul) ; 
+    } 
+      console.log(this)
+      console.log($ul)
+      // $ul.appendTo($div)
+      $ul.appendTo(this);   // this指向 ul的父元素
+      console.log($li)
+    } 
+    //  arr1=[ '1','2','3','4','5','6','7','8','9']
+    // arr = ['地点1','地点2','地点3','地点4','地点5','地点6','地点7','地点8','地点9']
+    var opt=[
+          {
+            time:'2018-08-28-09:16:28',
+            addr: '上海上海上海上海上海上海上海上海上海上海'
+          },{
+            time:'2018-08-28 10:30:22',
+            addr: '深圳深圳深圳深圳深圳'
+          },{ 
+            time:'2018-08-28 11:30:20', 
+            addr: '广州广州广州'
+          },{ 
+            time:'2018-08-28 12:20:00', 
+            addr: '青岛' 
+          },{ 
+            time:'2018-08-28 13:15:12', 
+            addr: '郑州' 
+          },{ 
+            time:'2018-08-28 14:19:07', 
+            addr: '西安西安西安西安西安西安西安西安西安西安'
+          },{
+            time:'2018-08-28 15:19:07', 
+            addr: '重庆' 
+          },{ 
+            time:'2018-08-28 16:19:07', 
+            addr: '北京' 
+          },{
+            time:'2018-08-28 01:19:07', 
+            addr: '天津' 
+          },{ 
+            time:'2018-09-03 01:19:07', 
+            addr: '大理' 
+          }
+        ] 
+    $("#Timeline").addList(opt); 
+
+    /* $(function(){
+      // function transformColor( index ){
+        $('#Timeline ul').on('click',li,function(e){
+          console.log(this)
+        })
+      // }
+      
+    }) */
+    $(document).ready(function () { 
+      $('#Timeline ul li').click(function (e){ 
+        // console.log('事件e',e)
+        console.log('this',) 
+        $(this).children().children('span').addClass('active')
+        $(this).siblings().children().children('span').removeClass('active')
+        $(this).find('h3').addClass('currt')
+        $(this).siblings().find('h3').removeClass('currt')
+        $(this).addClass('currtent')
+        $(this).siblings().removeClass('currtent')
+      }) 
+    });
+  
+  </script>
+</body>
+</html>

@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8" />
+  <meta http-equiv="pragma" content="no-cache" />
+   <meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
+   <meta http-equiv="expires" content="Thu, 01 Jan 1970 00:00:01 GMT" />
+   <meta http-equiv="expires" content="0" />
+<title>轨迹</title>
+	<link rel="stylesheet" th:href="@{/css/reset.css}" href="../../../../static/css/reset.css" />
+	<link rel="stylesheet" th:href="@{/css/ismp_configure.css}" href="../../../../static/css/ismp_configure.css" />
+	<link rel="stylesheet" th:href="@{/css/ismp_custom.css}" href="../../../../static/css/ismp_custom.css" />
+	<link rel="stylesheet" th:href="@{/css/ismp_adapter.css}" href="../../../../static/css/ismp_adapter.css" />
+	<link rel="stylesheet" th:href="@{/css/jquery.datetimepicker.css}" href="../../../../static/css/jquery.datetimepicker.css" />
+	<link rel="stylesheet" th:href="@{/js/layer/theme/default/layer.css}" href="../../../../static/layer/theme/default/layer.css" />
+	<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}" href="../../../static/bootstrap/css/bootstrap.css" />
+	<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-select.min.css}" href="../../../../static/bootstrap/css/bootstrap-select.min.css" />
+	<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrapValidator.min.css}" href="../../../../static/bootstrap/css/bootstrapValidator.min.css" />
+	<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-treeview.min.css}" href="../../../../static/bootstrap/css/bootstrap-treeview.min.css" />
+	<link rel="stylesheet" th:href="@{/layui/css/layui.css}" href="../../../../static/layui/css/layui.css" />
+
+	<script type="text/javascript" th:src="@{/js/jquery-1.11.0.js}" src="../../../../static/js/jquery-1.11.0.js"></script>
+	<script type="text/javascript" th:src="@{/js/jquery.datetimepicker.full.js}" src="../../../../static/js/jquery.datetimepicker.full.js"></script>
+	<script type="text/javascript" th:src="@{/js/ismp_common.js}" src="/js/ismp_common.js"></script>
+	<script type="text/javascript" th:src="@{/js/layer/layer.js}" src="../../../../static/layer/layer.js"></script>
+	<script type="text/javascript" th:src="@{/js/kdfluency.js}" src="../static/js/kdfluency.js"></script>
+	<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.js}" src="../../../../static/bootstrap/js/bootstrap.js"></script>
+	<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap-select.min.js}" src="../../../../static/bootstrap/js/bootstrap-select.min.js"></script>
+	<script type="text/javascript" th:src="@{/bootstrap/js/bootstrapValidator.min.js}" src="../../../../static/bootstrap/js/bootstrapValidator.min.js"></script>
+	<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap-treeview.min.js}" src="../../../../static/bootstrap/js/bootstrap-treeview.min.js"></script>
+	<script type="text/javascript" th:src="@{/bootstrap/table/extensions/sticky-header/bootstrap-table-sticky-header.min.js}" src="../../../../bootstrap/table/extensions/sticky-header/bootstrap-table-sticky-header.min.js"></script>
+
+	<script type="text/javascript" th:src="@{/bootstrap/table/bootstrap-table.js}" src="../static/bootstrap/table/bootstrap-table.js"></script>
+	<link rel="stylesheet" th:href="@{/bootstrap/table/bootstrap-table.css}" href="../../static/bootstrap/table/bootstrap-table.css" />
+	<script type="text/javascript" th:src="@{/bootstrap/table/locale/bootstrap-table-zh-CN.js}" src="../static/bootstrap/table/locale/bootstrap-table-zh-CN.js"></script>
+	<link rel="stylesheet" th:href="@{/timeline/css/history.css}" href="../../../static/timeline/css/history.css" />
+
+<style>
+html, body {
+	height: 100% !important;
+} 
+.clearfix {
+	content: "";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+} 
+.form-group {
+	vertical-align: bottom;
+	width: 215px;
+	margin-bottom: 10px;
+	display: inline-table;
+} 
+.form-group span {
+	float: left;
+	position: relative;
+	width: 67px;
+	text-align: right; 
+	height: 34px !important;
+	line-height: 34px !important;
+} 
+.form-inline {
+	padding-top: 8px;
+} 
+.form-group .space {
+	width: 71px;
+} 
+.user label {
+	margin-right: 6px;
+}
+.form-control {
+	position: relative;
+	width: 115px !important;
+	height: 34px !important;
+	line-height: 34px !important;
+	padding: 0px 10px !important;
+}
+.date-input {
+	width: 175px !important;
+}
+.user-head img {
+	max-height: 210px;
+	max-width: 210px;
+	line-height: 220px;
+	display: inline;
+	vertical-align: middle;
+	vertical-align: -webkit-baseline-middle;
+	vertical-align: -moz-middle-with-baseline;
+}
+.camera {
+	background-image: url(/img/doormng/camera_icon_o.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+	cursor: pointer;
+}
+.camera_default {
+	background-image: url(/img/doormng/camera_icon_m.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	top: 75px;
+	left: 50px;
+}
+#permenu {
+	height: 34px;
+	border-bottom: 2px solid rgb(153, 153, 153);
+	background: #f4f4f4;
+	line-height: 34px;
+	box-sizing: border-box;
+	position: relative;
+	z-index: 999;
+	text-decoration: none !important;
+	width: 100%;
+}
+#permenu a:hover, a:focus {
+	text-decoration: none;
+}
+.fa_angle_left {
+	width: 30px;
+	height: 40px;
+	background: url(../img/cims_03.png) no-repeat center center;
+	background-size: 25px 25px;
+}
+.pull_right {
+	float: right !important;
+}
+.img-box {
+	border: 1px solid rgb(153, 153, 153);
+	display: inline-block;
+	position: absolute;
+	top: 10px;
+	right: 0px;
+}
+.table-striped {
+	width: 100% !important;
+}
+.tooltip-inner {
+	color: #333333;
+	background-color: #bbb;
+}
+.tooltip.bottom .tooltip-arrow {
+	border-bottom-color: #bbb;
+}
+.table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {
+	background-color: #BFEFFF;
+}
+.tit-line { 
+	height: 40px;
+	width: 100%;
+	line-height: 33px;
+	overflow: hidden;
+	background: linear-gradient(to bottom, #F9F9F9, #DFE3E6)
+}
+html, body {
+	width: 100%;
+	height: 100%;
+}
+.both_left { 
+	min-width: 300px; 
+	height: 100%;
+	margin-right: 10px;
+}
+.both_right {
+	width: 100%;
+	height: 100%;
+	margin-right: 5px;
+	border: 1px solid #ccc;
+	overflow: hidden;
+}
+.box_body2 {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+.base-btn-box {
+	padding: 0 37px;
+}
+.base-btn-box button {
+	margin-left: 30px;
+}
+</style>
+
+<script th:inline="javascript">
+	//	<![CDATA[
+  		var paramMap = [[${paramMap}]];
+  		         
+  	//	]]>
+		</script>s
+</head>
+<body style="overflow-x:hidden;display:flex; background:url(/img/all_background.png)">
+	<!-- 当前页面所属url，用于菜单的实时转换 -->
+	<div class="both_left">
+		<!-- 初始状态显示  信息展示模块 -->
+		<div class="l_sidebar sb_backgroup" id="perinfo" style="padding-left: 3px; min-width: 300px;background:0 !important;"> <!-- overflow-y: auto;  -->
+			<div id="over_box">
+				<div id="permenu">
+					<div class="personinfo" style="padding: 0;">
+						<span class="space"><label style="margin: 0; padding-left: 5px; line-height: 34px;">| 人员信息 |</label></span>
+					</div>
+				</div> 
+					<div class="user" style="position: relative;">
+						<div class="form-group userif"
+							style="padding-top: 15px; margin: 0px;">
+							<span class="scr-height"><label>姓&nbsp;&nbsp;名:</label></span> <input
+								type="text" id="userName" readOnly="true" class="form-control" />
+							<!-- 人物图片 -->
+							<div class="img-box">
+								<img id="userImg" alt="图片" style="width: 96px; height: 116px;" />
+							</div>
+						</div>
+						<div class="form-inline">
+							<div class="form-group userif">
+								<span class="scr-height"><label>性&nbsp;&nbsp;別:</label></span> <input
+									type="text" class="form-control" id="userSex" readOnly="true" />
+							</div>
+						</div>
+						<div class="form-inline">
+							<div class="form-group">
+								<span><label>联系方式:</label></span> <input type="text"
+									class="form-control" id="userTele" readOnly="true" />
+							</div>
+						</div>
+					</div>
+						<!-- 访客信息 -->
+						<div class="visitor_info" style="display:none;">
+							<div class="form-inline">
+								<div class="form-group" style="padding: 0; margin-top: 10px">
+									<span style="width: 80px;"><label style="margin: 0">| 拜访信息 |</label></span>
+								</div>
+							</div>
+							<div class="form-inline">
+								<div class="form-group" style="padding-top: 0">
+									<span class="space"><label>受访人:</label></span> 
+									<input type="text" class="form-control" id="visitPerson" readOnly="true" />
+								</div>
+							</div>
+							<div class="form-inline">
+								<div class="form-group">
+									<span class="space"><label>拜访单位:</label></span> 
+									<input type="text" class="form-control" id="visitingUnit" readOnly="true" />
+								</div>
+							</div>
+						</div>
+						<!-- end -->
+					
+					<div id="sendTime" style="float: left; clear: none; margin-top: 18px; margin-bottom: 15px;">
+						<div class="form-inline"> 
+							<div>
+								<span class="space" style="margin-left: 3px;"><label>起始时间:</label></span>
+								<input id="startTime" class="form-control date-input" style="width: 150px;" />
+							</div>
+							<div style="margin: 5px 0;">
+								<span class="space" style="margin-left: 3px;"> <label>结束时间:</label></span>
+								<input id="endTime" class="form-control date-input" style="width: 150px;" />
+							</div>
+						</div>
+						<div class="base-btn-box">
+							<button id="searchBtn" type="button" class="btn btn-default">查询</button>
+							<button id="playBack" type="button" class="btn btn-default">回放</button>
+						</div>
+					</div> 
+				<!-- 垂直时间轴 -->
+				<div class="main">
+					<div class="history">
+						<div class="tit-line">
+							<h4 style="line-height: 40px; text-align: center;">轨迹时间轴</h4>
+						</div>
+						<div class="history-date" id="Timeline"  style="overflow-y:auto; min-height:110px; "></div>
+					</div>
+				</div>
+				<!-- 时间轴html   end -->
+			</div>
+		</div>
+	</div>
+	<!-- 地图位置开始 -->
+	<div class="both_right">
+		<div class="map_box" id="map_box" style="height: 100%;">
+			<div class="box_header b_border">
+				<h1>轨迹提示</h1>
+			</div>
+			<div class="box_body2">
+				<div id="emap_div" style="width: 100%;">
+					<iframe id="emap_iframe"
+						th:src="@{/emap/basemap/ismp_leafletmap/0?mode=110}"
+						style="width: 100%; height: 100%;"></iframe>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		//@ sourceURL=ismp_personias_locaus_base.js
+		var userInfo ={};
+		var pageParams ={
+				locusSpeed:null,
+				locusData:null,
+       			currentNodeli: null,
+				listH :null,
+			}
+		
+		function setLocusSpeed(value){
+			pageParams.locusSpeed = value;
+		}
+		$(function(){
+ 		//<![CDATA[   
+		 function initUserInfo(params){ 
+			console.log('params',params)
+			console.log('paramMap',paramMap)
+          if(params.userType==1){ 
+            per_info(params); // 调用per_info函数给信息列表赋值 
+          }else if (params.userType==2){ 
+            var reUrl="/vis/visitor/userInfo?";
+            if(paramMap.userId){
+                reUrl+="userId="+paramMap.userId+"&";
+            }
+            if(paramMap.uniqueId){
+                reUrl+="uniqueId="+paramMap.uniqueId+"&";
+            } 
+            if (paramMap.visitId && null != paramMap.visitId && "null" != paramMap.visitId) { 
+                reUrl+="visitId="+paramMap.visitId+"&";
+            }   
+            
+            if (paramMap.creditTime){
+            	reUrl+="creditTime="+paramMap.creditTime+"&";
+            }
+            
+            reUrl=reUrl.substring(0,reUrl.lastIndexOf("&"));
+            $('.visitor_info').show(); //拜访人信息模块显示 
+			listH = $('.both_left').height() - $('.user').height() - $('#sendTime').height() - $('.visitor_info').height()
+			$('#Timeline').css('height', listH - 107);  
+            console.log('88888',paramMap) 
+
+              $.ajax({
+                url: reUrl, //请求后台的URL（*）
+                type:"get",
+                success:function(data){ 
+                  var vis =data.data;
+                  console.log('拜访data',data); 
+                // 数据适配器
+                  userInfo={}
+                  userInfo.userName = vis.userName? vis.userName:params.ownerName;   //用户姓名
+                  userInfo.headPortrait =vis.realHeadUrl; //图片路径 params.imagePath   
+				  userInfo.Tel = vis.phone;
+                  userInfo.sex = vis.sex;    //性别
+                  userInfo.interviewees = vis.interviewees ;   //拜访人信息 
+                  userInfo.department = vis.department;  //拜访单位 
+                  userInfo.userType = paramMap.userType ;  //类别 1内部  2访客
+                  userInfo.uniqueId = vis.uniqueId? vis.uniqueId : params.uniqueId;  //uniquedId 
+                  userInfo.startTime = vis.startTime?  vis.startTime : params.startTime;  //起始时间
+                  userInfo.endTime = vis.endTime? vis.endTime : params.endTime;   // 结束时间
+                  
+	      			
+				  if(params.imagePath){ 
+					userInfo.headPortrait =params.imagePath
+				  }
+                  
+				 
+                //  数据适配器end 
+                  per_info(userInfo)
+                  console.log('123',userInfo)
+                  searchLocus(); 
+
+                }
+			   }) 
+        	}
+		 }
+      	/* 表单元素赋值的函数 */
+			function per_info(row){ 
+				userInfo = row;
+				
+				// 加1秒，人工注销在结束后一秒
+				if(userInfo.endTime){
+					var dateStr = userInfo.endTime.replace(/-/g,"/");
+	      			var date = new Date(dateStr);
+	      			var endTime = date.getTime()+1000;
+	      			userInfo.endTime = new Date(endTime).format("yyyy-MM-dd HH:mm:ss");
+				}
+      			//
+      			
+				if(userInfo.userType==1){  // userType==1时
+					$('.visitor_info').hide();
+					listH = $('.both_left').height() - $('.user').height() - $('#sendTime').height()
+					$('#Timeline').css('height', listH - 100); 
+				}else{
+					$('.visitor_info').show();
+				}
+				$('#userName').val(userInfo.userName) // 将任务信息赋值给人员信息模板
+				$('#userImg').attr('src', userInfo.headPortrait) //图片路径
+				$('#userSex').val(userInfo.sex==1?"男":"女")    //性别  userInfo.sex==1?"男":"女"
+				$('#userTele').val(userInfo.Tel)		       //电话 
+				$('#visitPerson').val(userInfo.interviewees)  //拜访人信息
+				$('#visitingUnit').val(userInfo.department)  //单位
+				$("#startTime").val(userInfo.startTime)     //起始时间
+				$("#endTime").val(userInfo.endTime)        //结束时间
+				console.log('userInfo用户信息',userInfo )
+			 	searchLocus(); 
+				//	loadLocus()
+			};
+		/* -------end-------- */
+
+		/* 时间轴的js */
+		$.fn.addList = function(data){ 
+			this.empty();
+			var $ul = $("<ul></ul>"); 
+			for(i =0 ;i<data.length;i++){ 
+				var $li = $("<li>"+data[i]+"</li>"); 
+			/* 将时间戳转化为正常时间格式 */
+				var date = new Date(data[i].recordTime-"0");
+				var time = date.format("yyyy-MM-dd HH:mm:ss");
+				var name = data[i].name;
+				if(!name || name=="null"){
+					name = "人工注销"
+				}
+				var $li = $("<li > <h3><span>"+ time +"</span></h3><dl><span>"+ name +"</span>  </dl> </li>")
+				$li.appendTo($ul) ; 
+			}  
+				$ul.appendTo(this);   // this指向 ul的父元素 
+    	}   
+			console.log('li')
+      	// 时间轴变色的函数封装
+       	window.transformColor = function(index){  
+			/* 变量的赋值  */
+	        pageParams.currentNodeli = $('#Timeline ul li').eq(index);
+	        $_this = pageParams.currentNodeli;
+	        $_this.children().children('span').addClass('active')  //文字添加属性改变颜色 
+	        $_this.siblings().children().children('span').removeClass('active')
+	        $_this.find('h3').addClass('currt')   //icon  图标的改变 
+	        $_this.siblings().find('h3').removeClass('currt') 
+	        $_this.addClass('currtent')       //line  线的改变 
+	        $_this.siblings().removeClass('currtent') 
+	        // 滚动条 自动滚动
+	        $('#Timeline').scrollTop( $_this.height()*index-70) 
+      	}
+ 	/* 时间轴的js   end */ 
+
+		// datetimepicker插件 时间选择框的配置
+		$.datetimepicker.setLocale('ch');
+		$('#startTime').datetimepicker({
+			format: "Y-m-d H:i:s" ,//格式化日期 
+			onShow:function( ct ){  // 日期之间的可选范围的配置
+				this.setOptions({
+					minDate:jQuery('#startTime').val()?jQuery('#startTime').val():false,  //起始时间的最小可选值
+					maxDate:jQuery('#endTime').val()?jQuery('#endTime').val():false,   //起始时间的最大可选值
+				})
+			},
+			// timepicker:false, //是否显示小时的选择框
+		});
+
+		$('#endTime').datetimepicker({
+			format: "Y-m-d H:i:s" ,//格式化日期
+			onShow:function( ct ){
+				this.setOptions({ 
+					minDate:jQuery('#startTime').val()?jQuery('#startTime').val():false,
+					maxDate:jQuery('#endTime').val()?jQuery('#endTime').val():false,   //起始时间的最大可选值
+				})
+			},
+			// timepicker:false,
+
+		});
+				
+		var table = {
+			init: function() {
+				$('#locus_table').bootstrapTable({
+						url: "/pias/locus/search", //请求后台的URL（*）
+						//	data: tableData,
+						method: 'get', //请求方式（*）
+						toolbar: '', //工具按钮用哪个容器
+						striped: true, //是否显示行间隔色
+						cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+						pagination: true, //是否显示分页（*）
+						sortable: false, //是否启用排序
+						sortOrder: "asc", //排序方式
+						queryParams: table.queryParams, //传递参数（*）
+						// onCheck: table.onCheck, //点击行事件
+						// onUncheck: table.onCheck, //点击行事件
+						// onCheckAll: table.onCheckAll, //点击行事件
+						// onUncheckAll: table.onUncheckAll, //点击行事件
+						sidePagination: "server", //分页方式：client客户端分页，server服务端分页（*）
+						// pageNumber: 1, //初始化加载第一页，默认第一页
+						// pageSize: 10, //每页的记录行数（*）
+						// pageList: [10, 25, 50, 100], //可供选择的每页的行数（*）
+						search: false, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+						strictSearch: true,
+						showColumns: false, //是否显示所有的列
+						showRefresh: false, //是否显示刷新按钮
+						minimumCountColumns: 5, //最少允许的列数
+						clickToSelect: true, //是否启用点击选中行
+						height: 400, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+						uniqueId: "id", //每一行的唯一标识，一般为主键列
+						showToggle: false, //是否显示详细视图和列表视图的切换按钮
+						cardView: false, //是否显示详细视图
+						detailView: false, //是否显示父子表
+						pagination: true,
+						paginationLoop: true,
+						columns: [ {
+									field: 'id',
+									visible: false,
+									valign: 'middle'
+								},
+								{
+									field: 'recordTime',
+									title: "时间",
+									formatter: function(value) {
+										var date = new Date(value-"0");
+										return date.format("yyyy-MM-dd HH:mm:ss");
+									},
+									valign: 'middle',
+									align: 'center'
+								},
+								{
+									field: 'name',
+									title: '地点',
+									valign: 'middle'
+								},
+								{
+									field: 'sourceType',
+									title: '设备类型',
+									valign: 'middle',
+									formatter:function(value){
+										var text = "";
+										if("ied"==value){
+											text = "智能终端";
+										}else{
+											text = value;
+										}
+											return text;
+									}
+								}
+							],
+						onLoadSuccess: function(data){
+							console.log("boot table data:",data);
+							var obj ={
+									index:0,
+									list: data.rows
+								};
+								pageParams.locusData = obj;
+								dispatchLocus(obj);
+							}
+						});
+				},
+				queryParams: function(params) {
+						params.uniqueId = userInfo.uniqueId;
+						params.userType = userInfo.userType;
+						params.startDate = $("#startTime").val();
+						params.endDate = $("#endTime").val();
+								
+						console.log("params:",params);
+						return params;
+					}
+			};
+		function searchLocus(){
+			var date = new Date();
+			console.log("=====date:",date.format("yyyy-MM-dd HH:mm:ss"));
+			
+			if(userInfo.userType==2){
+				$("#startTime").val(userInfo.startTime)
+				$("#endTime").val(userInfo.endTime)
+			}else {  //if(userInfo.userType==1)
+				$('#endTime').val(date.format("yyyy-MM-dd HH:mm:ss"));
+				date.setDate(date.getDate()-3);
+				$('#startTime').val(date.format("yyyy-MM-dd HH:mm:ss"));
+			}
+		//	$('#locus_table').bootstrapTable("refresh",{url:'/pias/locus/search'});
+			loadLocus();
+		}
+		
+		function loadLocus(){
+			var params = {};
+			params.uniqueId = userInfo.uniqueId;
+			params.userType = userInfo.userType;
+			params.startDate = $("#startTime").val();
+			params.endDate = $("#endTime").val();
+			var str = "";
+			for(var p in params){
+				str+=p+"="+params[p]+"&";
+			}
+			$.ajax({
+				url: "/pias/locus/search?_="+(new Date().getTime())+"&"+str, //请求后台的URL（*）
+				type:"get",
+				success:function(data){
+					console.log("data:",data);
+					$("#Timeline").addList(data.rows);
+					var obj ={
+							index:0,
+							list: data.rows
+						};
+					pageParams.locusData = obj;
+					dispatchLocus(obj);
+				}
+			});
+		}
+		// 数据初始化
+		$(function() {
+			//1.初始化Table
+		//	table.init(); 
+			$.ajax({
+				url:"/emap/leaflet/view/defalut",
+				method:"get",
+				dataType : "json",
+				success:function(data){
+					if(data&& data.data){
+						$("#emap_iframe").attr("src","/emap/basemap/ismp_leafletmap/"+data.data+"?mode=110");
+						}
+					}
+			});
+			initUserInfo(paramMap); 
+		});
+		$("#searchBtn").click(function(){
+		//	$('#locus_table').bootstrapTable("refresh",{url:'/pias/locus/search'});
+			loadLocus();
+		});
+		$("#playBack").click(function(){
+		//	$('#locus_table').bootstrapTable("refresh",{url:'/pias/locus/search'});
+			dispatchLocus(pageParams.locusData);
+		});
+		
+		//获取嵌入iframe的window
+		function getWindow(id) {
+			var iframe = window.frames[id];
+			var commonWindow = {};
+			if (iframe != null) {
+				if (iframe.window) {
+					commonWindow = iframe.window;
+				} else if (iframe.contentWindow){
+					commonWindow = iframe.contentWindow;
+				}
+			}
+			return commonWindow;
+		}
+		var timer_Locus;
+		window.dispatchLocus = function(obj){
+			//去掉定时器的方法  
+			window.clearTimeout(timer_Locus); 
+			console.log("parent-obj:",obj); 
+			if(!obj.list ||obj.list.length<1) return;
+			var id = obj.list[obj.index].containerId;
+			console.log("id:",id);
+			var markerMode = obj.list[obj.index].mode;
+			markerMode = parseInt(markerMode,2);
+			console.log("markerMode:",markerMode);
+			var url = "/emap/basemap/ismp_leafletmap/"+id+"?mode=110";
+			if(markerMode == 2){
+				url = "/emap/frame/threed/ismp_threed_model?mode=100&id="+id;
+			}
+			$("#emap_iframe")[0].src = url;
+			timer_Locus = window.setTimeout(function(){
+				if(pageParams.locusSpeed){
+					obj.locusSpeed = pageParams.locusSpeed;
+				}
+				execLoadSuccessForIframe("emap_iframe","loadRouteByList",obj);
+			},2000);
+			
+		}
+		//模板函数,专门针对iframe加载延时设计
+		function execLoadSuccessForIframe(iframeId,fn,params){
+			var win = getWindow(iframeId);
+			if(win&&win[fn]){
+				var func = win[fn];
+				func(params);
+			}else{
+				window.setTimeout(function(){
+					execLoadSuccessForIframe(iframeId,fn,params);
+				},200);
+			}
+		}
+		
+      // js计算地图 .box_body 的高度  = $('.map_box').height()-$('.box_header') 
+        function getHeight(){ 
+            var a = $('.map_box').height();
+            var b = $('.box_header').height();
+            var c = 0;
+              c= a-b ; 
+			$('#emap_div').css('height',c) ;  
+        }
+          getHeight(); 
+      // 监听元素尺寸大小的变化
+          window.onresize=function(){
+            getHeight()  
+          }
+
+	//]]>
+
+	})
+	</script>
+
+</body>
+</html>

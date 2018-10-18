@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8" />
+<title>模型配置</title>
+		<link rel="stylesheet" th:href="@{/css/reset.css}" href="../../../../static/css/reset.css" />
+		<link rel="stylesheet" th:href="@{/css/ismp_configure.css}" href="../../../../static/css/ismp_configure.css" />
+		<link rel="stylesheet" th:href="@{/css/ismp_custom.css}" href="../../../../static/css/ismp_custom.css" />
+		<link rel="stylesheet" th:href="@{/css/ismp_adapter.css}" href="../../../../static/css/ismp_adapter.css" />
+		<link rel="stylesheet" th:href="@{/css/jquery.datetimepicker.css}" href="../../../../static/css/jquery.datetimepicker.css" />
+		<link rel="stylesheet" th:href="@{/js/layer/theme/default/layer.css}" href="../../../../static/layer/theme/default/layer.css" />
+		<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.css}" href="../../../static/bootstrap/css/bootstrap.css" />
+		<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-select.min.css}" href="../../../../static/bootstrap/css/bootstrap-select.min.css" />
+		<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrapValidator.min.css}" href="../../../../static/bootstrap/css/bootstrapValidator.min.css" />
+		<link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap-treeview.min.css}" href="../../../../static/bootstrap/css/bootstrap-treeview.min.css" />
+		<link rel="stylesheet" th:href="@{/layui/css/layui.css}" href="../../../../static/layui/css/layui.css" />
+		
+		<script type="text/javascript" th:src="@{/js/jquery-1.11.0.js}" src="../../../../static/js/jquery-1.11.0.js"></script>
+		<script type="text/javascript" th:src="@{/js/jquery.datetimepicker.full.js}" src="../../../../static/js/jquery.datetimepicker.full.js"></script>
+		<script type="text/javascript" th:src="@{/js/ismp_common.js}" src="/js/ismp_common.js"></script>
+		<script type="text/javascript" th:src="@{/js/layer/layer.js}" src="../../../../static/layer/layer.js"></script>
+		<script type="text/javascript" th:src="@{/js/kdfluency.js}" src="../static/js/kdfluency.js"></script>
+		<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.js}" src="../../../../static/bootstrap/js/bootstrap.js"></script>
+		<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap-select.min.js}" src="../../../../static/bootstrap/js/bootstrap-select.min.js"></script>
+		<script type="text/javascript" th:src="@{/bootstrap/js/bootstrapValidator.min.js}" src="../../../../static/bootstrap/js/bootstrapValidator.min.js"></script>
+		<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap-treeview.min.js}" src="../../../../static/bootstrap/js/bootstrap-treeview.min.js"></script>
+		<script th:src="@{/bootstrap/table/extensions/sticky-header/bootstrap-table-sticky-header.min.js}" src="../../../../bootstrap/table/extensions/sticky-header/bootstrap-table-sticky-header.min.js" ></script>
+<style>
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
+.form-group {
+	vertical-align: bottom;
+	padding: 10px;
+	width: 215px;
+	margin-bottom: 10px;
+	display: inline-table;
+}
+
+.form-group span {
+	float: left;
+	position: relative;
+	height: 34px !important;
+	line-height: 34px !important;
+}
+
+.form-group .space {
+	width: 65px;
+}
+
+.form-group .space label {
+	float: right;
+	margin: 6px;
+}
+
+.form-control {
+	position: relative;
+	width: 115px !important;
+	height: 34px !important;
+	line-height: 34px !important;
+	padding: 0px 10px !important;
+}
+
+
+.threed-layer{
+	width:225px;
+	height:300px;
+	margin:4px 4px;
+	float:left;
+}
+.threed-layer .photoDiv {
+	float: left;
+}
+
+.threed-layer .photoDiv .photo {
+	width: 220px;
+	height: 220px;
+	border: 1px solid #ccc;
+	margin-right: 18px;
+	background:#f1f1f1;
+}
+/*input file按钮的特别修饰*/
+
+.a-upload {
+	padding: 1px 5px;
+	font-size: 14px;
+	height: 24px;
+	line-height: 20px;
+	position: relative;
+	cursor: pointer;
+	color: #888;
+	background: #fafafa;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	overflow: hidden;
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-right: 18px;
+	float: right;
+}
+
+.a-upload input {
+	position: absolute;
+	font-size: 100px;
+	right: 0;
+	top: 0;
+	opacity: 0;
+	filter: alpha(opacity=0);
+	cursor: pointer
+}
+
+.a-upload:hover {
+	color: #444;
+	background: #eee;
+	border-color: #ccc;
+	text-decoration: none
+}
+
+</style>
+
+<script th:inline="javascript">
+//		<![CDATA[
+ 	window.alert= layer.alert;     
+  	var TCO = {
+  		layers:[]	
+  	}  
+  	var pageParams =  [[${paramMap}]];
+  	var pageId =pageParams.id;
+	$(function() {
+		//表单认证
+		$('#modelForm')
+			.bootstrapValidator({
+				message: 'This value is not valid',
+				feedbackIcons: {
+					valid: 'glyphicon glyphicon-ok',
+					invalid: 'glyphicon glyphicon-remove',
+					validating: 'glyphicon glyphicon-refresh'
+				} ,
+				fields: {
+					name: {
+						validators: {
+							notEmpty: {
+								message: '名称不能为空！'
+							},
+							stringLength: {
+								min: 2,
+								max: 30,
+								message: '名称必须在2至30个字符之间'
+							},
+							regexp: {
+								regexp: /^[\u4e00-\u9fa5_a-zA-Z0-9\.]+$/,
+								message: '名称只能为数字、中文或英文'
+							}
+						}
+					},
+					radio: {
+						validators: {
+							notEmpty: {
+								message: '比例不能为空！'
+							},
+							regexp: {
+								regexp: /^[0-9\.]+$/,
+								message: '比例只能为数字'
+							}
+						}
+					},
+					width: {
+						validators: {
+							notEmpty: {
+								message: '宽度不能为空！'
+							},
+							regexp: {
+								regexp: /^[0-9\.]+$/,
+								message: '宽度只能为数字'
+							}
+						}
+					},
+					length: {
+						validators: {
+							notEmpty: {
+								message: '宽度不能为空！'
+							},
+							regexp: {
+								regexp: /^[0-9\.]+$/,
+								message: '宽度只能为数字'
+							}
+						}
+					},
+					layerHeight: {
+						validators: {
+							notEmpty: {
+								message: '不能为空！'
+							},
+							regexp: {
+								regexp: /^[0-9_\.]+$/,
+								message: '只能为中文或英文'
+							}
+						}
+					}, 
+					X: {
+						validators: {
+							notEmpty: {
+								message: '不能为空！'
+							},
+							regexp: {
+								regexp: /^[0-9_\.]+$/,
+								message: '坐标X只能为数字'
+							}
+						}
+					},
+					Y: {
+						validators: {
+							notEmpty: {
+								message: '不能为空！'
+							},
+							regexp: {
+								regexp: /^[0-9_\.]+$/,
+								message: '坐标Y只能为数字'
+							}
+						}
+					},
+					Z: {
+						validators: {
+							notEmpty: {
+								message: '不能为空！'
+							},
+							regexp: {
+								regexp: /^[0-9_\.]+$/,
+								message: '坐标Z只能为数字'
+							}
+						}
+					},
+					remark: {
+						validators: {
+							notEmpty: {
+								message: '不能为空！'
+							},
+							stringLength: {
+								min: 0,
+								max: 500,
+								message: '名称必须在2至500个字符之间'
+							} 
+						}
+					}
+				}   
+			});
+		loadData(pageId);
+	});
+  	function loadData(id){
+  		$.ajax({
+			url: "/emap/threed/model/simple/list?id="+id, //请求后台的URL（*）
+			type:"get",
+			/* contentType : "application/json",
+			dataType : "json", */
+			success:function(data){
+				console.log("/emap/threed/model/simple/list data:",data);
+				loadDataForForm(data[0],"modelForm");
+			}
+		});
+  	}
+	//表单验证
+	function validate() {
+		return true;
+	//	$("#modelForm").bootstrapValidator('validate');
+		//return $("#modelForm").data('bootstrapValidator').isValid();
+	}
+
+	function isArray(o){
+		return Object.prototype.toString.call(o)=='[object Array]';
+	}
+	function loadDataForForm(data,formId){
+		for(var p in data){
+			if(isArray(data[p])){
+				if(p=="layers"&&data[p].length>0){
+					data[p].sort(function(a1,a2){
+						return a1.zindex>a2.zindex;
+					});
+					for(var i=0;i<data[p].length;i++){
+						var la = data[p][i];
+						addLayerForm(la);
+					}
+				}
+				var arr = $("input[name='"+p+"']");
+			}else{
+				$("#"+formId+" [name='"+p+"']").val(data[p]);
+			}
+		}
+	}
+	
+	function getLayerForm(){
+		var $layers = $("#layers_div [name='layers']");
+		console.log("layers:",$layers);
+		console.log("TCO.layers:",TCO.layers);
+		for(var i=0;i<TCO.layers.length;i++){
+			var l = TCO.layers[i];
+			l.zindex=i+1;
+		}
+		return TCO.layers;
+	}
+	function addLayerForm(obj){
+		console.log("obj:",obj);
+		
+		addPhoto(obj);
+		getLayerForm();
+	}
+	function addPhoto(obj){
+		var id = 'layers_'+TCO.layers.length;
+		var lay = {
+			id:id
+		}
+		var imgHtml="";
+		if(obj){
+			imgHtml = '<img style="width:100%;height:100%;" src="/emap/downloadfile/'+obj.imageUrl+'.png"/>'
+			lay.imageUrl = obj.imageUrl
+		}
+		TCO.layers.push(lay);
+		var htmlStr = "<div class='threed-layer' id='"+id+"'>"+
+					     	"<span class='space'>楼层 "+TCO.layers.length+"</span>"+
+					     	"<div class='photoDiv'>"+
+								'<div class="photo" id="'+id+'_div">'+
+								imgHtml+
+								'</div>'+
+								'<a href="javascript:;" class="a-upload">'+
+									'<input type="file" name="layers" id="'+id+'_file" accept="image/*" onchange="showPhoto(this)"/>上传照片'+
+								'</a>'+
+								'<a href="javascript:;" class="a-upload">'+
+									'<input type="text" onClick="deletePhoto(this)" />删除'+
+								'</a>'+
+							'</div>'+
+					  "</div>";
+		$("#layers_div").append(htmlStr);
+	}
+	//在照片区域显示选中的本地图片
+	function showPhoto(fileDom){
+		var id = fileDom.parentNode.parentNode.parentNode.id;
+	    //像后台发送
+	    uploadFile("/emap/uploadfile/single",fileDom.id,function(data){
+	    	console.log("data:",data);
+	    	console.log("id:",id);
+	    	for(var i=0;i<TCO.layers.length;i++){
+    			var l = TCO.layers[i];
+    			console.log("l:",l);
+    			if(l.id==id){
+    				l.imageUrl = data.data;
+    			}
+    		}
+    		$("#"+id).data("imageUrl",data.data);
+    		loadLocalImg(fileDom);
+	    });
+	   
+	}
+	function deletePhoto(fileDom){
+		fileDom.parentNode.parentNode.parentNode.parentNode.removeChild(fileDom.parentNode.parentNode.parentNode);
+		var target = null;
+		var id = fileDom.parentNode.parentNode.parentNode.id;
+		console.log("id:",id);
+		for(var i=0;i<TCO.layers.length;i++){
+			var la = TCO.layers[i];
+			if(id==la.id){
+				target = i;
+				console.log("target:",target);
+				break;
+			}
+		}
+		TCO.layers.splice(target,1);
+		console.log("layers:",getLayerForm());
+	}
+	function loadLocalImg(fileDom){
+		var id = fileDom.id;
+		if(fileDom.value == "") return;
+		//文件类型判断
+	    var file = fileDom.files[0];
+	    var imageType = /^image\//;
+	    if ( !imageType.test(file.type) ) {
+	      alert("only image type supported!");
+	      //event.preventDefault();
+	      fileDom.value="";
+	      return false;
+	    }
+	    var img = document.createElement("img");
+	    img.file = file;
+		var photoDiv = fileDom.parentNode.parentNode.firstChild;//document.getElementById(id+"_div");
+		while ( photoDiv.firstChild ) {
+			photoDiv.removeChild( photoDiv.firstChild );
+		}
+		img.height=photoDiv.offsetHeight;
+		img.width=photoDiv.offsetWidth;
+		photoDiv.appendChild(img);
+	    var reader = new FileReader();
+	    reader.onload = (function(aImg) {
+	      return function(e) {
+	        aImg.src = e.target.result;
+	      };
+	    })(img);
+	    reader.readAsDataURL(file);
+	}
+	function uploadFile(url,id,callback){
+		var formData = new FormData();
+		var file = $("#"+id)[0].files[0];
+		formData.append("file",file); //获取文件法二
+		$.ajax({
+			type: "post",
+			enctype: 'multipart/form-data',
+			url:url,
+			data: formData,
+			processData: false, // 告诉jQuery不要去处理发送的数据
+			contentType: false,
+			dataType: 'json',
+			success: function(data) {
+				console.log("res:",data);
+		    	if(data&&data.data){
+		    		if(callback) callback(data);
+				}else{
+					alert("上传失败"+data);
+				}
+			},
+			error: function(data){
+				alert("上传失败");
+				console.log("error -data:",data);
+			}
+		}); 
+	}
+	
+	
+//		]]>
+</script>
+</head>
+<body style="overflow-x: hidden;">
+	<form id="modelForm">
+		<div class="lay" id="lay"
+			style="width: 100%; height: 100%; background: #fff; display: block; overflow-x: hidden; position: fixed;">
+			<div class="base_message">
+				<div class="mess_cont" style="font-size: 13px;">基本信息</div>
+			</div>
+			<div style="margin-left: 10%;">
+				<div class="form-inline">
+					<div class="form-inline" style="display: none;">
+						<div class="form-group">
+							<span class="space">id:</span> <input name="id" type="text"
+								class="form-control" ></input> 
+						</div>
+					</div>
+					<div class="form-inline">
+						<div class="form-group">
+							<span class="star_info"> * </span><span class="space">名称:</span>
+							<input name="name" type="text" class="form-control" ></input>
+						</div>
+					</div>
+					<div class="form-inline">
+						<div class="form-group">
+							<span class="star_info"> * </span><span class="space">比例:</span>
+							<input name="radio" type="text" class="form-control"
+								title="（模型大小/实际大小）" ></input>
+						</div>
+					</div>
+
+				</div>
+
+
+				<div class="form-inline">
+					<span class="star_info">&nbsp;&nbsp;&nbsp;</span><span class="space">形状:</span>
+					<div class="form-group">
+						<span class="star_info"> * </span><span class="space">楼长:</span> <input
+							name="length" type="text" class="form-control" ></input>
+					</div>
+					<div class="form-group">
+						<span class="star_info"> * </span><span class="space">楼宽:</span> <input
+							name="width" type="text" class="form-control" ></input>
+					</div>
+					<div class="form-group">
+						<span class="star_info"> * </span><span class="space">层高:</span> <input
+							name="layerHeight" type="text" class="form-control" ></input>
+					</div>
+				</div>
+
+				<div class="form-inline">
+					<span class="star_info">&nbsp;&nbsp;&nbsp;</span><span class="space">位置:</span>
+					<div class="form-group">
+						<span class="star_info"> * </span><span class="space">X:</span> <input
+							name="X" type="text" class="form-control" ></input>
+					</div>
+					<div class="form-group">
+						<span class="star_info"> * </span><span class="space">Y:</span> <input
+							name="Y" type="text" class="form-control" ></input>
+					</div>
+					<div class="form-group">
+						<span class="star_info"> * </span><span class="space">Z:</span> <input
+							name="Z" type="text" class="form-control" ></input>
+					</div>
+				</div>
+				<div class="form-inline">
+
+					<div class="form-group textarea">
+						    <div class="control-group">
+
+					          <!-- Textarea -->
+					          <label class="control-label">描述:</label>
+					          <div class="controls">
+					            <div class="textarea">
+					                  <textarea  name="remark" class="" style="width:650px;height:100px;"> </textarea>
+					            </div>
+					          </div>
+					        </div>
+					</div>
+				</div>
+
+			</div>
+			<div class="base_message">
+				<div class="mess_cont" style="font-size: 13px;float:left;">楼层信息</div>
+				<div sytle="float:left;margin-left:80px;">
+					<a href="javascript:void(0)" onClick="addLayerForm()" sytle="margin-left:80px;">添加</a>
+				</div>
+			</div>
+			<div style="margin-left: 10%;" id="layers_div">
+				<!-- <div class="threed-layer">
+					<div class="photoDiv">
+						<div class="photo">
+						</div>
+						<a href="javascript:;" class="a-upload">
+							<input type="file" name="photo" id="layer_0" accept="image/*" onchange="showPhoto(this)"/>上传照片
+						</a>
+					</div>
+				</div> -->
+			</div>
+		</div>
+	</form>
+
+
+</body>
+</html>
