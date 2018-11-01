@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="jquery-1.11.0.js"></script>
+		<script src="echarts.min.js"></script>
+	</head>
+	<body style="background: #ccc;">
+		<div id="userinfo_total_excel" style="width:300px;height: 300px;"></div>
+		<div id="vehicle_total_excel" style="width:300px;height: 300px;"></div>
+		<script>
+			//echarts图标相关配置与初始化
+					// 基于准备好的dom，初始化echarts实例
+					// 每日报警对应图表
+					var option_userinfo = {
+						grid: {
+							top: 10,bottom: 12, left: 8,right: 16, containLabel: true
+						},
+					  	tooltip: {
+					        trigger: 'axis'
+					    },
+					    color:["#1FF8FB","#DBF790","#1A80F3"],
+						// x轴
+						xAxis: {
+							type: 'category',
+						    boundaryGap: false,
+							data: ["0:00","4:00","8:00", "12:00","16:00", "20:00", "24:00"],
+							axisLabel: {
+			                    show: true,
+			                    textStyle: {color: '#134C68'}
+			                }
+						},
+						yAxis: {
+							axisLabel: {
+			                    show: true,
+			                    textStyle: {color: '#134C68'}
+			                },
+			                axisLine: {
+			                	lineStyle:{
+			                		color:"#134C68"
+			                	}
+			                },
+			                splitLine: {
+			                	lineStyle:{
+			                		type:"dashed",
+			                		color:"#134C68"
+			                	}
+			                }
+						},
+						// 数据
+						series: [ {
+						            name:'进入',
+						            type:'line', 
+						            data:[120, 132, 101, 134, 90, 230, 210]
+						        },
+						        {
+						            name:'出去',
+						            type:'line', 
+						            data:[220, 182, 191, 234, 290, 330, 310]
+						        },
+						        {
+						            name:'滞留',
+						            type:'line', 
+						            data:[150, 232, 201, 154, 190, 330, 410]
+						        } 
+						]
+					};
+
+					// 报警分布对应的图表
+					var option_vehicle = {
+						    tooltip: {
+						        trigger: 'axis',
+						        axisPointer: {
+						            type: 'shadow'
+						        }
+						    }, 
+						    grid: {
+						    	top: 10,bottom: 12, left: 8,right: 16, containLabel: true
+						    },
+						    yAxis: {
+								axisLabel: {
+				                    show: true,
+				                    textStyle: {color: '#134C68'}
+				                },
+				                axisLine: {
+				                	lineStyle:{
+				                		color:"#134C68"
+				                	}
+				                },
+				                splitLine: {
+				                	lineStyle:{
+				                		type:"dashed",
+				                		color:"#134C68"
+				                	}
+				                }
+							},
+						    xAxis: {
+						        type: 'category',
+						        boundaryGap: [0, 0.01],
+						        axisLine: {
+						        	lineStyle: {
+						        		color: "#134C68"
+						        	}
+						        },
+						    	axisLabel: {
+				                    show: true,
+				                    textStyle: {color: '#134C68'}
+				                },
+						        nameGap: 10,
+						        
+						        data: ["0:00" ,"4:00",  
+								       "8:00" ,"12:00",
+								       "16:00" ,"20:00", 
+								       "24:00"  ]
+						    },
+						    color:[{
+				                type: 'linear',
+				                x: 0,
+				                y: 0,
+				                x2: 0,
+				                y2: 1,
+				                colorStops: [{
+				                    offset: 0, color: '#20F1E6'  // 0% 处的颜色
+				                }, {
+				                    offset: 1, color: '#0DA2E4' // 100% 处的颜色
+				                }],
+				                globalCoord: false // 缺省为 false
+				            },{
+			            	  	type: 'linear',
+				                x: 0,
+				                y: 0,
+				                x2: 0,
+				                y2: 1,
+				                colorStops: [{
+				                    offset: 0, color: '#E4FE91' // 0% 处的颜色
+				                }, {
+				                    offset: 1, color: '#FF7200' // 100% 处的颜色
+				                }],
+				                globalCoord: false // 缺省为 false
+				            }],
+						    series: [
+						        {
+						            name: '进入',
+						            type: 'bar', 
+						            barWidth:5,
+						            barGap: 0.5, 
+						            data: [14,25, 20, 16, 30, 20, 15  ]
+						        },
+						        {
+						            name: '出去',
+						            type: 'bar',
+						            barWidth:5,
+						            barGap: 0.5, 
+						            data: [  24,35, 30, 26, 40, 30, 25 ]
+						        }
+						    ]
+					};
+
+				 
+					
+						var myChart1 = echarts.init($('#userinfo_total_excel').get(0));
+						myChart1.setOption(option_userinfo);
+						var myChart2 = echarts.init($('#vehicle_total_excel').get(0));
+						myChart2.setOption(option_vehicle);
+						
+						
+						window.loopEcharts3= function(){
+							loopEcharts33(myChart1);
+							loopEcharts33(myChart2);  
+						};
+						setTimeout(function(){
+	 						window.loopEcharts3();
+	 					},6000);
+						function loopEcharts33(myChart){
+							var options = myChart.getOption();
+							var index = 0; //播放所在下标
+							var mTime = setInterval(function() {
+								var series_old = options.series;
+								var series = [];
+								for(var i=0;i<series_old.length;i++){
+									series[i] = {
+										type:series_old[i].type,
+										name: series_old[i].name,
+										data:[]
+									}
+									var item = series_old[i];
+									for(var j=0;j<=index;j++){
+										series[i].data[j]= series_old[i].data[j];
+									}
+								}
+								myChart.setOption({
+									series: series
+								})
+								myChart.dispatchAction({
+									type: 'showTip',
+									seriesIndex: 0,
+									dataIndex: index
+								});
+								myChart.dispatchAction({
+									type: 'downplay',
+									seriesIndex: 0
+								});
+								myChart.dispatchAction({
+									type: 'highlight',
+									seriesIndex: 0,
+									dataIndex: index
+								});
+							 
+								index++;
+								if(index > options.series[0].data.length) {
+									index = 0;
+								/* 	clearInterval(mTime);
+									window.loopEcharts1(); */
+								}
+							}, 6000);
+						}
+						
+						function loopEcharts(myChart){
+							console.log("mychart:",myChart);
+							var options = myChart.getOption();
+							console.log("options:",options);
+							var index = 0; //播放所在下标
+							var mTime = setInterval(function() {
+								myChart.dispatchAction({
+									type: 'showTip',
+									seriesIndex: 0,
+									dataIndex: index
+								});
+								myChart.dispatchAction({
+									type: 'downplay',
+									seriesIndex: 0
+								});
+								myChart.dispatchAction({
+									type: 'highlight',
+									seriesIndex: 0,
+									dataIndex: index
+								});
+							 
+								index++;
+								if(index > options.series[0].data.length) {
+									index = 0;
+								//	clearInterval(mTime);
+								}
+							}, 6000);
+						}
+						//重新刷一下数据
+						setTimeout(function() {
+							refreshSize();
+						}, 200);
+						
+						//浏览器大小改变时重置大小
+						$(window).resize(function() {
+							console.log("窗口大小变了");
+							refreshSize();
+						});
+						function refreshSize(){
+							var p_height = $(".box_body").parent().height();
+							var h_height = $(".echarts-title").outerHeight();
+							console.log("p_height:",p_height,"   h_height:",h_height);
+							$(".box_body").css({
+								"top":h_height+"px",
+								"height":(p_height-h_height)+"px"
+							});
+							myChart1.resize();
+							myChart2.resize();
+						}
+					
+			
+		</script>
+	</body>
+</html>
