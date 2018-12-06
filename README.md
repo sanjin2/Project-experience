@@ -15,6 +15,8 @@ http://www.ui3g.com/demos/show/2192/
 
 ###两端对齐
 https://www.imooc.com/article/20379
+text-align-last: justify;
+text-align: justify;
 
 ### border 对line-height居中对齐的影响
 https://blog.csdn.net/mia1106/article/details/79174351
@@ -36,3 +38,6 @@ https://blog.csdn.net/u010035154/article/details/42581633
 
 ### 时间戳的转换
 https://www.cnblogs.com/Donnnnnn/p/8257493.html
+
+### 去除空格的方法
+https://www.cnblogs.com/mingforyou/p/3930638.html
