@@ -280,7 +280,7 @@
 								console.log("hourofday", data.rows);
 								var alarmData = data.rows;
 								var alarm = $.map(alarmData,function(index,dom){
-									return Number(index.name) ;
+									return Number(index.name);
 								});
 								console.log("alarm",alarm);
 								console.log("alarmarray",alarm instanceof Array  );

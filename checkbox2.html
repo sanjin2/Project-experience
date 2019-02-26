@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		/* 模拟checkbox */
+input[type="checkbox"]{
+    /*visibility:hidden;*/
+} 
+/*input[type="indeterminate"]{
+    visibility:hidden;
+}*/
+input[type="checkbox"] + .analog_checked:before{ 
+    content: "\a0";  /*不换行空格*/
+    display: inline-block;
+    vertical-align:.2em;
+    width: 16px;
+	height:16px; 
+	background:url(../style/img/icon_checkbox.png) no-repeat -1px -1px; 
+}
+input[type="checkbox"]:checked + .analog_checked:before{  
+	background:url(../style/img/icon_checkbox.png) no-repeat -33px -17px;
+}
+input[type="checkbox"]:indeterminate + .analog_checked:before{  
+	background:url(../style/img/icon_checkbox.png) no-repeat -17px -17px;
+}
+	</style>
+	
+	<body>
+		<label class="analog_check">
+			<input type="checkbox" id="rememberMe" class="checkbox"/>
+			<span class="analog_checked"></span>
+		</label>
+	</body>
+	<script>
+		var a = document.getElementById("rememberMe");
+		a.indeterminate = true;
+	</script>
+</html>

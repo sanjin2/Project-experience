@@ -1,0 +1,8 @@
+/*input框高度修改*/
+.type_of_service .csm_service select {
+	display: inline-block;
+	height: 30px;
+	line-height: 30px;
+	padding: 4px 12px;
+	width: 140px;
+}

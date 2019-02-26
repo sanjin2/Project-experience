@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../scy-dev/bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../scy-dev/bootstrap/css/bootstrap-select.min.css" />
+		<script type="text/javascript" src="../../vue/jquery-1.11.0.js" ></script>
+		<script type="text/javascript" src="../scy-dev/bootstrap/js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="../scy-dev/bootstrap/js/bootstrap-select.min.js" ></script>
+	</head>
+	<body>
+		<!--data-live-search="true"-->
+		<select class="selectpicker"  >
+			<option value="1">广东省</option>
+			<option value="2">广西省</option>
+			<option value="3">福建省</option>
+			<option value="4">湖南省</option>
+			<option value="5">山东省</option>                            
+		</select>
+		<script>
+			
+			$(function(){
+				 $('.selectpicker').selectpicker({
+			            noneSelectedText: '',
+			            noneResultsText: '',
+			            liveSearch: true,
+			            size:5   //设置select高度，同时显示5个值
+			        });
+			})
+			var data = [{domainCode: "DI啊", domainName: "啊啊", description: null},{domainCode: "啊啊2", domainName: "啊啊", description: null}]
+			for(var i = 0;i<data.length;i++){
+				var opt = $('<option value="1">'+data[i].domainCode+'</option>');
+				$(".selectpicker").append(opt);
+			}
+		</script>
+	</body>
+</html>
