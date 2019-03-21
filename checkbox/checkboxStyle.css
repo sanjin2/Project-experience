@@ -1,0 +1,50 @@
+.group_wrap{
+	position: relative;
+}
+.allSpan{
+	position: relative;
+}
+input[type="checkbox"]{
+	opacity: 0;
+	position: relative;
+	z-index: 10;
+    /*visibility:hidden;*/
+} 
+input[type="checkbox"] + .group_item_title:before{ 
+    content: "\a0";  /*不换行空格*/
+    display: inline-block;
+    vertical-align:.2em;
+    width: 16px;
+	height:16px; 
+	background:url(/static/img/icon_checkbox.png) no-repeat -1px -1px; 
+	position: absolute;
+	top: 6px;
+	left: -2px;
+	z-index: 0;
+	
+}
+input[type="checkbox"]:checked + .group_item_title:before{  
+	background:url(/static/img/icon_checkbox.png) no-repeat -33px -17px;
+}
+input[type="checkbox"]:indeterminate + .group_item_title:before{  
+	background:url(/static/img/icon_checkbox.png) no-repeat -17px -17px;
+}
+input[type="checkbox"] + .group_item_all:before{ 
+    content: "\a0";  /*不换行空格*/
+    display: inline-block;
+    vertical-align:.2em;
+    width: 16px;
+	height:16px; 
+	background:url(/static/img/icon_checkbox.png) no-repeat -1px -1px; 
+	position: absolute;
+	top: 6px;
+	left: -2px;
+	z-index: 0;
+	
+}
+input[type="checkbox"]:checked + .group_item_all:before{  
+	background:url(/static/img/icon_checkbox.png) no-repeat -33px -17px;
+}
+input[type="checkbox"]:indeterminate + .group_item_all:before{  
+	background:url(/static/img/icon_checkbox.png) no-repeat -17px -17px;
+}
