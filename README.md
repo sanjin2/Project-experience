@@ -12,6 +12,7 @@ http://manos.malihu.gr/repository/custom-scrollbar/demo/examples/scrollbar_theme
 ### 基于bootstrap的特效按钮
 
 http://www.ui3g.com/demos/show/2192/
+http://awesome-bootstrap-checkbox.okendoken.com/demo/index.html
 
 ###两端对齐
 https://www.imooc.com/article/20379
