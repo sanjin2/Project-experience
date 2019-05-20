@@ -14,6 +14,9 @@ http://manos.malihu.gr/repository/custom-scrollbar/demo/examples/scrollbar_theme
 http://www.ui3g.com/demos/show/2192/
 http://awesome-bootstrap-checkbox.okendoken.com/demo/index.html
 
+### 阻止浏览器变蓝
+https://blog.csdn.net/f286853387/article/details/80110344
+
 ###两端对齐
 https://www.imooc.com/article/20379
 text-align-last: justify;
@@ -33,6 +36,9 @@ var regStrong2 =/^(?!\d+$)(?![a-zA-Z]+$)[a-zA-Z\d]+$/;
 var regStrong3 =/^(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*]).{8,}$/;			
 ### 图片默认
 https://www.jb51.net/article/80253.htm
+
+### 四到六位
+https://blog.csdn.net/zjy15203167987/article/details/75024133/
 
 ###登录加密
 https://blog.csdn.net/u010035154/article/details/42581633

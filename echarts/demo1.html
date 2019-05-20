@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="jquery-1.11.0.js"></script>
+		<script src="echarts.min.js"></script>
+		<style>
+			.echarts_box{
+				height: 100% !important;
+				width: 100% !important;
+			}
+			.echarts_header{
+				display:block;
+				padding:7px;
+				background:#f5f7fb;
+				font-size:14px;
+				color:#333; 
+				padding-left:12px;
+			}
+			.echarts_body{
+				height: calc(100% - 34px);
+				width: 100% !important;
+				position: relative;
+				
+			}
+			.echarts_body>div,.echarts_body>div:first-child,.echarts_body>div>div>canvas{
+				height: 100% !important;
+				width: 100% !important;
+			}
+			.echarts_body>div:first-child{
+				width:  calc(100% - 0px);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="comm_box echarts_box">
+			<div class="echarts_header">
+				<span class="tit-line"></span><span class="title-name"> 每日报警</span>
+			</div>
+			<div class="echarts_body" style="padding:8px;">
+				<div id="alarm_total_excel" style="height:100%;"></div> 
+			</div>
+		</div>
+		<div class="comm_box echarts_box">
+			<div class="echarts_header">
+				<span class="tit-line"></span><span class="title-name">  报警分布 </span> 
+			</div>
+			<div class=" echarts_body" style="padding:8px;">
+				<div id="alarm_distribution_excel" style="height:100%;"></div><!-- width:100%;position:relative; -->
+			</div>
+		</div>
+		<script>
+			$(function(){ 
+					//echarts图标相关配置与初始化
+					// 基于准备好的dom，初始化echarts实例
+					// 每日报警对应图表
+					var page = {};
+					var ismp = ismp || {};
+					ismp.setTimeout = function(func,msec){
+						var value = window.setTimeout(func,msec);
+//						ismp.params.timeoutList.push(value);
+						return value;
+					}
+					var option_ate = {
+						color:[
+						       {
+					                type: 'linear',
+					                x: 0,
+					                y: 0.2,
+					                x2: 0,
+					                y2: 1,
+					                colorStops: [{
+					                    offset: 0, color: "#07A2DE"  // 0% 处的颜色
+					                }, {
+					                    offset: 1, color: '#0B112A' // 100% 处的颜色
+					                }],
+					                globalCoord: false // 缺省为 false
+					            } ],
+						// x轴
+						xAxis: {
+							data: ["24小时","20小时","16小时","12小时","8小时","4小时","0小时"],//["0:00","4:00","8:00", "12:00","16:00", "20:00", "24:00"],
+						},
+						// 数据
+						series: [{
+							name: '报警统计',
+							type: 'line', 
+							smooth:true,
+							itemStyle: {normal: {areaStyle: {type: 'default'}}},
+							barWidth : 5,
+							data:[120, 132, 101, 134, 90, 230, 210]
+						}]
+					};
+
+					// 报警分布对应的图表
+					var option_distribution = {
+						animation:true,
+						tooltip: {
+							trigger: 'item',
+							confine : true,
+							formatter: "{a} <br/>{b}: {c} ({d}%)"
+						},
+						graphic: {
+							type: 'text',
+							left: 'center',
+							top: 'center',
+							align:'center',
+							style: {
+								text: '总数\n85479',
+								textAlign: 'center',
+								fill: '#7a7a7a',
+								width: 30,
+								height: 30,
+								fontWeight: 'bold',
+								fontSize: '18',
+								fontFamily: '宋体'
+								
+
+							}
+						},
+						series: [{
+							name: '报警分布',
+							type: 'pie',
+							radius: ['50%', '70%'],
+							selectedMode: 'single',
+							data: [{value: 1548,name: '巡更'},
+								   {value: 535, name: '报警'},
+								   {value: 510, name: '门禁'},
+								   {value: 634, name: '传感器'},
+								   {value: 735, name: '智能门禁'}],
+							itemStyle: {
+								emphasis: {
+									shadowBlur: 10,
+									shadowOffsetX: 0,
+									shadowColor: 'rgba(0, 0, 0, 0.5)'
+								},
+								emphasis: {
+									show: true,
+									textStyle: {
+										fontSize: '10',
+										fontWeight: 'bold'
+									}
+								},
+								//'#91c7ae', '#d48265', '#61a0a8', '#2f4554', '#ff4306'
+								normal: {
+									color: function(params) {
+										var colorList = [
+											'#E34F27', '#39D02B', '#F3C420', '#10D9B9', '#0AAFE1'
+										];
+										return colorList[params.dataIndex]
+									},
+									　　　　　　　　　　　　　
+								}
+							},
+							labelLine: {
+								normal: {
+									show: true,
+									length: 8,
+									length2:8,
+								}
+							},
+
+						}]
+					};
+				 
+					var myChart1 = echarts.init($('#alarm_total_excel').get(0));
+					var myChart2 = echarts.init($('#alarm_distribution_excel').get(0));
+					
+					page.refresh1 = function(){
+						ismp.setTimeout(function(){
+							ismp.echarts.setOption(myChart1,option_ate);
+							ismp.echarts.setOption(myChart2,option_distribution);
+						},200);
+					}
+				
+					page.refresh1();
+					
+					window.loopEcharts1 = function(){
+						var index = 0;
+						var mTime = setInterval(function(){
+							var data  =  option_ate.series[0].data;
+							for(var i=0;i<data.length-1;i++){
+								data[i] = data[i+1];
+							}
+							data[i] = Math.random()*100+50;
+							var options = {
+								series:{
+									data: data
+								}	
+							};
+							option_ate.series[0].data = data;
+							myChart1.setOption(options);
+							index++;
+							if(index > option_ate.series[0].data.length) {
+								index = 0;
+							/* 	clearInterval(mTime);
+								window.loopEcharts2(); */
+							}
+						},6000);
+					};
+					window.loopEcharts2 = function(){
+						loopEcharts(myChart2); 
+					};
+					
+					function loopEcharts(myChart){
+						var options = myChart.getOption();
+						console.log("options:",options);
+						var index = 0; //播放所在下标
+						var mTime = ismp.setInterval(function() {
+							myChart.dispatchAction({
+								type: 'showTip',
+								seriesIndex: 0,
+								dataIndex: index
+							});
+							myChart.dispatchAction({
+								type: 'downplay',
+								seriesIndex: 0
+							});
+							myChart.dispatchAction({
+								type: 'highlight',
+								seriesIndex: 0,
+								dataIndex: index
+							});
+						 
+							index++;
+							if(index > options.series[0].data.length) {
+								index = 0;
+							}
+						}, 6000);
+					}
+ 					ismp.setTimeout(function(){
+ 						window.loopEcharts1();
+ 					},2000);
+ 					ismp.setTimeout(function(){
+ 						window.loopEcharts2();
+ 					},4000);
+					 //重新刷一下数据
+				//	refreshSize();
+					
+					//浏览器大小改变时重置大小
+					$(window).resize(function() {
+						 //重新刷一下数据
+						refreshSize();
+					});
+					function refreshSize(){
+						ismp.setTimeout(function(){
+							myChart1.resize();
+							myChart2.resize();
+						},200);
+					}
+					$(function(){
+						/* $.jsonAjax({
+							url: "/aps/stat/hourofday", // 
+							type: 'get',
+							success: function(data) {
+								if(data.retCode == 0) {
+									// 填入数据
+								    myChart1.setOption({
+								        series: [{
+								            data: data.rows
+								        }]
+								    });
+								} else {
+									console.log("每日报警查询失败，err="+data.retCode);
+								}
+							},
+							error: function(XMLHttpRequest, textStatus, errorThrown) {
+								console.log("每日报警查询失败！error=" + XMLHttpRequest.status);
+							},
+						}); //ajax over
+						
+						$.jsonAjax({
+							url: "/aps/stat/devtype/30", // 
+							type: 'get',
+							success: function(data) {
+								if(data.retCode == 0) {
+									// 填入数据
+								    myChart2.setOption({
+								    	graphic: {
+											style: {
+												text: '总数\n'+data.rows.length
+											}
+								    	},
+								        series: [{
+								            data: data.rows
+								        }]
+								    });
+								} else {
+									console.log("报警分布查询失败，err="+data.retCode);
+								}
+							},
+							error: function(XMLHttpRequest, textStatus, errorThrown) {
+								console.log("报警分布查询失败！error=" + XMLHttpRequest.status);
+							},
+						}); //ajax over */
+					}); 
+				})
+		</script>
+	</body>
+</html>

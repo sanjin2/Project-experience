@@ -16,6 +16,9 @@
 				height:16px; 
 				background:url(../../style/img/icon_checkbox.png) no-repeat -1px -1px; 
 			}
+			input[type="checkbox"] + .analog_checked:hover:before{   
+			    background:url(../../style/img/icon_checkbox.png) no-repeat -17px -1px;     
+			}
 			input[type="checkbox"]:checked + .analog_checked:before{  
 				background:url(../../style/img/icon_checkbox.png) no-repeat -32px -16px;
 			}
@@ -23,7 +26,7 @@
 	</head>
 	<body>
 		<label class="analog_check">
-			<input type="checkbox" id="rememberMe" class="checkbox">
+			<input type="checkbox"  class="checkbox">
 			<span class="analog_checked"></span>
 		</label>
 	</body>
